@@ -13,8 +13,9 @@ class CryptoCurrencyRepository @Inject constructor(
 ) {
     fun getCurrencies(): Flow<List<CryptoCurrencyExample>> = flow {
         val currenciesFromNetwork = networkService.getCryptoCurrency()
-        if (currenciesFromNetwork.isSuccessful) {
-            emit(currenciesFromNetwork.body()!!)
+        if (currenciesFromNetwork.isNotEmpty()) {
+            emit(currenciesFromNetwork)
+
         } else {
             val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
             emit(currenciesFromDatabase)

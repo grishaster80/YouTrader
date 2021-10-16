@@ -2,6 +2,8 @@ package com.technopark.youtrader.di
 
 import android.app.Application
 import androidx.room.Room
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.technopark.youtrader.R
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.network.CryptoCurrencyApi
@@ -37,10 +39,12 @@ class AppModule {
                 HttpLoggingInterceptor().apply{ level = HttpLoggingInterceptor.Level.BODY })
                 .build()
 
+            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+
             return Retrofit.Builder()
                 .baseUrl(application.resources.getString(R.string.base_url))
                 .client(client)
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
         }
 

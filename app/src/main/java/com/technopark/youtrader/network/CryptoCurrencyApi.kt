@@ -6,6 +6,7 @@ import retrofit2.http.GET
 
 interface CryptoCurrencyApi {
 
+    // TODO create custom Response wrapper
     @GET("value")
-    suspend fun getValue(): Response<List<CryptoCurrencyExample>>
+    suspend fun getValue(): List<CryptoCurrencyExample>
 }

@@ -8,17 +8,16 @@ import javax.inject.Inject
 
 class CryptoCurrencyNetworkService @Inject constructor(private val cryptoApi: CryptoCurrencyApi) {
 
-    fun getCryptoCurrency(): Response<List<CryptoCurrencyExample>> {
+    fun getCryptoCurrency(): List<CryptoCurrencyExample> {
         val isInternetConnected = checkNetworkConnection()
 
         return if (isInternetConnected) {
             // TODO uncomment after stub deletion
 //            cryptoApi.getValue()
             // TODO delete stub
-            Response.success(listOf(CryptoCurrencyExample(123)))
+            listOf(CryptoCurrencyExample(123))
         } else {
-            Response.error(404,
-                ResponseBody.create(MediaType.parse("application/json"), ""))
+            listOf()
         }
     }
 

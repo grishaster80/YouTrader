@@ -6,36 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.SecondFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SecondFragment : Fragment() {
+class SecondFragment : Fragment(R.layout.second_fragment) {
 
-    private var _binding: SecondFragmentBinding? = null
-    private val binding: SecondFragmentBinding
-        get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = SecondFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val binding by viewBinding(SecondFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.button.setOnClickListener {
-            val navHostFragment = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
-            val navController = navHostFragment.findNavController()
-            navController.navigate(SecondFragmentDirections.actionSecondFragmentToFirstFragment())
+            val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
+            navController?.navigate(SecondFragmentDirections.actionSecondFragmentToFirstFragment())
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
