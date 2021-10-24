@@ -19,8 +19,18 @@
             android:label="SecondFragment" >
         <action
                 android:id="@+id/action_secondFragment_to_firstFragment"
-                app:destination="@id/firstFragment"
-                app:popUpTo="@id/firstFragment"
+                app:destination="@id/currenciesFragment"
+                app:popUpTo="@id/currenciesFragment"
                 app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/currenciesFragment"
+        android:name="com.technopark.youtrader.ui.currencies.CurrenciesFragment"
+        android:label="CurrenciesFragment" >
+        <action
+            android:id="@+id/action_secondFragment_to_CurrenciesFragment"
+            app:destination="@id/currenciesFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
