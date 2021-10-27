@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:contentDescription="@string/profile_portrait"
+        android:scaleType="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/avatar"
+        android:id="@+id/portrait"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
+    <TextView
+        style = "@style/TextStyleProfile"
+        android:contentDescription="@string/profile_desc_full_name"
+        android:text="@string/full_name"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="64dp"
+        android:layout_height="32dp"
+        android:id="@+id/full_name"
+        android:gravity="center|center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portrait"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rect_radius_100"
+        >
+    </TextView>
+
+
+
+
+    <TextView
+        style = "@style/TextStyleProfile"
+        android:id="@+id/text_convert"
+        android:text="@string/profile_convert_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/full_name"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="48dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_currencies"
+        android:layout_width="54dp"
+        android:layout_height="27dp"
+        android:entries="@array/currencies"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="@id/text_convert"
+        app:layout_constraintBottom_toBottomOf="@+id/text_convert"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/rect_radius_100"
+        android:popupBackground = "@color/pink"
+        />
+
+    <TextView
+        style = "@style/TextStyleProfile"
+        android:text="@string/profile_pin_code_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_pin_code"
+        app:layout_constraintTop_toBottomOf="@id/text_convert"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="48dp"
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:id="@+id/switch_pin_code"
+        app:layout_constraintTop_toTopOf="@id/text_pin_code"
+        app:layout_constraintBottom_toBottomOf="@+id/text_pin_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/rect_radius_100"
+        app:trackTint="@color/pink"
+        app:thumbTint="@color/gray"
+        />
+
+    <Button
+        style = "@style/TextStyleProfile"
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Back to second Fragment"
+
+        app:layout_constraintTop_toBottomOf="@id/text_pin_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
