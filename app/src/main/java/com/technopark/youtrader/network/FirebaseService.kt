@@ -5,12 +5,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FirebaseService {
+class FirebaseService : IAuthService {
     private var auth: FirebaseAuth = Firebase.auth
 
-    fun checkSignIn(): Boolean = auth.currentUser != null
-
-    fun checkSignIn(email: String): Boolean {
+    override fun checkSignIn(email: String): Boolean {
         val user = auth.currentUser
         if (user != null && user.email == email) {
             Log.d(TAG, "User: $email logged in already")
@@ -20,7 +18,7 @@ class FirebaseService {
         return false
     }
 
-    fun signIn(email: String, password: String) {
+    override fun signIn(email: String, password: String) {
         if (checkSignIn(email)) {
             Log.d(TAG, "User: $email logged in already")
         } else {
@@ -35,7 +33,7 @@ class FirebaseService {
         }
     }
 
-    fun sighUp(email: String, password: String) {
+    override fun sighUp(email: String, password: String) {
         if (!checkSignIn(email)) {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -48,12 +46,12 @@ class FirebaseService {
         }
     }
 
-    fun sighOut() {
+    override fun sighOut() {
         Log.d(TAG, "sighOut")
         auth.signOut()
     }
 
-    fun updatePassword(password: String) {
+    override fun updatePassword(password: String) {
         auth.currentUser?.updatePassword(password)
     }
 

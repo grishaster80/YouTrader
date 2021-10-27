@@ -23,33 +23,43 @@ class AuthFragment : Fragment(R.layout.auth_fragment) {
         val email = "first.user@mail.com"
         val password = "qwerty"
 
-        binding.buttonSignIn.setOnClickListener {
-            viewModel.signIn(email, password)
+        with(binding) {
+            buttonSignIn.setOnClickListener {
+                viewModel.signIn(email, password)
+            }
+
+            buttonCheckSignIn.setOnClickListener {
+                viewModel.checkSignIn(email)
+            }
+
+            buttonSignUp.setOnClickListener {
+                viewModel.signUp(email, password)
+            }
+
+            buttonSignOut.setOnClickListener {
+                viewModel.signOut()
+            }
+
+            button.setOnClickListener {
+                val navController =
+                    parentFragmentManager.findFragmentById(R.id.nav_host_fragment)
+                        ?.findNavController()
+                navController?.navigate(AuthFragmentDirections.actionFirstFragmentToSecondFragment())
+            }
         }
 
-        binding.buttonCheckSignIn.setOnClickListener {
-            viewModel.checkSignIn(email)
-        }
-
-        binding.buttonSignUp.setOnClickListener {
-            viewModel.signUp(email, password)
-        }
-
-        binding.buttonSignOut.setOnClickListener {
-            viewModel.signOut()
-        }
-
-        binding.button.setOnClickListener {
-            val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)
-                ?.findNavController()
-            navController?.navigate(AuthFragmentDirections.actionFirstFragmentToSecondFragment())
-        }
-
-        viewModel.cryptoCurrencies.observe(viewLifecycleOwner, { currencies ->
-            Log.d(TAG, "Received: ${currencies.first()}")
-            Toast.makeText(requireContext(), "Received: ${currencies.first()}", Toast.LENGTH_LONG)
-                .show()
-        })
+        viewModel.cryptoCurrencies.observe(
+            viewLifecycleOwner,
+            { currencies ->
+                Log.d(TAG, "Received: ${currencies.first()}")
+                Toast.makeText(
+                    requireContext(),
+                    "Received: ${currencies.first()}",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+        )
         viewModel.getCryptoCurrencies()
     }
 

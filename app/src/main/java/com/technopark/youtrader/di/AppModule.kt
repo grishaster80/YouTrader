@@ -8,6 +8,7 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.network.CryptoCurrencyApi
 import com.technopark.youtrader.network.FirebaseService
+import com.technopark.youtrader.network.IAuthService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,8 +37,8 @@ class AppModule {
         @Provides
         fun provideRetrofitInstance(application: Application): Retrofit {
             val client = OkHttpClient.Builder().addInterceptor(
-                HttpLoggingInterceptor().apply{ level = HttpLoggingInterceptor.Level.BODY })
-                .build()
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            ).build()
 
             val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
@@ -55,7 +56,7 @@ class AppModule {
 
         @Singleton
         @Provides
-        fun provideFirebaseService(): FirebaseService {
+        fun provideFirebaseService(): IAuthService {
             return FirebaseService()
         }
     }

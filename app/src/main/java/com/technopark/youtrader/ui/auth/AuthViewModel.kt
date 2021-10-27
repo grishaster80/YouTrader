@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.model.CryptoCurrencyExample
-import com.technopark.youtrader.network.FirebaseService
+import com.technopark.youtrader.network.IAuthService
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: CryptoCurrencyRepository,
-    private val firebaseService: FirebaseService
+    private val authService: IAuthService
 ) : ViewModel() {
 
     private var _cryptoCurrencies: MutableLiveData<List<CryptoCurrencyExample>> = MutableLiveData()
@@ -30,13 +30,11 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun signUp(email: String, password: String) = firebaseService.sighUp(email, password)
+    fun signUp(email: String, password: String) = authService.sighUp(email, password)
 
-    fun signIn(email: String, password: String) = firebaseService.signIn(email, password)
+    fun signIn(email: String, password: String) = authService.signIn(email, password)
 
-    fun checkSignIn(email: String) = firebaseService.checkSignIn(email)
+    fun checkSignIn(email: String) = authService.checkSignIn(email)
 
-    fun checkSignIn() = firebaseService.checkSignIn()
-
-    fun signOut() = firebaseService.sighOut()
+    fun signOut() = authService.sighOut()
 }
