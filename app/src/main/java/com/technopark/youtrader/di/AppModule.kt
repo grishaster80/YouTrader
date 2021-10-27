@@ -7,6 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.technopark.youtrader.R
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.network.CryptoCurrencyApi
+import com.technopark.youtrader.network.FirebaseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
-
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -52,5 +52,11 @@ class AppModule {
         @Provides
         fun provideCryptoCurrencyApi(retrofit: Retrofit): CryptoCurrencyApi =
             retrofit.create(CryptoCurrencyApi::class.java)
+
+        @Singleton
+        @Provides
+        fun provideFirebaseService(): FirebaseService {
+            return FirebaseService()
+        }
     }
 }

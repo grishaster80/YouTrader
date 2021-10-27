@@ -9,26 +9,46 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
-import com.technopark.youtrader.databinding.FirstFragmentBinding
+import com.technopark.youtrader.databinding.AuthFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FirstFragment : Fragment(R.layout.first_fragment) {
+class AuthFragment : Fragment(R.layout.auth_fragment) {
 
-    private val binding by viewBinding(FirstFragmentBinding::bind)
+    private val binding by viewBinding(AuthFragmentBinding::bind)
 
-    private val viewModel: FirstViewModel by viewModels()
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val email = "first.user@mail.com"
+        val password = "qwerty"
+
+        binding.buttonSignIn.setOnClickListener {
+            viewModel.signIn(email, password)
+        }
+
+        binding.buttonCheckSignIn.setOnClickListener {
+            viewModel.checkSignIn(email)
+        }
+
+        binding.buttonSignUp.setOnClickListener {
+            viewModel.signUp(email, password)
+        }
+
+        binding.buttonSignOut.setOnClickListener {
+            viewModel.signOut()
+        }
+
         binding.button.setOnClickListener {
             val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)
                 ?.findNavController()
-            navController?.navigate(FirstFragmentDirections.actionFirstFragmentToSecondFragment())
+            navController?.navigate(AuthFragmentDirections.actionFirstFragmentToSecondFragment())
         }
 
         viewModel.cryptoCurrencies.observe(viewLifecycleOwner, { currencies ->
             Log.d(TAG, "Received: ${currencies.first()}")
-            Toast.makeText(requireContext(), "Received: ${currencies.first()}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Received: ${currencies.first()}", Toast.LENGTH_LONG)
+                .show()
         })
         viewModel.getCryptoCurrencies()
     }
