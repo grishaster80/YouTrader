@@ -10,7 +10,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:hint="@string/search"
         android:ems="10"
         android:layout_marginVertical="15sp"

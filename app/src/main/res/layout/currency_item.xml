@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:id="@+id/currency_name"
-        android:text="Bitcoin"
+        tools:text="Bitcoin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="20sp"
         android:layout_marginStart="15sp" />
 
     <TextView
@@ -28,6 +28,6 @@
         android:id="@+id/currency_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/currency_name"
-        android:layout_marginRight="15sp"
+        android:layout_marginRight="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/currency_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

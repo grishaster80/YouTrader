@@ -9,7 +9,7 @@ import com.technopark.youtrader.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CurrenciesFragment : Fragment(R.layout.fragment_currencies) {
+class CurrenciesFragment : Fragment(R.layout.currencies_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView? = getView()?.findViewById(R.id.currencies_recycler_view)
