@@ -6,9 +6,15 @@
 
 
     <fragment
+<<<<<<< HEAD
         android:id="@+id/firstFragment"
         android:name="com.technopark.youtrader.ui.auth.FirstFragment"
         android:label="FirstFragment" >
+=======
+            android:id="@+id/firstFragment"
+            android:name="com.technopark.youtrader.ui.auth.AuthFragment"
+            android:label="FirstFragment" >
+>>>>>>> origin/master
         <action
             android:id="@+id/action_firstFragment_to_secondFragment"
             app:destination="@id/secondFragment" />
