@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "107632516490",
+    "project_id": "youtrader-d8f5f",
+    "storage_bucket": "youtrader-d8f5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107632516490:android:8a0e3d2a441924e07ebc73",
+        "android_client_info": {
+          "package_name": "com.technopark.youtrader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107632516490-7pd7a9g40mtedhaivffb4fftphsm5gvf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technopark.youtrader",
+            "certificate_hash": "64dd466de2dd247fbab2aad4551487ce68a79102"
+          }
+        },
+        {
+          "client_id": "107632516490-uempklbt9152f63uq1uqhm332gkhra5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABeAMfLVY8n1a_w0_a7v4eWmWcK4mCexc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107632516490-uempklbt9152f63uq1uqhm332gkhra5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
