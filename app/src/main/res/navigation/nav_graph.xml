@@ -10,17 +10,30 @@
             android:name="com.technopark.youtrader.ui.auth.AuthFragment"
             android:label="FirstFragment" >
         <action
-                android:id="@+id/action_firstFragment_to_secondFragment"
-                app:destination="@id/secondFragment" />
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
     </fragment>
     <fragment
-            android:id="@+id/secondFragment"
-            android:name="com.technopark.youtrader.ui.currencies.SecondFragment"
-            android:label="SecondFragment" >
+        android:id="@+id/secondFragment"
+        android:name="com.technopark.youtrader.ui.currencies.SecondFragment"
+        android:label="SecondFragment" >
         <action
-                android:id="@+id/action_secondFragment_to_firstFragment"
-                app:destination="@id/firstFragment"
-                app:popUpTo="@id/firstFragment"
-                app:popUpToInclusive="true"/>
+            android:id="@+id/action_secondFragment_to_firstFragment"
+            app:destination="@id/firstFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_secondFragment_to_profileFragment"
+            app:destination="@id/profileFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.technopark.youtrader.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_secondFragment"
+            app:destination="@id/secondFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
