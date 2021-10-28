@@ -12,9 +12,7 @@
         android:layout_height="wrap_content"
         android:text="ТыТрейдер"
 
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
+        style="@style/TextLogoStyle"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
 
@@ -28,11 +26,10 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
 
-        android:textSize="20sp"
+        style="@style/RoundedCornersStyle"
         android:paddingHorizontal="10dp"
         android:hint="Введите логин"
         android:inputType="textVisiblePassword|textNoSuggestions"
-        android:background="@drawable/rounded_corner"
 
         app:layout_constraintTop_toBottomOf="@id/Logo"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,11 +42,11 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
 
-        android:textSize="20sp"
+
+        style="@style/RoundedCornersStyle"
         android:paddingHorizontal="10dp"
         android:hint="Введите пароль"
         android:inputType="textPassword"
-        android:background="@drawable/rounded_corner"
 
         app:layout_constraintTop_toBottomOf="@id/Login"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +61,7 @@
         android:layout_height="wrap_content"
 
         android:text="Войти"
-        android:textSize="20sp"
-        android:background="@drawable/rounded_corner"
+        style="@style/RoundedCornersStyle"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
