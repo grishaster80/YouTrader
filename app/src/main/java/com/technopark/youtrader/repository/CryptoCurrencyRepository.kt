@@ -15,11 +15,9 @@ class CryptoCurrencyRepository @Inject constructor(
         val currenciesFromNetwork = networkService.getCryptoCurrency()
         if (currenciesFromNetwork.isNotEmpty()) {
             emit(currenciesFromNetwork)
-
         } else {
             val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
             emit(currenciesFromDatabase)
         }
     }
-
 }

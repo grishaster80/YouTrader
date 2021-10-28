@@ -21,5 +21,10 @@ class SecondFragment : Fragment(R.layout.second_fragment) {
             val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
             navController?.navigate(SecondFragmentDirections.actionSecondFragmentToFirstFragment())
         }
+
+        binding.button2.setOnClickListener {
+            val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
+            navController?.navigate(SecondFragmentDirections.actionSecondFragmentToProfileFragment())
+        }
     }
 }
