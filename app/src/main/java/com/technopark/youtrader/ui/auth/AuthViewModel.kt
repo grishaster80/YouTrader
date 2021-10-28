@@ -34,11 +34,11 @@ class AuthViewModel @Inject constructor(
 
     fun signIn(email: String, password: String) = authService.signIn(email, password)
 
-    fun checkSignIn(email: String) = authService.checkSignIn(email)
+    fun checkSignIn(email: String): Boolean = authService.checkSignIn(email)
 
     fun signOut() = authService.sighOut()
 
-    fun buttonToNextFragmentClick() {
+    fun navigateToSecondFragment() {
         val someString = "Random text"
         navigateTo(AuthFragmentDirections.actionAuthFragmentToSecondFragment(someString))
     }

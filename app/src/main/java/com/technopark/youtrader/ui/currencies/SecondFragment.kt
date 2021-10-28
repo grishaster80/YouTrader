@@ -23,11 +23,11 @@ class SecondFragment : BaseFragment(R.layout.second_fragment) {
             fragmentArgument.text = arguments?.getString("someString")
 
             buttonBackToAuthFragment.setOnClickListener {
-                viewModel.buttonToFirstFragmentClick()
+                viewModel.navigateToFirstFragment()
             }
 
             binding.buttonToProfileFragment.setOnClickListener {
-                viewModel.buttonToProfileFragmentClick()
+                viewModel.navigateToProfileFragment()
             }
 
             buttonUp.setOnClickListener {

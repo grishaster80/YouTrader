@@ -19,7 +19,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener {
-            viewModel.buttonToSecondFragmentClick()
+            viewModel.navigateToSecondFragment()
         }
     }
 }

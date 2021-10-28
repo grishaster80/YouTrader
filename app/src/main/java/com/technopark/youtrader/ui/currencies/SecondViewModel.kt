@@ -4,11 +4,11 @@ import com.technopark.youtrader.base.BaseViewModel
 
 class SecondViewModel : BaseViewModel() {
 
-    fun buttonToFirstFragmentClick() {
+    fun navigateToFirstFragment() {
         navigateTo(SecondFragmentDirections.actionSecondFragmentToAuthFragment())
     }
 
-    fun buttonToProfileFragmentClick() {
+    fun navigateToProfileFragment() {
         navigateTo(SecondFragmentDirections.actionSecondFragmentToProfileFragment())
     }
 }
