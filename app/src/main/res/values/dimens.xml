@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="CornerRadius">100dp</dimen>
+
+    <dimen name="text_size_h1">64sp</dimen>
+    <dimen name="text_size_h2">48sp</dimen>
+    <dimen name="text_size_h3">32sp</dimen>
+    <dimen name="text_size_h4">16sp</dimen>
+    <dimen name="text_size_h5">8sp</dimen>
+    <dimen name="text_size_h6">4sp</dimen>
+
+    <dimen name="indent_very_big">64dp</dimen>
+    <dimen name="indent_big">48dp</dimen>
+    <dimen name="indent_medium">32dp</dimen>
+    <dimen name="indent_small">16dp</dimen>
+    <dimen name="indent_very_small">8dp</dimen>
+    <dimen name="indent_tiny">4dp</dimen>
 </resources>
