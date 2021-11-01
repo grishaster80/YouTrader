@@ -13,4 +13,7 @@
     <string name="profile_convert_text">Конвертировать в</string>
     <string name="profile_pin_code_text">Вход по пинкоду</string>
     <string name="profile_desc_full_name">ФИО</string>
+    <string name="main_fragment_title">Главная</string>
+    <string name="briefcase_fragment_title">Портфель</string>
+    <string name="profile_fragment_title">Профиль</string>
 </resources>

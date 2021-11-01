@@ -3,10 +3,11 @@ package com.technopark.youtrader.base
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
-abstract class BaseFragment(layoutId: Int) : Fragment(layoutId) {
+abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     private val navController by lazy { findNavController() }
 

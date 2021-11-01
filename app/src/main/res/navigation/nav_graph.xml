@@ -40,5 +40,12 @@
             app:destination="@id/secondFragment"
             app:popUpTo="@id/secondFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
+            app:destination="@id/withoutBottomNavViewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/withoutBottomNavViewFragment"
+        android:name="com.technopark.youtrader.ui.WithoutBottomNavViewFragment"
+        android:label="WithoutBottomNavViewFragment" />
 </navigation>

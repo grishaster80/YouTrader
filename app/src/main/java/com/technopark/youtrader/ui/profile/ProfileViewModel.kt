@@ -7,4 +7,8 @@ class ProfileViewModel : BaseViewModel() {
     fun navigateToSecondFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToSecondFragment())
     }
+
+    fun navigateToWithoutBottomNavViewFragment() {
+        navigateTo(ProfileFragmentDirections.actionProfileFragmentToWithoutBottomNavViewFragment())
+    }
 }

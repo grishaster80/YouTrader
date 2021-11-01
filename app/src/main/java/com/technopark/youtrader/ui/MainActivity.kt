@@ -1,7 +1,10 @@
 package com.technopark.youtrader.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.ActivityMainBinding
@@ -12,7 +15,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
 
+    private val navController by lazy { (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setupBottomNavigationView()
+    }
+
+    private fun setupBottomNavigationView() {
+        binding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavView.visibility = if (destination.id in listOf(R.id.authFragment, R.id.secondFragment, R.id.profileFragment)) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
     }
 }

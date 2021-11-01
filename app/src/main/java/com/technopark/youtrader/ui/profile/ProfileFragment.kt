@@ -18,8 +18,14 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener {
-            viewModel.navigateToSecondFragment()
+
+        with(binding) {
+            buttonBack.setOnClickListener {
+                viewModel.navigateToSecondFragment()
+            }
+            buttonNext.setOnClickListener {
+                viewModel.navigateToWithoutBottomNavViewFragment()
+            }
         }
     }
 }
