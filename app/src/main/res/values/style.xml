@@ -3,4 +3,13 @@
     <style name="TextStyleProfile">
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="TextLogoStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="RoundedCornersStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@drawable/rect_radius_100</item>
+    </style>
 </resources>

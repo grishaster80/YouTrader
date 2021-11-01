@@ -1,30 +1,46 @@
 package com.technopark.youtrader.ui.currencies
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
+import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.SecondFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SecondFragment : Fragment(R.layout.second_fragment) {
+class SecondFragment : BaseFragment(R.layout.second_fragment) {
 
     private val binding by viewBinding(SecondFragmentBinding::bind)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.button.setOnClickListener {
-            val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
-            navController?.navigate(SecondFragmentDirections.actionSecondFragmentToFirstFragment())
-        }
+    override val viewModel: SecondViewModel by viewModels()
 
-        binding.button2.setOnClickListener {
-            val navController = parentFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
-            navController?.navigate(SecondFragmentDirections.actionSecondFragmentToProfileFragment())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            fragmentArgument.text = arguments?.getString("someString")
+
+            buttonBackToAuthFragment.setOnClickListener {
+                viewModel.navigateToFirstFragment()
+            }
+
+            binding.buttonToProfileFragment.setOnClickListener {
+                viewModel.navigateToProfileFragment()
+            }
+
+            binding.buttonToCurrenciesFragment.setOnClickListener {
+                viewModel.navigateToCurrenciesFragment()
+            }
+
+            buttonUp.setOnClickListener {
+                viewModel.goUp()
+            }
+
+            buttonBack.setOnClickListener {
+                viewModel.goBack()
+            }
         }
     }
 }
