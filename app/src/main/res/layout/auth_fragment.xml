@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
 
         android:text="Auth fragment text"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_h4"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:orientation="vertical"
 
         app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintBottom_toTopOf="@id/buttonToNextFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" >
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
 
             android:text="Sign up"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_h4" />
 
         <Button
             android:id="@+id/buttonSignIn"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
 
             android:text="Sign in"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_h4" />
 
         <Button
             android:id="@+id/buttonCheckSignIn"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
 
             android:text="Check sign in"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_h4" />
 
         <Button
             android:id="@+id/buttonSignOut"
@@ -59,18 +59,27 @@
             android:layout_height="wrap_content"
 
             android:text="Sign Out"
+            android:textSize="@dimen/text_size_h4" />
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+
+            android:text="Back"
             android:textSize="16sp" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonToNextFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="Go to second Fragment"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_h4"
 
         app:layout_constraintTop_toBottomOf="@id/container"
         app:layout_constraintBottom_toBottomOf="parent"
