@@ -44,6 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <Button
         android:id="@+id/button_to_profile_fragment"
         android:layout_width="wrap_content"
@@ -52,11 +53,26 @@
         android:text="Go to Profile Fragment"
         android:textSize="@dimen/text_size_h4"
 
-        app:layout_constraintTop_toBottomOf="@id/button_back_to_auth_fragment"
-        app:layout_constraintBottom_toTopOf="@id/buttonUp"
+        app:layout_constraintBottom_toTopOf="@id/button_to_currencies_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/button_back_to_auth_fragment" />
 
+    <Button
+        android:id="@+id/button_to_currencies_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Currencies"
+        android:textSize="@dimen/text_size_h4"
+
+        app:layout_constraintBottom_toTopOf="@+id/buttonUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_to_profile_fragment"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonUp"
@@ -66,11 +82,11 @@
         android:text="Up"
         android:textSize="@dimen/text_size_h4"
 
-        app:layout_constraintTop_toBottomOf="@id/button_to_profile_fragment"
         app:layout_constraintBottom_toTopOf="@id/buttonBack"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_to_currencies_fragment" />
 
     <Button
         android:id="@+id/buttonBack"
