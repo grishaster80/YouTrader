@@ -3,6 +3,12 @@
 
     <string name="base_url">https://www.crypto-api-url.ru/</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="search">Search</string>
+
+
     <string name="profile_portrait">Profile photo</string>
     <string name="full_name">Терентьев Михаил Палыч</string>
     <string-array name="currencies">
@@ -13,4 +19,5 @@
     <string name="profile_convert_text">Конвертировать в</string>
     <string name="profile_pin_code_text">Вход по пинкоду</string>
     <string name="profile_desc_full_name">ФИО</string>
+
 </resources>

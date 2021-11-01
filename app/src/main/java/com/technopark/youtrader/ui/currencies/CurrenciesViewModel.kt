@@ -2,7 +2,7 @@ package com.technopark.youtrader.ui.currencies
 
 import com.technopark.youtrader.base.BaseViewModel
 
-class SecondViewModel : BaseViewModel() {
+class CurrenciesViewModel : BaseViewModel() {
 
     fun navigateToFirstFragment() {
         navigateTo(SecondFragmentDirections.actionSecondFragmentToAuthFragment())
@@ -10,9 +10,5 @@ class SecondViewModel : BaseViewModel() {
 
     fun navigateToProfileFragment() {
         navigateTo(SecondFragmentDirections.actionSecondFragmentToProfileFragment())
-    }
-
-    fun navigateToCurrenciesFragment() {
-        navigateTo(SecondFragmentDirections.actionSecondFragmentToCurrenciesFragment())
     }
 }
