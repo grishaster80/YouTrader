@@ -5,17 +5,21 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
+import com.technopark.youtrader.databinding.CurrenciesFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CurrenciesFragment : Fragment(R.layout.currencies_fragment) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView: RecyclerView? = getView()?.findViewById(R.id.currencies_recycler_view)
-        recyclerView?.layoutManager = LinearLayoutManager(view.context)
-        val items : Array<CurrencyItem> = arrayOf(CurrencyItem("Bit","66k"),CurrencyItem("Doge","133k"))
+    private val binding by viewBinding(CurrenciesFragmentBinding::bind)
 
-        recyclerView?.adapter = CurrenciesRecyclerAdapter(items.toList())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.currenciesRecyclerView.adapter = CurrenciesRecyclerAdapter(
+            arrayOf(CurrencyItem("BitCoin","66k"),
+                    CurrencyItem("DogeCoin","133k")).toList()
+        )
     }
 }
