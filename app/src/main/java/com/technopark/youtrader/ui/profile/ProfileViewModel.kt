@@ -4,8 +4,8 @@ import com.technopark.youtrader.base.BaseViewModel
 
 class ProfileViewModel : BaseViewModel() {
 
-    fun navigateToSecondFragment() {
-        navigateTo(ProfileFragmentDirections.actionProfileFragmentToSecondFragment())
+    fun navigateToCurrenciesFragment() {
+        navigateTo(ProfileFragmentDirections.actionProfileFragmentToCurrenciesFragment())
     }
 
     fun navigateToWithoutBottomNavViewFragment() {

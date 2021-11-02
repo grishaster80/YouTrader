@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_homepage"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/secondFragment"
+        android:id="@+id/currenciesFragment"
         android:title="@string/briefcase_fragment_title"
         android:icon="@drawable/ic_briefcase"
         app:showAsAction="ifRoom" />

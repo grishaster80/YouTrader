@@ -21,7 +21,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
         with(binding) {
             buttonBack.setOnClickListener {
-                viewModel.navigateToSecondFragment()
+                viewModel.navigateToCurrenciesFragment()
             }
             buttonNext.setOnClickListener {
                 viewModel.navigateToWithoutBottomNavViewFragment()

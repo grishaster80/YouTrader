@@ -15,7 +15,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
 
-    private val navController by lazy { (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController }
+    private val navController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
+            .navController
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +30,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding.bottomNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.visibility = if (destination.id in listOf(R.id.authFragment, R.id.secondFragment, R.id.profileFragment)) {
+            binding.bottomNavView.visibility = if (destination.id in listOf(
+                    R.id.authFragment,
+                    R.id.currenciesFragment,
+                    R.id.profileFragment
+                )
+            ) {
                 View.VISIBLE
             } else {
                 View.GONE
