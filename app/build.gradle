@@ -7,6 +7,8 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -80,6 +82,8 @@ dependencies {
     // Hilt - dependency injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

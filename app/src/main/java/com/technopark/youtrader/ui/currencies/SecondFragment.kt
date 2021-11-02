@@ -30,6 +30,10 @@ class SecondFragment : BaseFragment(R.layout.second_fragment) {
                 viewModel.navigateToProfileFragment()
             }
 
+            binding.buttonToCurrenciesFragment.setOnClickListener {
+                viewModel.navigateToCurrenciesFragment()
+            }
+
             buttonUp.setOnClickListener {
                 viewModel.goUp()
             }
