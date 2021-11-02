@@ -26,13 +26,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currencies_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         tools:listitem="@layout/currency_item"
         android:layout_marginHorizontal="45sp"
         tools:itemCount="10"
         app:layout_constraintTop_toBottomOf="@id/search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 

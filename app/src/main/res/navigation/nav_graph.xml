@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_currenciesFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_currenciesFragment_to_withoutBottomNavViewFragment"
+            app:destination="@id/withoutBottomNavViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
