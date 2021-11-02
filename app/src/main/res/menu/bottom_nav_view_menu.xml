@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/authFragment"
+        android:title="@string/main_fragment_title"
+        android:icon="@drawable/ic_homepage"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/currenciesFragment"
+        android:title="@string/briefcase_fragment_title"
+        android:icon="@drawable/ic_briefcase"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profileFragment"
+        android:title="@string/profile_fragment_title"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="ifRoom" />
+</menu>

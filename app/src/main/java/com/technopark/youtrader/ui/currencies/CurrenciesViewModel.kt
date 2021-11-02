@@ -4,11 +4,7 @@ import com.technopark.youtrader.base.BaseViewModel
 
 class CurrenciesViewModel : BaseViewModel() {
 
-    fun navigateToFirstFragment() {
-        navigateTo(SecondFragmentDirections.actionSecondFragmentToAuthFragment())
-    }
-
-    fun navigateToProfileFragment() {
-        navigateTo(SecondFragmentDirections.actionSecondFragmentToProfileFragment())
+    fun navigateToAuthFragment() {
+        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToAuthFragment())
     }
 }
