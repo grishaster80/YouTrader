@@ -1,10 +1,10 @@
 package com.technopark.youtrader.database
 
+import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import androidx.room.Delete
-import androidx.room.Dao
 import com.technopark.youtrader.model.CryptoCurrencyExample
 
 @Dao
@@ -20,5 +20,4 @@ interface CryptoCurrencyDao {
 
     @Delete
     suspend fun deleteCurrencies(currencies: List<CryptoCurrencyExample>)
-
 }

@@ -96,4 +96,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     // Google Analytics. When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // GroupieAdapter
+    def groupie_version = '2.9.0'
+    implementation "com.github.lisawray.groupie:groupie:$groupie_version"
+    implementation "com.github.lisawray.groupie:groupie-viewbinding:$groupie_version"
 }
