@@ -1,8 +1,5 @@
 package com.technopark.youtrader.ui.currencies
 
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.technopark.youtrader.base.BaseViewModel
@@ -14,22 +11,6 @@ class CurrenciesViewModel : BaseViewModel() {
     private val _currencyItems: MutableLiveData<List<CurrencyItem>> =
         MutableLiveData(getCurrencyItems())
     val currencyItems: LiveData<List<CurrencyItem>> = _currencyItems
-
-    init {
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed(
-            {
-                val newCurrency = CurrencyItem(
-                    Currency("New Currency", "164")
-                )
-                Log.d(TAG, "Add currency: ${newCurrency.currency.name}")
-                val newList = _currencyItems.value?.toMutableList()
-                newList?.add(newCurrency)
-                _currencyItems.postValue(newList)
-            },
-            3000
-        )
-    }
 
     fun navigateToAuthFragment() {
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToAuthFragment())

@@ -35,9 +35,12 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
         binding.currenciesRecyclerView.adapter = adapter
         adapter.setOnItemClickListener(onItemClickListener)
 
-        viewModel.currencyItems.observe(viewLifecycleOwner, { currencies ->
-            adapter.update(currencies)
-        })
+        viewModel.currencyItems.observe(
+            viewLifecycleOwner,
+            { currencies ->
+                adapter.update(currencies)
+            }
+        )
     }
 
     companion object {
