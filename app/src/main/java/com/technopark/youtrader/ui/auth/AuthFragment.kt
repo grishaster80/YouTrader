@@ -42,7 +42,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
             }
 
             buttonToNextFragment.setOnClickListener {
-                viewModel.navigateToSecondFragment()
+                viewModel.navigateToCurrenciesFragment()
             }
 
             buttonBack.setOnClickListener {

@@ -38,8 +38,8 @@ class AuthViewModel @Inject constructor(
 
     fun signOut() = authService.sighOut()
 
-    fun navigateToSecondFragment() {
+    fun navigateToCurrenciesFragment() {
         val someString = "Random text"
-        navigateTo(AuthFragmentDirections.actionAuthFragmentToSecondFragment(someString))
+        navigateTo(AuthFragmentDirections.actionAuthFragmentToCurrenciesFragment(someString))
     }
 }
