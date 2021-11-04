@@ -11,4 +11,7 @@ class ProfileViewModel : BaseViewModel() {
     fun navigateToWithoutBottomNavViewFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToWithoutBottomNavViewFragment())
     }
+    fun navigateToChartFragment() {
+        navigateTo(ProfileFragmentDirections.actionProfileFragmentToChartFragment())
+    }
 }

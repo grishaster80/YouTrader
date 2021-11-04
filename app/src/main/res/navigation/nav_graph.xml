@@ -39,9 +39,18 @@
         <action
             android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chartFragment"
+            app:destination="@+id/ChartFragment"/>
     </fragment>
     <fragment
         android:id="@+id/withoutBottomNavViewFragment"
         android:name="com.technopark.youtrader.ui.WithoutBottomNavViewFragment"
         android:label="WithoutBottomNavViewFragment" />
+
+    <fragment
+        android:id="@+id/ChartFragment"
+        android:name="com.technopark.youtrader.ui.chart.ChartFragment"
+        android:label="ChartFragment"/>
+
 </navigation>
