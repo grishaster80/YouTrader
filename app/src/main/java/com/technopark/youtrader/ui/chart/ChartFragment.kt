@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -52,9 +51,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         // remove description label
         lineChart.description.isEnabled = false
 
-        // add animation
-        lineChart.animateX(1000, Easing.EaseInSine)
-
         // to draw label on xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.valueFormatter = MyAxisFormatter()
@@ -76,12 +72,10 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun setDataToLineChart() {
-        // now draw bar chart with dynamic data
         val entries: ArrayList<Entry> = ArrayList()
 
         scoreList = getScoreList()
 
-        // you can replace this data object with  your custom object
         for (i in scoreList.indices) {
             val score = scoreList[i]
             entries.add(Entry(i.toFloat(), score.score))
@@ -98,30 +92,18 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     // simulate api call
-    // we are initialising it directly
     private fun getScoreList(): ArrayList<Score> {
-//        scoreList.add(Score("Январь 2021", 34287.41f))
-//        scoreList.add(Score("Февраль 2021", 46972.322499999995f))
-//        scoreList.add(Score("Март 2021", 55298.89f))
-//        scoreList.add(Score("Апрель 2021", 57270.72f))
-//        scoreList.add(Score("Май 2021", 46863.76f))
-//        scoreList.add(Score("Июнь 2021", 35756.145f))
-//        scoreList.add(Score("Июль 2021", 33659.42f))
-//        scoreList.add(Score("Август 2021", 46075.585f))
-//        scoreList.add(Score("Сентябрь 2021", 45765.7625f))
-//        scoreList.add(Score("Октябрь 2021", 59887.82000000001f))
-//        scoreList.add(Score("Ноябрь 2021", 62480.525f))
-        scoreList.add(Score("01.21", 34287.41f))
-        scoreList.add(Score("02.21", 46972.322499999995f))
-        scoreList.add(Score("03.21", 55298.89f))
-        scoreList.add(Score("04.21", 57270.72f))
-        scoreList.add(Score("05.21", 46863.76f))
-        scoreList.add(Score("06.21", 35756.145f))
-        scoreList.add(Score("07.21", 33659.42f))
-        scoreList.add(Score("08.21", 46075.585f))
-        scoreList.add(Score("09.21", 45765.7625f))
-        scoreList.add(Score("10.21", 59887.82000000001f))
-        scoreList.add(Score("11.21", 62480.525f))
+        scoreList.add(Score("01.21", "34287.41".toFloat()))
+        scoreList.add(Score("02.21", "46972.322499999995".toFloat()))
+        scoreList.add(Score("03.21", "55298.89".toFloat()))
+        scoreList.add(Score("04.21", "57270.72".toFloat()))
+        scoreList.add(Score("05.21", "46863.76".toFloat()))
+        scoreList.add(Score("06.21", "35756.145".toFloat()))
+        scoreList.add(Score("07.21", "33659.42f".toFloat()))
+        scoreList.add(Score("08.21", "46075.585".toFloat()))
+        scoreList.add(Score("09.21", "45765.7625".toFloat()))
+        scoreList.add(Score("10.21", "59887.82000000001".toFloat()))
+        scoreList.add(Score("11.21", "62480.525".toFloat()))
 
         return scoreList
     }
