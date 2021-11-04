@@ -16,7 +16,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
-class ChartFragment: BaseFragment(R.layout.chart_fragment) {
+class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private val binding by viewBinding(ChartFragmentBinding::bind)
 
     override val viewModel: ChartViewModel by viewModels()
@@ -26,14 +26,13 @@ class ChartFragment: BaseFragment(R.layout.chart_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
             lineChart = chart
         }
 
         initLineChart()
 
         setDataToLineChart()
-
     }
 
     private fun initLineChart() {
@@ -44,18 +43,16 @@ class ChartFragment: BaseFragment(R.layout.chart_fragment) {
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
 
-        //remove right y-axis
+        // remove right y-axis
         lineChart.axisRight.isEnabled = false
 
-        //remove legend
+        // remove legend
         lineChart.legend.isEnabled = false
 
-
-        //remove description label
+        // remove description label
         lineChart.description.isEnabled = false
 
-
-        //add animation
+        // add animation
         lineChart.animateX(1000, Easing.EaseInSine)
 
         // to draw label on xAxis
@@ -64,9 +61,7 @@ class ChartFragment: BaseFragment(R.layout.chart_fragment) {
         xAxis.setDrawLabels(true)
         xAxis.granularity = 1f
 //        xAxis.labelRotationAngle = +90f
-
     }
-
 
     inner class MyAxisFormatter : IndexAxisValueFormatter() {
 
@@ -81,12 +76,12 @@ class ChartFragment: BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun setDataToLineChart() {
-        //now draw bar chart with dynamic data
+        // now draw bar chart with dynamic data
         val entries: ArrayList<Entry> = ArrayList()
 
         scoreList = getScoreList()
 
-        //you can replace this data object with  your custom object
+        // you can replace this data object with  your custom object
         for (i in scoreList.indices) {
             val score = scoreList[i]
             entries.add(Entry(i.toFloat(), score.score))
@@ -130,7 +125,4 @@ class ChartFragment: BaseFragment(R.layout.chart_fragment) {
 
         return scoreList
     }
-
-
 }
-
