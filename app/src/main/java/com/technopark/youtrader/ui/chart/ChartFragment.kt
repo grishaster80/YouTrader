@@ -6,12 +6,10 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
@@ -53,22 +51,10 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         // to draw label on xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.valueFormatter = MyAxisFormatter()
+        xAxis.valueFormatter = MyAxisFormatter(scoreList)
         xAxis.setDrawLabels(true)
         xAxis.granularity = 1f
 //        xAxis.labelRotationAngle = +90f
-    }
-
-    inner class MyAxisFormatter : IndexAxisValueFormatter() {
-
-        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-            val index = value.toInt()
-            return if (index < scoreList.size) {
-                scoreList[index].date
-            } else {
-                ""
-            }
-        }
     }
 
     private fun setDataToLineChart() {
