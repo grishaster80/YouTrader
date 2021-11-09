@@ -27,7 +27,7 @@
 
         style="@style/RoundedCornersStyle"
         android:paddingHorizontal="10dp"
-        android:hint="Введите логин"
+        android:hint="Введите email"
         android:inputType="textVisiblePassword|textNoSuggestions"
 
         app:layout_constraintTop_toBottomOf="@id/Logo"
@@ -50,16 +50,15 @@
         app:layout_constraintTop_toBottomOf="@id/Login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonSignIn"
+        app:layout_constraintBottom_toTopOf="@id/buttonSign"
         />
 
 
     <Button
-        android:id="@+id/buttonSignIn"
+        android:id="@+id/buttonSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Войти"
         style="@style/RoundedCornersStyle"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -68,62 +67,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
 
-        app:layout_constraintTop_toBottomOf="@id/buttonSignIn"
-        app:layout_constraintBottom_toTopOf="@id/buttonToNextFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
-
-        <Button
-            android:id="@+id/buttonSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Sign up"
-            android:textSize="@dimen/text_size_h4" />
-
-        <Button
-            android:id="@+id/buttonCheckSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Check sign in"
-            android:textSize="@dimen/text_size_h4" />
-
-        <Button
-            android:id="@+id/buttonSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Sign Out"
-            android:textSize="@dimen/text_size_h4" />
-
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-
-            android:text="Back"
-            android:textSize="16sp" />
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
         android:id="@+id/buttonToNextFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Go to second Fragment"
+        style="@style/WithoutBackground"
         android:textSize="@dimen/text_size_h4"
 
-        app:layout_constraintTop_toBottomOf="@id/container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
