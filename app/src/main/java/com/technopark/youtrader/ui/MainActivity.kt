@@ -42,21 +42,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-
-            with(binding) {
-                bottomNavView.visibility = if (destination.id in bottomNavViewFragmentIds
-                ) {
-                    toolbar.navigationIcon = null
-                    View.VISIBLE
-                } else {
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-                    View.GONE
-                }
-            }
+            binding.bottomNavView.visibility =
+                showNavElementsDependingOnCurrentDestination(destination.id)
         }
     }
 
     private fun navigateBack() {
         navController.popBackStack()
+    }
+
+    private fun showNavElementsDependingOnCurrentDestination(destinationId: Int): Int {
+        return if (destinationId in bottomNavViewFragmentIds
+        ) {
+            binding.toolbar.navigationIcon = null
+            View.VISIBLE
+        } else {
+            binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+            View.GONE
+        }
     }
 }
