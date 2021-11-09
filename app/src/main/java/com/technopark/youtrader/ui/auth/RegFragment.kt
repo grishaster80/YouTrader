@@ -26,8 +26,8 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
         val password = "qwerty"
 
         with(binding) {
-            buttonSign.text = "Зарегистрироваться"
-            buttonToNextFragment.text = "Войти"
+            buttonSign.text = getString(R.string.sign_up)
+            buttonToNextFragment.text = getString(R.string.to_sign_in)
 
             buttonSign.setOnClickListener {
                 viewModel.signUp(email, password)
