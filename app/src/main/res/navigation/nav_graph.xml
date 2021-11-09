@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_PinRegFragment"
+            app:destination="@id/PinRegFragment" />
     </fragment>
     <fragment
         android:id="@+id/withoutBottomNavViewFragment"

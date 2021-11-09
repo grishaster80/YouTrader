@@ -20,11 +20,23 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+        // Включить если включен вход по PIN и наоборот...
+        //TODO switchPinCode.isChecked =
+
             buttonBack.setOnClickListener {
                 viewModel.navigateToCurrenciesFragment()
             }
             buttonNext.setOnClickListener {
                 viewModel.navigateToWithoutBottomNavViewFragment()
+            }
+            switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    //TODO Включить вход по PIN
+                    viewModel.navigateToPinRegFragment()
+                } else {
+                    //TODO Выключить вход по PIN
+
+                }
             }
         }
     }
