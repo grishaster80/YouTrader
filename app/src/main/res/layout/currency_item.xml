@@ -2,32 +2,39 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    style="@style/CustomCardView"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <TextView
-        android:contentDescription="currency"
+        android:id="@+id/currency_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:id="@+id/currency_name"
-        tools:text="Bitcoin"
+        android:layout_marginStart="@dimen/indent_small"
+        android:contentDescription="@string/currency_name_content_description"
+        android:padding="@dimen/indent_very_small"
+        style="@style/OneLineTextView"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/currency_price"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20sp"
-        android:layout_marginStart="15sp" />
+        tools:text="Bitcoin" />
 
     <TextView
-        android:contentDescription="price"
-        tools:text="66k"
-        android:textSize="22sp"
-        android:textColor="@color/green"
+        android:id="@+id/currency_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/currency_price"
+        android:layout_marginEnd="@dimen/indent_small"
+        android:contentDescription="@string/currency_price_content_description"
+        android:padding="@dimen/indent_very_small"
+        style="@style/TextView"
+        android:textColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="@+id/currency_name"
+        app:layout_constraintStart_toEndOf="@id/currency_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/currency_name"
-        android:layout_marginRight="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/currency_name" />
+        tools:text="66k" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
 
+    private val bottomNavViewFragmentIds = listOf(
+        R.id.authFragment,
+        R.id.currenciesFragment,
+        R.id.profileFragment
+    )
+
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
             .navController
@@ -27,19 +33,30 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun setupBottomNavigationView() {
-        binding.bottomNavView.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.visibility = if (destination.id in listOf(
-                    R.id.authFragment,
-                    R.id.currenciesFragment,
-                    R.id.profileFragment
-                )
-            ) {
-                View.VISIBLE
-            } else {
-                View.GONE
+        with(binding) {
+            bottomNavView.setupWithNavController(navController)
+            toolbar.setupWithNavController(navController)
+            toolbar.setNavigationOnClickListener {
+                navigateBack()
             }
         }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            with(binding) {
+                bottomNavView.visibility = if (destination.id in bottomNavViewFragmentIds
+                ) {
+                    toolbar.navigationIcon = null
+                    View.VISIBLE
+                } else {
+                    toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+                    View.GONE
+                }
+            }
+        }
+    }
+
+    private fun navigateBack() {
+        navController.popBackStack()
     }
 }
