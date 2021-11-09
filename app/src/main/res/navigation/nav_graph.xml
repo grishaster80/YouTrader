@@ -33,16 +33,15 @@
         android:id="@+id/profileFragment"
         android:name="com.technopark.youtrader.ui.profile.ProfileFragment"
         android:label="ProfileFragment">
-        <action
-            android:id="@+id/action_profileFragment_to_currenciesFragment"
-            app:destination="@id/currenciesFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
-            app:destination="@id/withoutBottomNavViewFragment" />
+
         <action
             android:id="@+id/action_profileFragment_to_PinRegFragment"
             app:destination="@id/PinRegFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/PinRegFragment"
+        android:name="com.technopark.youtrader.ui.pin.PinRegFragment"
+        android:label="PinRegFragment" />
     <fragment
         android:id="@+id/withoutBottomNavViewFragment"
         android:name="com.technopark.youtrader.ui.WithoutBottomNavViewFragment"

@@ -19,23 +19,21 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO Штука для входа по PIN
+        // сейчас это супер костыль
+        var isPinAuth = true
+
         with(binding) {
-        // Включить если включен вход по PIN и наоборот...
-        //TODO switchPinCode.isChecked =
+            switchPinCode.isChecked = isPinAuth
 
-            buttonBack.setOnClickListener {
-                viewModel.navigateToCurrenciesFragment()
-            }
-            buttonNext.setOnClickListener {
-                viewModel.navigateToWithoutBottomNavViewFragment()
-            }
+
             switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
-                    //TODO Включить вход по PIN
+                if (isChecked and !isPinAuth) {
+                    isPinAuth = true
                     viewModel.navigateToPinRegFragment()
-                } else {
-                    //TODO Выключить вход по PIN
-
+                }
+                if(!isChecked and isPinAuth) {
+                    isPinAuth = false
                 }
             }
         }

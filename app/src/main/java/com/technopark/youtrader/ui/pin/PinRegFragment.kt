@@ -1,4 +1,4 @@
-package com.technopark.youtrader.ui.auth
+package com.technopark.youtrader.ui.pin
 
 import android.os.Bundle
 import android.view.View
@@ -21,7 +21,9 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
         // Don't forget to call super.onViewCreated
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {}
+        with(binding) {
+            label.text = "Установка PIN"
+        }
 
 
     }
