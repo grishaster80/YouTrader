@@ -26,9 +26,7 @@
         android:layout_height="wrap_content"
 
         style="@style/RoundedEditText"
-        style="@style/RoundedCornersStyle"
-        android:paddingHorizontal="10dp"
-        android:hint="Введите email"
+        android:paddingHorizontal="@dimen/indent_very_small"
         android:inputType="textVisiblePassword|textNoSuggestions"
 
         android:hint="@string/enter_login_hint"
@@ -57,23 +55,21 @@
         app:layout_constraintTop_toBottomOf="@id/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonSignIn" />
+        app:layout_constraintBottom_toTopOf="@id/buttonSign" />
 
 
     <Button
-        android:id="@+id/buttonSignIn"
+        android:id="@+id/buttonSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_small"
 
-        style="@style/RoundedCornersStyle"
         android:text="@string/enter_button_text"
         style="@style/RoundedFilledButton"
 
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintStart_toStartOf="@id/password"
-        app:layout_constraintEnd_toEndOf="@id/password"
-        app:layout_constraintBottom_toTopOf="@id/container"
-        />
+        app:layout_constraintEnd_toEndOf="@id/password" />
 
 
 
@@ -85,9 +81,6 @@
         style="@style/WithoutBackground"
         android:textSize="@dimen/text_size_h4"
 
-        style="@style/RoundedFilledButton"
-
-        app:layout_constraintTop_toBottomOf="@id/container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
