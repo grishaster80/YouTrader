@@ -8,7 +8,8 @@
 
     <string name="search">Search</string>
 
-
+    <string name="pin_reg_logo">Установка PIN</string>
+    <string name="pin_auth_logo">Авторизация по PIN</string>
     <string name="profile_portrait">Profile photo</string>
     <string name="full_name">Терентьев Михаил Палыч</string>
     <string-array name="currencies">

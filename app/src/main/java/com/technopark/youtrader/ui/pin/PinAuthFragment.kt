@@ -24,7 +24,7 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            label.text = "Авторизация по PIN"
+            label.text = getString(R.string.pin_auth_logo)
         }
 
 
