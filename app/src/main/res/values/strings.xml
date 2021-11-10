@@ -3,11 +3,13 @@
 
     <string name="base_url">https://www.crypto-api-url.ru/</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="search">Search</string>
-
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="to_sign_in">Вход</string>
+    <string name="to_sign_up">Регистрация</string>
 
     <string name="profile_portrait">Profile photo</string>
     <string name="full_name">Терентьев Михаил Палыч</string>

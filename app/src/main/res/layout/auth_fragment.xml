@@ -26,6 +26,9 @@
         android:layout_height="wrap_content"
 
         style="@style/RoundedEditText"
+        style="@style/RoundedCornersStyle"
+        android:paddingHorizontal="10dp"
+        android:hint="Введите email"
         android:inputType="textVisiblePassword|textNoSuggestions"
 
         android:hint="@string/enter_login_hint"
@@ -62,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        style="@style/RoundedCornersStyle"
         android:text="@string/enter_button_text"
         style="@style/RoundedFilledButton"
 
@@ -71,68 +75,14 @@
         app:layout_constraintBottom_toTopOf="@id/container"
         />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
 
-        app:layout_constraintTop_toBottomOf="@id/buttonSignIn"
-        app:layout_constraintBottom_toTopOf="@id/buttonToNextFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
-
-        <Button
-            android:id="@+id/buttonSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Sign up"
-            android:textSize="@dimen/text_size_h4"
-            style="@style/RectangularFilledButton" />
-
-        <Button
-            android:id="@+id/buttonCheckSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            style="@style/RoundedFilledButton"
-
-            android:text="Check sign in"
-            android:textSize="@dimen/text_size_h4" />
-
-        <Button
-            android:id="@+id/buttonSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:background="@drawable/rect_radius_100"
-
-            style="@style/RectangularFilledButton"
-
-            android:text="Sign Out"
-            android:textSize="@dimen/text_size_h4" />
-
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-
-            style="@style/RoundedFilledButton"
-
-            android:text="Back"
-            android:textSize="16sp" />
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
         android:id="@+id/buttonToNextFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Go to second Fragment"
+        style="@style/WithoutBackground"
         android:textSize="@dimen/text_size_h4"
 
         style="@style/RoundedFilledButton"
