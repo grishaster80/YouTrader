@@ -1,16 +1,27 @@
 package com.technopark.youtrader.ui.currencies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.model.Currency
+import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CurrencyItem
+import com.technopark.youtrader.repository.CryptoCurrencyRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CurrenciesViewModel : BaseViewModel() {
+@HiltViewModel
+class CurrenciesViewModel @Inject constructor(
+    private val repository: CryptoCurrencyRepository
+) : BaseViewModel() {
 
-    private val _currencyItems: MutableLiveData<List<CurrencyItem>> =
-        MutableLiveData(getCurrencyItems())
+    private val _currencyItems: MutableLiveData<List<CurrencyItem>> = liveData{
+        emit(getCurrencyItems())
+    } as MutableLiveData<List<CurrencyItem>>
     val currencyItems: LiveData<List<CurrencyItem>> = _currencyItems
+
+
 
     fun navigateToAuthFragment() {
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToAuthFragment())
@@ -20,30 +31,16 @@ class CurrenciesViewModel : BaseViewModel() {
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment())
     }
 
-    private fun getCurrencyItems(): List<CurrencyItem> {
+    private suspend fun getCurrencyItems(): List<CurrencyItem> = withContext(Dispatchers.IO){
         val currencyItems = mutableListOf<CurrencyItem>()
         for (currency in getCurrencies()) {
             currencyItems.add(CurrencyItem(currency))
         }
-        return currencyItems
+        return@withContext currencyItems
     }
 
-    private fun getCurrencies(): List<Currency> {
-        return listOf(
-            Currency("BitCoin", "66k"),
-            Currency("DogeCoin", "133k"),
-            Currency("DogeCoin", "133k"),
-            Currency("DogeasadassadasdasCoin", "133k"),
-            Currency("DogeCasdasdasdoin", "133k"),
-            Currency("DogeqweCoin", "14k"),
-            Currency("DogeqweCoin", "63k"),
-            Currency("DogwqeeCoin", "78k"),
-            Currency("DogeqweCoin", "57k"),
-            Currency("DogeCqweqwoin", "133k"),
-            Currency("DogeqweCoin", "13k"),
-            Currency("DogeCqweoin", "21k"),
-            Currency("DogeCqweoin", "91k"),
-        )
+    private suspend fun getCurrencies(): List<CryptoCurrency> = withContext(Dispatchers.IO) {
+        return@withContext repository.getCurrencies()
     }
 
     companion object {

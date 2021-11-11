@@ -5,19 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.technopark.youtrader.model.CryptoCurrencyExample
+import com.technopark.youtrader.model.CryptoCurrency
 
 @Dao
 interface CryptoCurrencyDao {
     @Insert
-    suspend fun insertCurrencies(currencies: List<CryptoCurrencyExample>)
+    suspend fun insertCurrencies(currencies: List<CryptoCurrency>)
 
     @Query("SELECT * from cryptocurrencyexample")
-    suspend fun getCurrencies(): List<CryptoCurrencyExample>
+    suspend fun getCurrencies(): List<CryptoCurrency>
 
     @Update
-    suspend fun updateCurrencies(currencies: List<CryptoCurrencyExample>)
+    suspend fun updateCurrencies(currencies: List<CryptoCurrency>)
 
     @Delete
-    suspend fun deleteCurrencies(currencies: List<CryptoCurrencyExample>)
+    suspend fun deleteCurrencies(currencies: List<CryptoCurrency>)
 }

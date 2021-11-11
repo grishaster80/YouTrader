@@ -1,7 +1,7 @@
 package com.technopark.youtrader.ui.auth
 
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.model.CryptoCurrencyExample
+import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.network.IAuthService
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ class AuthViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
 
-    suspend fun getCryptoCurrencies(): List<CryptoCurrencyExample> = withContext(Dispatchers.IO) {
+    suspend fun getCryptoCurrencies(): List<CryptoCurrency> = withContext(Dispatchers.IO) {
             return@withContext repository.getCurrencies()
     }
 

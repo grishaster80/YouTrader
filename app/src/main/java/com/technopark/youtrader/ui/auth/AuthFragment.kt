@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.AuthFragmentBinding
-import com.technopark.youtrader.model.CryptoCurrencyExample
+import com.technopark.youtrader.model.CryptoCurrency
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,7 +49,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
         }
     }
 
-    suspend fun showToast(res: List<CryptoCurrencyExample>) = withContext(Dispatchers.Main) {
+    suspend fun showToast(res: List<CryptoCurrency>) = withContext(Dispatchers.Main) {
         Log.d(TAG, "Received: ${res.first()}")
         Toast.makeText(
             requireContext(),
