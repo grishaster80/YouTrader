@@ -1,9 +1,9 @@
 package com.technopark.youtrader.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
-data class Response(@SerializedName("data")val data: List<CryptoCurrency>,
-                @SerializedName("timestamp")val timestamp: Long)
+data class Response(@field:Json(name = "data")val data: List<CryptoCurrency>,
+                    @field:Json(name = "timestamp")val timestamp: Long)
 
 
 
