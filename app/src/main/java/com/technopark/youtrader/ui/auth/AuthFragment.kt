@@ -42,20 +42,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                 viewModel.navigateToRegFragment()
             }
         }
-
-        lifecycleScope.launch {
-            val res = viewModel.getCryptoCurrencies()
-            showToast(res)
-        }
-    }
-
-    suspend fun showToast(res: List<CryptoCurrency>) = withContext(Dispatchers.Main) {
-        Log.d(TAG, "Received: ${res.first()}")
-        Toast.makeText(
-            requireContext(),
-            "Received: ${res.first()}",
-            Toast.LENGTH_LONG
-        ).show()
     }
 
     companion object {

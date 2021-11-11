@@ -15,10 +15,6 @@ class AuthViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
 
-    suspend fun getCryptoCurrencies(): List<CryptoCurrency> = withContext(Dispatchers.IO) {
-            return@withContext repository.getCurrencies()
-    }
-
     fun signUp(email: String, password: String) = authService.sighUp(email, password)
 
     fun signIn(email: String, password: String) = authService.signIn(email, password)

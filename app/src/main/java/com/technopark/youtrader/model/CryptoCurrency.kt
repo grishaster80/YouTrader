@@ -4,11 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
-data class Resp(@SerializedName("data")val data: List<CryptoCurrency>,
-                @SerializedName("timestamp")val timestamp: Long)
-
-
 @Entity(tableName = "cryptocurrencyexample")
 data class CryptoCurrency(@PrimaryKey
                                  @SerializedName("id")val id: String = "",
