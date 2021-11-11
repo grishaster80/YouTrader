@@ -1,15 +1,12 @@
 package com.technopark.youtrader.ui.auth
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CryptoCurrencyExample
 import com.technopark.youtrader.network.IAuthService
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,16 +15,8 @@ class AuthViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
 
-    private var _cryptoCurrencies: MutableLiveData<List<CryptoCurrencyExample>> = MutableLiveData()
-    val cryptoCurrencies: LiveData<List<CryptoCurrencyExample>> = _cryptoCurrencies
-
-    fun getCryptoCurrencies() {
-        viewModelScope.launch {
-            repository.getCurrencies()
-                .collect { cryptoCurrencies ->
-                    _cryptoCurrencies.value = cryptoCurrencies
-                }
-        }
+    suspend fun getCryptoCurrencies(): List<CryptoCurrencyExample> = withContext(Dispatchers.IO) {
+            return@withContext repository.getCurrencies()
     }
 
     fun signUp(email: String, password: String) = authService.sighUp(email, password)
