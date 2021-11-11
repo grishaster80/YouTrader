@@ -1,6 +1,8 @@
 package com.technopark.youtrader.network
 
 import com.technopark.youtrader.model.CryptoCurrencyExample
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CryptoCurrencyNetworkService @Inject constructor(private val cryptoApi: CryptoCurrencyApi) {
@@ -9,10 +11,8 @@ class CryptoCurrencyNetworkService @Inject constructor(private val cryptoApi: Cr
         val isInternetConnected = checkNetworkConnection()
 
         return if (isInternetConnected) {
-            // TODO uncomment after stub deletion
-//            cryptoApi.getValue()
-            // TODO delete stub
-            listOf(CryptoCurrencyExample(123))
+            cryptoApi.getValue().execute().body()?.data
+                ?: listOf(CryptoCurrencyExample())
         } else {
             listOf()
         }

@@ -1,11 +1,12 @@
 package com.technopark.youtrader.network
 
-import com.technopark.youtrader.model.CryptoCurrencyExample
+import com.technopark.youtrader.model.Resp
+import retrofit2.Call
 import retrofit2.http.GET
 
 interface CryptoCurrencyApi {
 
     // TODO create custom Response wrapper
-    @GET("value")
-    suspend fun getValue(): List<CryptoCurrencyExample>
+    @GET("assets")
+    fun getValue(): Call<Resp>
 }
