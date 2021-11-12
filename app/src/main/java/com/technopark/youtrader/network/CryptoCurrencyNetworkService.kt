@@ -9,9 +9,11 @@ class CryptoCurrencyNetworkService @Inject constructor(private val cryptoApi: Cr
         val isInternetConnected = checkNetworkConnection()
 
         return if (isInternetConnected) {
-            //TODO добавить обход 429 - "Превышено количество запросов"
-            cryptoApi.getValue().execute().body()?.data
-                ?: listOf(CryptoCurrency())
+            var resp = cryptoApi.getValue().execute().body()
+            while(resp == null){
+                resp = cryptoApi.getValue().execute().body()
+            }
+            resp.data
         } else {
             listOf()
         }
