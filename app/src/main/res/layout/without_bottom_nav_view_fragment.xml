@@ -11,9 +11,9 @@
 
         android:text="Заголовок временного фрагмента"
 
-        style="@style/TextLogoStyle"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        style="@style/TextViewTitle"
+        android:layout_marginTop="@dimen/indent_big"
+        android:layout_marginBottom="@dimen/indent_big"
         android:gravity="center"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -28,9 +28,9 @@
 
         android:text="Содержимое временного фрагмента"
 
-        style="@style/TextLogoStyle"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        style="@style/TextViewTitle"
+        android:layout_marginTop="@dimen/indent_big"
+        android:layout_marginBottom="@dimen/indent_big"
         android:gravity="center"
 
         app:layout_constraintTop_toBottomOf="@id/header_title"
