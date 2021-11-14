@@ -24,4 +24,12 @@
     <string name="main_fragment_title">Главная</string>
     <string name="briefcase_fragment_title">Портфель</string>
     <string name="profile_fragment_title">Профиль</string>
+    <string name="enter_login_hint">Введите логин</string>
+    <string name="enter_password_hint">Введите пароль</string>
+    <string name="enter_button_text">Войти</string>
+    <string name="currency_name_content_description">currency_name</string>
+    <string name="currency_price_content_description">price</string>
+    <string name="auth_fragment_label">Регистрация</string>
+    <string name="currencies_fragment_label">Информация о валютах</string>
+    <string name="profile_fragment_label">Профиль</string>
 </resources>
