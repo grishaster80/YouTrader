@@ -9,6 +9,7 @@ import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.network.CryptoCurrencyApi
 import com.technopark.youtrader.network.FirebaseService
 import com.technopark.youtrader.network.IAuthService
+import com.technopark.youtrader.network.NetworkResponseAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+//import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -46,6 +48,7 @@ class AppModule {
             return Retrofit.Builder()
                 .baseUrl(application.resources.getString(R.string.base_url))
                 .client(client)
+                .addCallAdapterFactory(NetworkResponseAdapterFactory())
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
         }

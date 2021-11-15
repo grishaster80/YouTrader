@@ -21,13 +21,17 @@ class AuthViewModel @Inject constructor(
     private var _cryptoCurrencies: MutableLiveData<List<CryptoCurrencyExample>> = MutableLiveData()
     val cryptoCurrencies: LiveData<List<CryptoCurrencyExample>> = _cryptoCurrencies
 
+    init {
+        repository.getCurrency()
+    }
+
     fun getCryptoCurrencies() {
-        viewModelScope.launch {
-            repository.getCurrencies()
-                .collect { cryptoCurrencies ->
-                    _cryptoCurrencies.value = cryptoCurrencies
-                }
-        }
+//        viewModelScope.launch {
+//            repository.getCurrencies()
+//                .collect { cryptoCurrencies ->
+//                    _cryptoCurrencies.value = cryptoCurrencies
+//                }
+//        }
     }
 
     fun signUp(email: String, password: String) = authService.sighUp(email, password)
