@@ -9,16 +9,13 @@ class CryptoCurrencyNetworkService @Inject constructor(private val cryptoApi: Cr
         val isInternetConnected = checkNetworkConnection()
 
         return if (isInternetConnected) {
-            var resp = cryptoApi.getValue().execute().body()
-            while(resp == null){
-                resp = cryptoApi.getValue().execute().body()
-            }
-            resp.data
+            cryptoApi.getValue().execute().body()?.data?: listOf(CryptoCurrency())
         } else {
             listOf()
         }
     }
 
+    //TODO
     private fun checkNetworkConnection(): Boolean {
         return true
     }
