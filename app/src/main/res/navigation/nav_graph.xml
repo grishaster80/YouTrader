@@ -56,6 +56,17 @@
         <action
             android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_portfolioFragment"
+            app:destination="@id/portfolioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/portfolioFragment"
+        android:name="com.technopark.youtrader.ui.portfolio.PortfolioFragment"
+        android:label="@string/portfolio_fragment_label">
+        <action
+            android:id="@+id/action_portfolioFragment_to_infoHistoryFragment"
+            app:destination="@id/infoHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoHistoryFragment"

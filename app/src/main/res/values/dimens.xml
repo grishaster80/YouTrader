@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="CornerRadius">100dp</dimen>
+    <dimen name="BigCornerRadius">25dp</dimen>
 
     <dimen name="text_size_h1">64sp</dimen>
     <dimen name="text_size_h2">48sp</dimen>
     <dimen name="text_size_h3">32sp</dimen>
     <dimen name="text_size_h4">16sp</dimen>
+    <dimen name="text_size_h4.5">12sp</dimen>
     <dimen name="text_size_h5">8sp</dimen>
     <dimen name="text_size_h6">4sp</dimen>
 
