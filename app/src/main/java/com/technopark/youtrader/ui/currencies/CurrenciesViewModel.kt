@@ -17,7 +17,9 @@ class CurrenciesViewModel : BaseViewModel() {
     }
 
     fun navigateToWithoutBottomNavViewFragment() {
-        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment())
+        navigateTo(
+            CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment()
+        )
     }
 
     private fun getCurrencyItems(): List<CurrencyItem> {
