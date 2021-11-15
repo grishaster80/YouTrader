@@ -43,7 +43,6 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                 )
             )
             setPortfolioTotalPriceTextColor(totalProfit)
-
         }
 
         adapter.setOnItemClickListener(onItemClickListener)
