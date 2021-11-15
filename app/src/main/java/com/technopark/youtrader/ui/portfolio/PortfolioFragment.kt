@@ -3,6 +3,7 @@ package com.technopark.youtrader.ui.portfolio
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -41,18 +42,8 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                     resources.getDimension(R.dimen.indent_tiny).toInt()
                 )
             )
-            if (totalProfit.text[0] == '-') totalProfit.setTextColor(
-                ContextCompat.getColor(
-                    totalProfit.context,
-                    R.color.red
-                )
-            )
-            else totalProfit.setTextColor(
-                ContextCompat.getColor(
-                    totalProfit.context,
-                    R.color.green
-                )
-            )
+            setPortfolioTotalPriceTextColor(totalProfit)
+
         }
 
         adapter.setOnItemClickListener(onItemClickListener)
@@ -62,6 +53,20 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
             { currencies ->
                 adapter.update(currencies)
             }
+        )
+    }
+    private fun setPortfolioTotalPriceTextColor(totalProfit: TextView) {
+        if (totalProfit.text[0] == '-') totalProfit.setTextColor(
+            ContextCompat.getColor(
+                totalProfit.context,
+                R.color.red
+            )
+        )
+        else totalProfit.setTextColor(
+            ContextCompat.getColor(
+                totalProfit.context,
+                R.color.green
+            )
         )
     }
 
