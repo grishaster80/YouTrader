@@ -26,7 +26,7 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
 
     private val onItemClickListener = OnItemClickListener { item, view ->
         if (item is PortfolioItem) {
-            Log.d(TAG, "Go to the currency purchase history: ${item.portfolio.currency_name}")
+            Log.d(TAG, "Go to the currency purchase history: ${item.portfolio.currencyName}")
             viewModel.navigateToWithoutBottomNavViewFragment()
         }
     }
@@ -41,14 +41,18 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                     resources.getDimension(R.dimen.indent_tiny).toInt()
                 )
             )
-            if (totalProfit.text[0] == '-') totalProfit.setTextColor(ContextCompat.getColor(
-                totalProfit.context,
-                R.color.red
-            ))
-            else totalProfit.setTextColor(ContextCompat.getColor(
-                totalProfit.context,
-                R.color.green
-            ))
+            if (totalProfit.text[0] == '-') totalProfit.setTextColor(
+                ContextCompat.getColor(
+                    totalProfit.context,
+                    R.color.red
+                )
+            )
+            else totalProfit.setTextColor(
+                ContextCompat.getColor(
+                    totalProfit.context,
+                    R.color.green
+                )
+            )
         }
 
         adapter.setOnItemClickListener(onItemClickListener)

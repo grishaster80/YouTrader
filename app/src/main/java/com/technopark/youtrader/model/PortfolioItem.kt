@@ -12,19 +12,22 @@ class PortfolioItem(
 
     override fun bind(viewBinding: PortfolioItemBinding, position: Int) {
         with(viewBinding) {
-            currencyName.text = portfolio.currency_name
+            currencyName.text = portfolio.currencyName
             currencyCount.text = portfolio.count
             price.text = portfolio.price
-            changePrice.text = portfolio.price_change
-            if (changePrice.text[0] == '-') changePrice.setTextColor(ContextCompat.getColor(
-                changePrice.context,
-                R.color.red
-            ))
-            else changePrice.setTextColor(ContextCompat.getColor(
-                changePrice.context,
-                R.color.green
-            ))
-
+            changePrice.text = portfolio.priceChange
+            if (changePrice.text[0] == '-') changePrice.setTextColor(
+                ContextCompat.getColor(
+                    changePrice.context,
+                    R.color.red
+                )
+            )
+            else changePrice.setTextColor(
+                ContextCompat.getColor(
+                    changePrice.context,
+                    R.color.green
+                )
+            )
         }
     }
 

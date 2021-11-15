@@ -29,7 +29,6 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             buttonPortfolio.setOnClickListener {
                 viewModel.navigateToPortfolioFragment()
             }
-
         }
     }
 }
