@@ -5,8 +5,6 @@ import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.network.IAuthService
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,5 +24,9 @@ class AuthViewModel @Inject constructor(
     fun navigateToRegFragment() {
         val someString = "Random text"
         navigateTo(AuthFragmentDirections.actionAuthFragmentToRegFragment(someString))
+    }
+    // tmp
+    fun navigateToHistoryCurrencyFragment() {
+        navigateTo(AuthFragmentDirections.actionAuthFragmentToHistoryFragment())
     }
 }

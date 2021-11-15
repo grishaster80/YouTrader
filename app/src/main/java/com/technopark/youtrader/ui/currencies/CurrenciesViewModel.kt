@@ -28,7 +28,9 @@ class CurrenciesViewModel @Inject constructor(
     }
 
     fun navigateToWithoutBottomNavViewFragment() {
-        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment())
+        navigateTo(
+            CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment()
+        )
     }
 
     private suspend fun getCurrencyItems(): List<CurrencyItem> = withContext(Dispatchers.IO){
