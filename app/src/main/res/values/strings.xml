@@ -31,6 +31,7 @@
     <string name="currency_price_content_description">price</string>
     <string name="auth_fragment_label">Регистрация</string>
     <string name="currencies_fragment_label">Информация о валютах</string>
+    <string name="info_currency_fragment_label">История операций</string>
     <string name="profile_fragment_label">Профиль</string>
     <string name="portfolio_fragment_label">Портфель</string>
     <string name="currency_count_description">number of units</string>
