@@ -63,12 +63,12 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
                     } else {
                         viewModel.updateCurrenciesByMatch(s.toString())
                     }
-                    viewModel.currencyItems.observe(
-                        viewLifecycleOwner,
-                        { currencies ->
-                            adapter.update(currencies)
-                        }
-                    )
+//                    viewModel.currencyItems.observe(
+//                        viewLifecycleOwner,
+//                        { currencies ->
+//                            adapter.update(currencies)
+//                        }
+//                    )
                 }
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
