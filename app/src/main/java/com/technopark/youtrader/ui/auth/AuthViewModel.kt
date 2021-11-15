@@ -42,4 +42,8 @@ class AuthViewModel @Inject constructor(
         val someString = "Random text"
         navigateTo(AuthFragmentDirections.actionAuthFragmentToRegFragment(someString))
     }
+    // tmp
+    fun navigateToHistoryCurrencyFragment() {
+        navigateTo(AuthFragmentDirections.actionAuthFragmentToHistoryFragment())
+    }
 }

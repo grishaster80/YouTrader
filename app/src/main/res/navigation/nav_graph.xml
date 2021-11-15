@@ -17,6 +17,10 @@
                 app:argType="string"
                 android:defaultValue="empty" />
         </action>
+        <action
+            android:id="@+id/action_authFragment_to_historyFragment"
+            app:destination="@id/infoHistoryFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/regFragment"
@@ -52,6 +56,11 @@
         <action
             android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoHistoryFragment"
+        android:name="com.technopark.youtrader.ui.currencies.InfoCurrencyFragment"
+        android:label="@string/info_currency_fragment_label">
     </fragment>
     <fragment
         android:id="@+id/withoutBottomNavViewFragment"
