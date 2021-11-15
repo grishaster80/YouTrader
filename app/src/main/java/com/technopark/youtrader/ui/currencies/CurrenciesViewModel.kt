@@ -10,7 +10,7 @@ class CurrenciesViewModel : BaseViewModel() {
 
     private val _currencyItems: MutableLiveData<List<CurrencyItem>> =
         MutableLiveData(getCurrencyItems())
-    val currencyItems: LiveData<List<CurrencyItem>> = _currencyItems
+    var currencyItems: LiveData<List<CurrencyItem>> = _currencyItems
 
     fun navigateToAuthFragment() {
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToAuthFragment())
@@ -21,8 +21,12 @@ class CurrenciesViewModel : BaseViewModel() {
     }
 
     private fun getCurrencyItems(): List<CurrencyItem> {
+        return currenciesToCurrencyItems(getCurrencies())
+    }
+
+    private fun currenciesToCurrencyItems(currencies: List<Currency>) : List<CurrencyItem> {
         val currencyItems = mutableListOf<CurrencyItem>()
-        for (currency in getCurrencies()) {
+        for (currency in currencies) {
             currencyItems.add(CurrencyItem(currency))
         }
         return currencyItems
@@ -44,6 +48,18 @@ class CurrenciesViewModel : BaseViewModel() {
             Currency("DogeCqweoin", "21k"),
             Currency("DogeCqweoin", "91k"),
         )
+    }
+
+    private fun findCurrenciesByMatch(pattern :String) : List<Currency> {
+        return getCurrencies().filter { (currency) -> currency.contains(pattern,true) }
+    }
+
+    fun updateCurrenciesByMatch(pattern: String) {
+        currencyItems = MutableLiveData(currenciesToCurrencyItems(findCurrenciesByMatch(pattern)))
+    }
+
+    fun loadCurrencies() {
+        currencyItems = MutableLiveData(getCurrencyItems())
     }
 
     companion object {

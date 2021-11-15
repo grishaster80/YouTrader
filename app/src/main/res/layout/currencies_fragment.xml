@@ -15,6 +15,7 @@
         android:layout_marginVertical="15sp"
         android:ems="10"
         android:hint="@string/search"
+        android:maxLines="1"
 
         app:layout_constraintBottom_toTopOf="@+id/currencies_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
