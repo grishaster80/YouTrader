@@ -26,7 +26,7 @@ class CurrenciesViewModel : BaseViewModel() {
         return currenciesToCurrencyItems(getCurrencies())
     }
 
-    private fun currenciesToCurrencyItems(currencies: List<Currency>) : List<CurrencyItem> {
+    private fun currenciesToCurrencyItems(currencies: List<Currency>): List<CurrencyItem> {
         val currencyItems = mutableListOf<CurrencyItem>()
         for (currency in currencies) {
             currencyItems.add(CurrencyItem(currency))
@@ -52,8 +52,8 @@ class CurrenciesViewModel : BaseViewModel() {
         )
     }
 
-    private fun findCurrenciesByMatch(pattern :String) : List<Currency> {
-        return getCurrencies().filter { (currency) -> currency.contains(pattern,true) }
+    private fun findCurrenciesByMatch(pattern: String): List<Currency> {
+        return getCurrencies().filter { (currency) -> currency.contains(pattern, true) }
     }
 
     fun updateCurrenciesByMatch(pattern: String) {

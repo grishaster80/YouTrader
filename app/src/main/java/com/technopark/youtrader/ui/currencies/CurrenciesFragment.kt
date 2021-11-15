@@ -55,24 +55,26 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
             }
         )
 
-        search.addTextChangedListener ( object : TextWatcher {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.isEmpty() == true) {
-                    viewModel.loadCurrencies()
-                } else {
-                    viewModel.updateCurrenciesByMatch(s.toString())
-                }
-                viewModel.currencyItems.observe(
-                    viewLifecycleOwner,
-                    { currencies ->
-                        adapter.update(currencies)
+        search.addTextChangedListener(
+            object : TextWatcher {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (s?.isEmpty() == true) {
+                        viewModel.loadCurrencies()
+                    } else {
+                        viewModel.updateCurrenciesByMatch(s.toString())
                     }
-                )
-            }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                    viewModel.currencyItems.observe(
+                        viewLifecycleOwner,
+                        { currencies ->
+                            adapter.update(currencies)
+                        }
+                    )
+                }
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun afterTextChanged(s: Editable) {}
-        })
+                override fun afterTextChanged(s: Editable) {}
+            }
+        )
     }
 
     companion object {
