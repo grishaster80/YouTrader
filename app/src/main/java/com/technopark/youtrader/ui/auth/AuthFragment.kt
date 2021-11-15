@@ -50,7 +50,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                     .show()
             }
         )
-        viewModel.getCryptoCurrencies()
     }
 
     companion object {

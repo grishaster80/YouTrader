@@ -1,6 +1,6 @@
-package com.technopark.youtrader.network
+package com.technopark.youtrader.network.retrofit
 
-import android.util.Log
+import com.technopark.youtrader.network.NetworkResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -31,7 +31,6 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
         }
 
         val successBodyType = getParameterUpperBound(0, responseType)
-        Log.d("CryptoCurrencyNetworkSe", "sdf")
 
         return NetworkResponseAdapter<Any>(successBodyType)
     }

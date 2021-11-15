@@ -8,35 +8,35 @@ import com.squareup.moshi.Json
 data class CryptoCurrencyExample(@PrimaryKey val id: Int)
 
 data class CryptoCurrencyWrapper(
-    @Json(name = "data")
+    @field:Json(name = "data")
     val data: CryptoCurrency,
-    @Json(name = "timestamp")
+    @field:Json(name = "timestamp")
     val timestamp: String,
 )
 
 data class CryptoCurrency(
-    @Json(name = "id")
+    @field:Json(name = "id")
     val id: String,
-    @Json(name = "rank")
+    @field:Json(name = "rank")
     val rank: Int,
-    @Json(name = "symbol")
+    @field:Json(name = "symbol")
     val symbol: String,
-    @Json(name = "name")
+    @field:Json(name = "name")
     val name: String,
-    @Json(name = "supply")
+    @field:Json(name = "supply")
     val supply: String,
-    @Json(name = "maxSupply")
+    @field:Json(name = "maxSupply")
     val maxSupply: String,
-    @Json(name = "marketCapUsd")
+    @field:Json(name = "marketCapUsd")
     val marketCapUsd: String,
-    @Json(name = "volumeUsd24Hr")
+    @field:Json(name = "volumeUsd24Hr")
     val volumeUsd24Hr: String,
-    @Json(name = "priceUsd")
+    @field:Json(name = "priceUsd")
     val priceUsd: String,
-    @Json(name = "changePercent24Hr")
+    @field:Json(name = "changePercent24Hr")
     val changePercent24Hr: String,
-    @Json(name = "vwap24Hr")
+    @field:Json(name = "vwap24Hr")
     val vwap24Hr: String,
-    @Json(name = "explorer")
+    @field:Json(name = "explorer")
     val explorer: String
 )
