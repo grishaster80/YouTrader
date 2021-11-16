@@ -16,6 +16,10 @@ class CurrenciesViewModel : BaseViewModel() {
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToAuthFragment())
     }
 
+    fun navigateToChartFragment() {
+        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToChartFragment())
+    }
+
     fun navigateToWithoutBottomNavViewFragment() {
         navigateTo(
             CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment()

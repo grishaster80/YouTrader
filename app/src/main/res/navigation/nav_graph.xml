@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_currenciesFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+        <action
+            android:id="@+id/action_currenciesFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
