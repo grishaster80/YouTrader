@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_currenciesFragment_to_withoutBottomNavViewFragment"
             app:destination="@id/withoutBottomNavViewFragment" />
+        <action
+            android:id="@+id/action_currenciesFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -59,6 +62,9 @@
         <action
             android:id="@+id/action_profileFragment_to_portfolioFragment"
             app:destination="@id/portfolioFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
@@ -69,6 +75,11 @@
             app:destination="@id/infoHistoryFragment" />
     </fragment>
     <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.technopark.youtrader.ui.chart.ChartFragment"
+        android:label="@string/chart_fragment_label">
+    </fragment>
+    <fragment
         android:id="@+id/infoHistoryFragment"
         android:name="com.technopark.youtrader.ui.currencies.InfoCurrencyFragment"
         android:label="@string/info_currency_fragment_label">
@@ -76,5 +87,6 @@
     <fragment
         android:id="@+id/withoutBottomNavViewFragment"
         android:name="com.technopark.youtrader.ui.WithoutBottomNavViewFragment"
+
         android:label="Фрагмент без bottomBar" />
 </navigation>
