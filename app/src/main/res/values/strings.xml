@@ -34,6 +34,7 @@
     <string name="info_currency_fragment_label">История операций</string>
     <string name="profile_fragment_label">Профиль</string>
     <string name="portfolio_fragment_label">Портфель</string>
+    <string name="chart_fragment_label">График</string>
     <string name="currency_count_description">number of units</string>
     <string name="total_profit_description">total profit</string>
     <string name="portfolio_value_description">portfolio value</string>
