@@ -12,11 +12,11 @@ import com.technopark.youtrader.databinding.AuthFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AuthFragment : BaseFragment(R.layout.auth_fragment) {
+class RegFragment : BaseFragment(R.layout.auth_fragment) {
 
     private val binding by viewBinding(AuthFragmentBinding::bind)
 
-    override val viewModel: AuthViewModel by viewModels()
+    override val viewModel: RegViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,19 +25,15 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
         val password = "qwerty"
 
         with(binding) {
-            buttonSign.text = getString(R.string.sign_in)
-            buttonToNextFragment.text = getString(R.string.to_sign_up)
+            buttonSign.text = getString(R.string.sign_up)
+            buttonToNextFragment.text = getString(R.string.to_sign_in)
 
             buttonSign.setOnClickListener {
-                viewModel.signIn(email, password)
+                viewModel.signUp(email, password)
             }
 
             buttonToNextFragment.setOnClickListener {
-                viewModel.navigateToRegFragment()
-            }
-
-            toHistoryBtn.setOnClickListener {
-                viewModel.navigateToHistoryCurrencyFragment()
+                viewModel.navigateToAuthFragment()
             }
         }
 
@@ -57,6 +53,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
     }
 
     companion object {
-        const val TAG = "AuthFragmentTag"
+        const val TAG = "RegFragmentTag"
     }
 }

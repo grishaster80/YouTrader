@@ -54,7 +54,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis.valueFormatter = MyAxisFormatter(scoreList)
         xAxis.setDrawLabels(true)
         xAxis.granularity = 1f
-//        xAxis.labelRotationAngle = +90f
     }
 
     private fun setDataToLineChart() {
@@ -64,13 +63,14 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         for (i in scoreList.indices) {
             val score = scoreList[i]
-            entries.add(Entry(i.toFloat(), score.score))
+            entries.add(Entry(i.toFloat(), score.value))
         }
 
         val lineDataSet = LineDataSet(entries, "")
 
         lineDataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER)
         lineDataSet.setColor(Color.BLACK)
+
         val data = LineData(lineDataSet)
         lineChart.data = data
 

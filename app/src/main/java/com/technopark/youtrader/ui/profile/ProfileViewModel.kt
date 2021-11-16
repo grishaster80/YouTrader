@@ -14,4 +14,7 @@ class ProfileViewModel : BaseViewModel() {
     fun navigateToChartFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToChartFragment())
     }
+    fun navigateToPortfolioFragment() {
+        navigateTo(ProfileFragmentDirections.actionProfileFragmentToPortfolioFragment())
+    }
 }

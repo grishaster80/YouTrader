@@ -9,6 +9,7 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.CurrenciesFragmentBinding
 import com.technopark.youtrader.model.CurrencyItem
+import com.technopark.youtrader.utils.VerticalItemDecoration
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,15 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.currenciesRecyclerView.adapter = adapter
+        with(binding) {
+            currenciesRecyclerView.adapter = adapter
+            currenciesRecyclerView.addItemDecoration(
+                VerticalItemDecoration(
+                    resources.getDimension(R.dimen.indent_tiny).toInt()
+                )
+            )
+        }
+
         adapter.setOnItemClickListener(onItemClickListener)
 
         viewModel.currencyItems.observe(

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
+class RegViewModel @Inject constructor(
     private val repository: CryptoCurrencyRepository,
     private val authService: IAuthService
 ) : BaseViewModel() {
@@ -38,12 +38,8 @@ class AuthViewModel @Inject constructor(
 
     fun signOut() = authService.sighOut()
 
-    fun navigateToRegFragment() {
+    fun navigateToAuthFragment() {
         val someString = "Random text"
-        navigateTo(AuthFragmentDirections.actionAuthFragmentToRegFragment(someString))
-    }
-    // tmp
-    fun navigateToHistoryCurrencyFragment() {
-        navigateTo(AuthFragmentDirections.actionAuthFragmentToHistoryFragment())
+        navigateTo(RegFragmentDirections.actionRegFragmentToAuthFragment(someString))
     }
 }
