@@ -17,20 +17,22 @@ import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.currencies_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
 
     private val binding by viewBinding(CurrenciesFragmentBinding::bind)
-
     override val viewModel: CurrenciesViewModel by viewModels()
-
     private val adapter by lazy { GroupieAdapter() }
 
     private val onItemClickListener = OnItemClickListener { item, view ->
         if (item is CurrencyItem) {
             Log.d(TAG, "Go to currency: ${item.currency.name}")
-            viewModel.navigateToWithoutBottomNavViewFragment()
+            viewModel.navigateToChartFragment()
         }
     }
 
@@ -58,10 +60,10 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
         search.addTextChangedListener(
             object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (s?.isEmpty() == true) {
+                    if (binding.search.text.isEmpty()) {
                         viewModel.loadCurrencies()
                     } else {
-                        viewModel.updateCurrenciesByMatch(s.toString())
+                        viewModel.updateCurrenciesByMatch(binding.search.text.toString())
                     }
                 }
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

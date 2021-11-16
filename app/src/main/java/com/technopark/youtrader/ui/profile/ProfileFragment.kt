@@ -26,6 +26,9 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             buttonNext.setOnClickListener {
                 viewModel.navigateToWithoutBottomNavViewFragment()
             }
+            buttonChart.setOnClickListener {
+                viewModel.navigateToChartFragment()
+            }
             buttonPortfolio.setOnClickListener {
                 viewModel.navigateToPortfolioFragment()
             }
