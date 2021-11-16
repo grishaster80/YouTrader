@@ -36,6 +36,9 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     isPinAuth = false
                 }
             }
+            buttonPortfolio.setOnClickListener {
+                viewModel.navigateToPortfolioFragment()
+            }
         }
     }
 }

@@ -19,7 +19,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
     override val viewModel: AuthViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Don't forget to call super.onViewCreated
         super.onViewCreated(view, savedInstanceState)
 
         val email = "first.user@mail.com"
@@ -35,6 +34,10 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
 
             buttonToNextFragment.setOnClickListener {
                 viewModel.navigateToRegFragment()
+            }
+
+            toHistoryBtn.setOnClickListener {
+                viewModel.navigateToHistoryCurrencyFragment()
             }
         }
 
@@ -54,6 +57,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
     }
 
     companion object {
-        const val TAG = "FirstFragmentTag"
+        const val TAG = "AuthFragmentTag"
     }
 }

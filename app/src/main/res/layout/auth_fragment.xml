@@ -2,70 +2,75 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/Logo"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ТыТрейдер"
 
-        style="@style/TextLogoStyle"
+        style="@style/TextViewTitle"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Login"/>
+        app:layout_constraintBottom_toTopOf="@id/login"/>
 
     <EditText
-        android:id="@+id/Login"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:id="@+id/login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
-        style="@style/RoundedCornersStyle"
-        android:paddingHorizontal="10dp"
-        android:hint="Введите email"
+        style="@style/RoundedEditText"
+        android:paddingHorizontal="@dimen/indent_very_small"
         android:inputType="textVisiblePassword|textNoSuggestions"
 
-        app:layout_constraintTop_toBottomOf="@id/Logo"
+        android:hint="@string/enter_login_hint"
+        android:layout_marginStart="@dimen/indent_big"
+        android:layout_marginEnd="@dimen/indent_big"
+
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Password"
-        />
+        app:layout_constraintBottom_toTopOf="@id/password" />
 
     <EditText
-        android:id="@+id/Password"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
-
-        style="@style/RoundedCornersStyle"
-        android:paddingHorizontal="10dp"
-        android:hint="Введите пароль"
+        style="@style/RoundedEditText"
+        android:paddingHorizontal="@dimen/indent_very_small"
+        android:hint="@string/enter_password_hint"
         android:inputType="textPassword"
 
-        app:layout_constraintTop_toBottomOf="@id/Login"
+        android:layout_marginTop="@dimen/indent_small"
+        android:layout_marginStart="@dimen/indent_big"
+        android:layout_marginEnd="@dimen/indent_big"
+
+        app:layout_constraintTop_toBottomOf="@id/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonSign"
-        />
+        app:layout_constraintBottom_toTopOf="@id/buttonSign" />
 
 
     <Button
         android:id="@+id/buttonSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_small"
 
-        style="@style/RoundedCornersStyle"
+        android:text="@string/enter_button_text"
+        style="@style/RoundedFilledButton"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintStart_toStartOf="@id/password"
+        app:layout_constraintEnd_toEndOf="@id/password" />
 
 
 
@@ -80,5 +85,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/toHistoryBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSign" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
