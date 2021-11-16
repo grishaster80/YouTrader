@@ -18,7 +18,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     override val viewModel: ChartViewModel by viewModels()
 
-    private lateinit var lineChart: LineChart
+    private var lineChart: LineChart? = null
     private var scoreList = ArrayList<Score>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,25 +35,25 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private fun initLineChart() {
 
 //        hide grid lines
-        lineChart.axisLeft.setDrawGridLines(false)
-        val xAxis: XAxis = lineChart.xAxis
-        xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
+        lineChart?.axisLeft?.setDrawGridLines(false)
+        val xAxis: XAxis? = lineChart?.xAxis
+        xAxis?.setDrawGridLines(false)
+        xAxis?.setDrawAxisLine(false)
 
         // remove right y-axis
-        lineChart.axisRight.isEnabled = false
+        lineChart?.axisRight?.isEnabled = false
 
         // remove legend
-        lineChart.legend.isEnabled = false
+        lineChart?.legend?.isEnabled = false
 
         // remove description label
-        lineChart.description.isEnabled = false
+        lineChart?.description?.isEnabled = false
 
         // to draw label on xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.valueFormatter = MyAxisFormatter(scoreList)
-        xAxis.setDrawLabels(true)
-        xAxis.granularity = 1f
+        xAxis?.position = XAxis.XAxisPosition.BOTTOM
+        xAxis?.valueFormatter = MyAxisFormatter(scoreList)
+        xAxis?.setDrawLabels(true)
+        xAxis?.granularity = 1f
     }
 
     private fun setDataToLineChart() {
@@ -68,13 +68,15 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         val lineDataSet = LineDataSet(entries, "")
 
-        lineDataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER)
-        lineDataSet.setColor(Color.BLACK)
+        lineDataSet.apply {
+            mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+            color = Color.BLACK
+        }
 
         val data = LineData(lineDataSet)
-        lineChart.data = data
+        lineChart?.data = data
 
-        lineChart.invalidate()
+        lineChart?.invalidate()
     }
 
     // simulate api call
