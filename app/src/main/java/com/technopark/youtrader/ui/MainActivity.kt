@@ -1,5 +1,7 @@
 package com.technopark.youtrader.ui
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         R.id.profileFragment
     )
 
-    private val toolbarFragmentIds = listOf(
+    private val withoutToolbarFragmentIds = listOf(
         R.id.authFragment,
         R.id.regFragment,
         R.id.currenciesFragment,
@@ -50,8 +52,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.visibility =
-                showNavElementsDependingOnCurrentDestination(destination.id)
+            binding.bottomNavView.visibility = navViewVisibility(destination.id)
+            binding.toolbar.navigationIcon = navigationIconId(destination.id)
         }
     }
 
@@ -59,18 +61,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController.popBackStack()
     }
 
-    private fun showNavElementsDependingOnCurrentDestination(destinationId: Int): Int {
-        return if (destinationId in toolbarFragmentIds) {
-            if (destinationId in bottomNavViewFragmentIds) {
-                binding.toolbar.navigationIcon = null
-                View.VISIBLE
-            } else{
-                binding.toolbar.navigationIcon = null
-                View.GONE
-            }
-        } else {
-            binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+    private fun navViewVisibility(destinationId: Int): Int {
+        return if (destinationId in bottomNavViewFragmentIds)
+            View.VISIBLE
+        else
             View.GONE
-        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun navigationIconId(destinationId: Int): Drawable? {
+        return if (destinationId in withoutToolbarFragmentIds)
+            null
+        else
+            getDrawable(R.drawable.ic_arrow_back)
     }
 }
