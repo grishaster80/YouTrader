@@ -18,15 +18,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
 
     private val binding by viewBinding(CurrenciesFragmentBinding::bind)
-
     override val viewModel: CurrenciesViewModel by viewModels()
-
     private val adapter by lazy { GroupieAdapter() }
 
     private val onItemClickListener = OnItemClickListener { item, view ->
         if (item is CurrencyItem) {
             Log.d(TAG, "Go to currency: ${item.currency.name}")
-            viewModel.navigateToWithoutBottomNavViewFragment()
+            viewModel.navigateToChartFragment()
         }
     }
 

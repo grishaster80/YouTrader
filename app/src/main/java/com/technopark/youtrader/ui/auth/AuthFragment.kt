@@ -5,11 +5,16 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.AuthFragmentBinding
+import com.technopark.youtrader.model.CryptoCurrency
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment(R.layout.auth_fragment) {
@@ -37,20 +42,6 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                 viewModel.navigateToRegFragment()
             }
         }
-
-        viewModel.cryptoCurrencies.observe(
-            viewLifecycleOwner,
-            { currencies ->
-                Log.d(TAG, "Received: ${currencies.first()}")
-                Toast.makeText(
-                    requireContext(),
-                    "Received: ${currencies.first()}",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-        )
-        viewModel.getCryptoCurrencies()
     }
 
     companion object {
