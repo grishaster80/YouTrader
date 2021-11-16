@@ -34,15 +34,12 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
             buttonToNextFragment.text = getString(R.string.to_sign_up)
 
             buttonSign.setOnClickListener {
-                viewModel.signIn(email, password)
+                viewModel.navigateToCurrenciesFragment()
+                //viewModel.signIn(email, password)
             }
 
             buttonToNextFragment.setOnClickListener {
                 viewModel.navigateToRegFragment()
-            }
-
-            toHistoryBtn.setOnClickListener {
-                viewModel.navigateToHistoryCurrencyFragment()
             }
         }
     }
