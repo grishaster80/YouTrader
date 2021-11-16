@@ -81,48 +81,16 @@
         app:trackTint="@color/shuttle_gray" />
 
     <Button
-        android:id="@+id/button_back"
+        android:id="@+id/button_regPin"
         style="@style/RoundedFilledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Back to second Fragment"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_pin_code" />
-
-    <Button
-        android:id="@+id/button_next"
-        style="@style/RoundedFilledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Go to new fragment"
+        android:text="Go to reg pin"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_back" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_pin_code" />
 
-    <Button
-        android:id="@+id/button_portfolio"
-        style="@style/RoundedFilledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:text="Go to portfolio"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_next" />
-
-    <Button
-        android:id="@+id/button_chart"
-        style="@style/RoundedFilledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Go to chart"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_next" />
 </androidx.constraintlayout.widget.ConstraintLayout>

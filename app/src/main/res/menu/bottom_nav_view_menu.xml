@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/authFragment"
+        android:id="@+id/currenciesFragment"
         android:title="@string/main_fragment_title"
         android:icon="@drawable/ic_homepage"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/currenciesFragment"
+        android:id="@+id/portfolioFragment"
         android:title="@string/briefcase_fragment_title"
         android:icon="@drawable/ic_briefcase"
         app:showAsAction="ifRoom" />
