@@ -21,6 +21,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         R.id.profileFragment
     )
 
+    private val toolbarFragmentIds = listOf(
+        R.id.authFragment,
+        R.id.regFragment,
+        R.id.currenciesFragment,
+        R.id.portfolioFragment,
+        R.id.profileFragment
+    )
+
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment)
             .navController
@@ -52,10 +60,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun showNavElementsDependingOnCurrentDestination(destinationId: Int): Int {
-        return if (destinationId in bottomNavViewFragmentIds
-        ) {
-            binding.toolbar.navigationIcon = null
-            View.VISIBLE
+        return if (destinationId in toolbarFragmentIds) {
+            if (destinationId in bottomNavViewFragmentIds) {
+                binding.toolbar.navigationIcon = null
+                View.VISIBLE
+            } else{
+                binding.toolbar.navigationIcon = null
+                View.GONE
+            }
         } else {
             binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
             View.GONE
