@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         R.id.profileFragment
     )
 
-    private val withoutToolbarFragmentIds = listOf(
+    private val withoutToolbarNavIconFragmentIds = listOf(
         R.id.authFragment,
         R.id.regFragment,
         R.id.currenciesFragment,
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun navigationIconId(destinationId: Int): Drawable? {
-        return if (destinationId in withoutToolbarFragmentIds)
+        return if (destinationId in withoutToolbarNavIconFragmentIds)
             null
         else
             getDrawable(R.drawable.ic_arrow_back)
