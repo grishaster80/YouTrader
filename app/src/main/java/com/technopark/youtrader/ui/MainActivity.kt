@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
 
     private val bottomNavViewFragmentIds = listOf(
-        R.id.authFragment,
         R.id.currenciesFragment,
+        R.id.portfolioFragment,
         R.id.profileFragment
     )
 

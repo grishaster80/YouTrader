@@ -19,19 +19,23 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         with(binding) {
-            buttonBack.setOnClickListener {
-                viewModel.navigateToCurrenciesFragment()
+            buttonRegPin.setOnClickListener{
+                viewModel.navigateToPinRegFragment()
             }
-            buttonNext.setOnClickListener {
-                viewModel.navigateToWithoutBottomNavViewFragment()
-            }
-            buttonChart.setOnClickListener {
-                viewModel.navigateToChartFragment()
-            }
-            buttonPortfolio.setOnClickListener {
-                viewModel.navigateToPortfolioFragment()
-            }
+
+            /*switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked and !isPinAuth) {
+                    isPinAuth = true
+                    viewModel.navigateToPinRegFragment()
+                }
+                if(!isChecked and isPinAuth) {
+                    isPinAuth = false
+                }
+
+            }*/
         }
     }
 }
