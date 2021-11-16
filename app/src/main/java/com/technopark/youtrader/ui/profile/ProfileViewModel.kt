@@ -9,8 +9,4 @@ class ProfileViewModel : BaseViewModel() {
     fun navigateToPinRegFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToPinRegFragment())
     }
-
-    fun navigateToPortfolioFragment() {
-        navigateTo(ProfileFragmentDirections.actionProfileFragmentToPortfolioFragment())
-    }
 }

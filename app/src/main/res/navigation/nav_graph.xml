@@ -18,14 +18,14 @@
                 android:defaultValue="empty" />
         </action>
         <action
-            android:id="@+id/action_authFragment_to_historyFragment"
-            app:destination="@id/infoHistoryFragment">
+            android:id="@+id/action_authFragment_to_currenciesFragment"
+            app:destination="@id/currenciesFragment">
         </action>
     </fragment>
     <fragment
         android:id="@+id/regFragment"
         android:name="com.technopark.youtrader.ui.auth.RegFragment"
-        android:label="RegFragment">
+        android:label="@string/reg_fragment_label">
         <action
             android:id="@+id/action_regFragment_to_authFragment"
             app:destination="@id/authFragment">
@@ -49,22 +49,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.technopark.youtrader.ui.profile.ProfileFragment"
-        android:label="ProfileFragment">
+        android:label="@string/profile_fragment_label">
 
         <action
             android:id="@+id/action_profileFragment_to_PinRegFragment"
             app:destination="@id/PinRegFragment" />
-
-        android:label="@string/profile_fragment_label">
-        <action
-            android:id="@+id/action_profileFragment_to_currenciesFragment"
-            app:destination="@id/currenciesFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_withoutBottomNavViewFragment"
-            app:destination="@id/withoutBottomNavViewFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_portfolioFragment"
-            app:destination="@id/portfolioFragment" />
     </fragment>
     <fragment
         android:id="@+id/portfolioFragment"

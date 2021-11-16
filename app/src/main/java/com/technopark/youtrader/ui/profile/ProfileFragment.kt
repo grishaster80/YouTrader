@@ -19,15 +19,14 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO Штука для входа по PIN
-        // сейчас это супер костыль
-        var isPinAuth = true
+
 
         with(binding) {
-            switchPinCode.isChecked = isPinAuth
+            buttonRegPin.setOnClickListener{
+                viewModel.navigateToPinRegFragment()
+            }
 
-
-            switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
+            /*switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked and !isPinAuth) {
                     isPinAuth = true
                     viewModel.navigateToPinRegFragment()
@@ -35,10 +34,8 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 if(!isChecked and isPinAuth) {
                     isPinAuth = false
                 }
-            }
-            buttonPortfolio.setOnClickListener {
-                viewModel.navigateToPortfolioFragment()
-            }
+
+            }*/
         }
     }
 }
