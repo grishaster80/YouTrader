@@ -8,35 +8,32 @@
 
 
     <EditText
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search"
-        android:ems="10"
+        android:layout_marginHorizontal="@dimen/indent_big"
         android:layout_marginVertical="15sp"
-        android:layout_marginHorizontal="45sp"
-        android:id="@+id/search"
+        android:ems="10"
+        android:hint="@string/search"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/currencies_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        android:minHeight="48dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/currencies_recycler_view" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currencies_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/currency_item"
-        android:layout_marginHorizontal="45sp"
-        tools:itemCount="10"
-        app:layout_constraintTop_toBottomOf="@id/search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/indent_very_small"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        tools:itemCount="10"
+        tools:listitem="@layout/currency_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
