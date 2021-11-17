@@ -38,8 +38,12 @@ class CurrenciesViewModel @Inject constructor(
     }
 
     private suspend fun getCurrencyItems(): List<CurrencyItem> = withContext(Dispatchers.IO){
+        return@withContext currenciesToCurrencyItems(getCurrencies())
+    }
+
+    private suspend fun currenciesToCurrencyItems(currencies: List<CryptoCurrency>): List<CurrencyItem> =  withContext(Dispatchers.IO){
         val currencyItems = mutableListOf<CurrencyItem>()
-        for (currency in getCurrencies()) {
+        for (currency in currencies) {
             currencyItems.add(CurrencyItem(currency))
         }
         return@withContext currencyItems
@@ -47,6 +51,22 @@ class CurrenciesViewModel @Inject constructor(
 
     private suspend fun getCurrencies(): List<CryptoCurrency> = withContext(Dispatchers.IO) {
         return@withContext repository.getCurrencies()
+    }
+
+    private suspend fun findCurrenciesByMatch(pattern: String): List<CryptoCurrency> = withContext(Dispatchers.IO) {
+        return@withContext getCurrencies().filter { (currency) -> currency.contains(pattern, true) }
+    }
+
+    fun updateCurrenciesByMatch(pattern: String) {
+        viewModelScope.launch {
+            _currencyItems.value = currenciesToCurrencyItems(findCurrenciesByMatch(pattern))
+        }
+    }
+
+    fun loadCurrencies(){
+        viewModelScope.launch {
+            _currencyItems.value = getCurrencyItems()
+        }
     }
 
     companion object {
