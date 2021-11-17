@@ -63,13 +63,6 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     }
                 }
             }
-
-            buttonBack.setOnClickListener {
-                viewModel.navigateToCurrenciesFragment()
-            }
-            buttonNext.setOnClickListener {
-                viewModel.navigateToWithoutBottomNavViewFragment()
-            }
         }
     }
 

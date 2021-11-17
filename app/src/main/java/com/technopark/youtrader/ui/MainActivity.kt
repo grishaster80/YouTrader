@@ -1,5 +1,7 @@
 package com.technopark.youtrader.ui
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +18,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
 
     private val bottomNavViewFragmentIds = listOf(
-        R.id.authFragment,
         R.id.currenciesFragment,
+        R.id.portfolioFragment,
+        R.id.profileFragment
+    )
+
+    private val withoutToolbarNavIconFragmentIds = listOf(
+        R.id.authFragment,
+        R.id.regFragment,
+        R.id.currenciesFragment,
+        R.id.portfolioFragment,
         R.id.profileFragment
     )
 
@@ -42,8 +52,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.visibility =
-                showNavElementsDependingOnCurrentDestination(destination.id)
+            binding.bottomNavView.visibility = navViewVisibility(destination.id)
+            binding.toolbar.navigationIcon = navigationIconId(destination.id)
         }
     }
 
@@ -51,14 +61,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController.popBackStack()
     }
 
-    private fun showNavElementsDependingOnCurrentDestination(destinationId: Int): Int {
-        return if (destinationId in bottomNavViewFragmentIds
-        ) {
-            binding.toolbar.navigationIcon = null
+    private fun navViewVisibility(destinationId: Int): Int {
+        return if (destinationId in bottomNavViewFragmentIds)
             View.VISIBLE
-        } else {
-            binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        else
             View.GONE
-        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun navigationIconId(destinationId: Int): Drawable? {
+        return if (destinationId in withoutToolbarNavIconFragmentIds)
+            null
+        else
+            getDrawable(R.drawable.ic_arrow_back)
     }
 }

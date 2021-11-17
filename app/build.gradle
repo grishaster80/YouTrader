@@ -41,6 +41,9 @@ android {
         jvmTarget = '1.8'
     }
 }
+repositories {
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
 
@@ -104,4 +107,7 @@ dependencies {
     def groupie_version = '2.9.0'
     implementation "com.github.lisawray.groupie:groupie:$groupie_version"
     implementation "com.github.lisawray.groupie:groupie-viewbinding:$groupie_version"
+
+    // MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
