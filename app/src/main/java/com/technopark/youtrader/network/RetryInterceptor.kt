@@ -6,7 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-class RetryInterceptor: Interceptor {
+class RetryInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
 
@@ -29,5 +29,4 @@ class RetryInterceptor: Interceptor {
         Log.d("intercept", "Request is successful!")
         return response
     }
-
 }

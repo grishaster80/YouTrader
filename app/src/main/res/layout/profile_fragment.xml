@@ -80,17 +80,6 @@
         app:thumbTint="@color/gray"
         app:trackTint="@color/shuttle_gray" />
 
-    <Button
-        android:id="@+id/button_regPin"
-        style="@style/RoundedFilledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Go to reg pin"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_pin_code" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

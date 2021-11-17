@@ -18,24 +18,5 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-        with(binding) {
-            buttonRegPin.setOnClickListener{
-                viewModel.navigateToPinRegFragment()
-            }
-
-            /*switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked and !isPinAuth) {
-                    isPinAuth = true
-                    viewModel.navigateToPinRegFragment()
-                }
-                if(!isChecked and isPinAuth) {
-                    isPinAuth = false
-                }
-
-            }*/
-        }
     }
 }

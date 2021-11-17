@@ -13,8 +13,7 @@ class CurrencyItem(
         with(viewBinding) {
             currencyName.text = currency.name
             val txt = currency.priceUsd.toString() + " $"
-            currencyPrice.text = txt;
-
+            currencyPrice.text = txt
         }
     }
 
