@@ -1,9 +1,7 @@
 package com.technopark.youtrader.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R

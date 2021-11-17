@@ -1,20 +1,13 @@
 package com.technopark.youtrader.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.AuthFragmentBinding
-import com.technopark.youtrader.model.CryptoCurrency
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AuthFragment : BaseFragment(R.layout.auth_fragment) {
@@ -35,7 +28,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
 
             buttonSign.setOnClickListener {
                 viewModel.navigateToCurrenciesFragment()
-                //viewModel.signIn(email, password)
+                // viewModel.signIn(email, password)
             }
 
             buttonToNextFragment.setOnClickListener {

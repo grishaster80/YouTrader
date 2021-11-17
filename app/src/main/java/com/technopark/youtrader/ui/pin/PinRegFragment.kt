@@ -7,7 +7,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PinFragmentBinding
-import com.technopark.youtrader.ui.pin.PinRegViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +23,6 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
         with(binding) {
             label.text = getString(R.string.pin_reg_logo)
         }
-
-
     }
 
     companion object {

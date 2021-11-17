@@ -28,6 +28,7 @@
     <string name="main_fragment_title">Главная</string>
     <string name="briefcase_fragment_title">Портфель</string>
     <string name="profile_fragment_title">Профиль</string>
+    <string name="shared_preference_name">OurSharedPref</string>
     <string name="enter_login_hint">Введите логин</string>
     <string name="enter_password_hint">Введите пароль</string>
     <string name="enter_button_text">Войти</string>

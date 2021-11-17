@@ -6,14 +6,11 @@ import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-
 @HiltViewModel
 class RegViewModel @Inject constructor(
     private val repository: CryptoCurrencyRepository,
     private val authService: IAuthService
 ) : BaseViewModel() {
-
-
 
     fun signUp(email: String, password: String) = authService.sighUp(email, password)
 
