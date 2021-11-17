@@ -27,22 +27,35 @@ class ImageHandler(
     private val createdFiles: MutableList<String> = mutableListOf()
 
     private fun getTmpFileUri(): Uri {
-        val tmpFile = File.createTempFile("tmp_image_file", ".png", applicationContext.cacheDir).apply {
-            createNewFile()
-        }
+        val tmpFile =
+            File.createTempFile("tmp_image_file", ".png", applicationContext.cacheDir).apply {
+                createNewFile()
+            }
         createdFiles.add(tmpFile.toString())
         latestTmpFileName = tmpFile.toString()
 
-        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+        return FileProvider.getUriForFile(
+            applicationContext,
+            "${BuildConfig.APPLICATION_ID}.provider",
+            tmpFile
+        )
     }
 
     private val openPhoto: ActivityResultLauncher<Array<String>> =
-        activityResultRegistry.register(GET_IMAGE_REGISTRY_KEY, lifecycleOwner, ActivityResultContracts.OpenDocument()) { imageUri: Uri? ->
+        activityResultRegistry.register(
+            GET_IMAGE_REGISTRY_KEY,
+            lifecycleOwner,
+            ActivityResultContracts.OpenDocument()
+        ) { imageUri: Uri? ->
             getImageCallback?.let { callback -> callback(imageUri) }
         }
 
     private val takeImageResult: ActivityResultLauncher<Uri> =
-        activityResultRegistry.register(TAKE_PICTURE_REGISTRY_KEY, lifecycleOwner, ActivityResultContracts.TakePicture()) { isSuccess ->
+        activityResultRegistry.register(
+            TAKE_PICTURE_REGISTRY_KEY,
+            lifecycleOwner,
+            ActivityResultContracts.TakePicture()
+        ) { isSuccess ->
             if (isSuccess) {
                 latestTmpUri?.let { uri ->
                     takePictureCallback?.let { callback -> callback(uri) }
