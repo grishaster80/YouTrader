@@ -12,7 +12,9 @@ class CurrencyItem(
     override fun bind(viewBinding: CurrencyItemBinding, position: Int) {
         with(viewBinding) {
             currencyName.text = currency.name
-            currencyPrice.text = currency.priceUsd.toString()
+            val txt = currency.priceUsd.toString() + " $"
+            currencyPrice.text = txt;
+
         }
     }
 
