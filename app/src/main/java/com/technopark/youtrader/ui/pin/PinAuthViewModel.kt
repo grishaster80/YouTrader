@@ -12,7 +12,6 @@ class PinAuthViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
 
-
     fun navigateToCurrenciesFragment() {
         val someString = "Random text"
     }

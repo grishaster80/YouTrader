@@ -15,7 +15,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -40,7 +39,7 @@ class AppModule {
         fun provideRetrofitInstance(application: Application): Retrofit {
             val client = OkHttpClient.Builder().addInterceptor(
                 RetryInterceptor()
-            //HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+                // HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             ).build()
 
             val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
