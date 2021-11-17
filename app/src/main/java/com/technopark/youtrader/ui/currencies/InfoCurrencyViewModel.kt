@@ -22,11 +22,11 @@ class InfoCurrencyViewModel : BaseViewModel() {
 
     private fun getHistoryOperation(): List<HistoryOperation> {
         return listOf(
-            HistoryOperation("21 янв. 2021", "0,001", "$452300"),
-            HistoryOperation("20 янв. 2021", "0,0002", "$65"),
-            HistoryOperation("17 янв. 2021", "-0,0002184", "$4523"),
-            HistoryOperation("15 мар. 2020", "0,0004", "$45"),
-            HistoryOperation("21 дек. 2021", "-0,0000002184", "$4000523")
+            HistoryOperation("17 ноя. 2021", "0.022", "$1330.2"),
+            HistoryOperation("15 ноя. 2021", "0.1", "$6043.2"),
+            HistoryOperation("28 окт. 2021", "-0.000832", "$50.300"),
+            HistoryOperation("1 сен. 2020", "0,0000004", "$45"),
+            HistoryOperation("12 дек. 2020", "-0,0002184", "$4523")
 
         )
     }

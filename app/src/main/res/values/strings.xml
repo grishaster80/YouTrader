@@ -6,6 +6,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="search">Search</string>
+
+    <string name="pin_reg_logo">Установка PIN</string>
+    <string name="pin_auth_logo">Авторизация по PIN</string>
+
     <string name="sign_in">Войти</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="to_sign_in">Вход</string>
@@ -24,16 +28,19 @@
     <string name="main_fragment_title">Главная</string>
     <string name="briefcase_fragment_title">Портфель</string>
     <string name="profile_fragment_title">Профиль</string>
+    <string name="shared_preference_name">OurSharedPref</string>
     <string name="enter_login_hint">Введите логин</string>
     <string name="enter_password_hint">Введите пароль</string>
     <string name="enter_button_text">Войти</string>
     <string name="currency_name_content_description">currency_name</string>
     <string name="currency_price_content_description">price</string>
-    <string name="auth_fragment_label">Регистрация</string>
+    <string name="auth_fragment_label">Авторизация</string>
+    <string name="reg_fragment_label">Регистрация</string>
     <string name="currencies_fragment_label">Информация о валютах</string>
     <string name="info_currency_fragment_label">История операций</string>
     <string name="profile_fragment_label">Профиль</string>
     <string name="portfolio_fragment_label">Портфель</string>
+    <string name="chart_fragment_label">График</string>
     <string name="currency_count_description">number of units</string>
     <string name="total_profit_description">total profit</string>
     <string name="portfolio_value_description">portfolio value</string>

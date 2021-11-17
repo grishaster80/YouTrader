@@ -1,5 +1,6 @@
 package com.technopark.youtrader.base
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -43,7 +44,22 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         }
     }
 
+    private fun getSharedPrefs(): SharedPreferences? =
+        activity?.getSharedPreferences(PREFS_NAME, 0)
+
+    fun getStringFromPrefs(key: String, defValue: String = ""): String {
+        return getSharedPrefs()?.getString(key, defValue) ?: ""
+    }
+
+    fun setStringToPrefs(key: String, value: String = "") {
+        getSharedPrefs()
+            ?.edit()
+            ?.apply { putString(key, value) }
+            ?.apply()
+    }
+
     companion object {
         private const val TAG = "BaseFragment"
+        private const val PREFS_NAME = "OurSharedPref"
     }
 }

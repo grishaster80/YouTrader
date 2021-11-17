@@ -6,13 +6,14 @@ import com.technopark.youtrader.databinding.CurrencyItemBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
 class CurrencyItem(
-    val currency: Currency,
+    val currency: CryptoCurrency,
 ) : BindableItem<CurrencyItemBinding>() {
 
     override fun bind(viewBinding: CurrencyItemBinding, position: Int) {
         with(viewBinding) {
             currencyName.text = currency.name
-            currencyPrice.text = currency.price
+            val txt = currency.priceUsd.toString() + " $"
+            currencyPrice.text = txt
         }
     }
 

@@ -10,15 +10,15 @@ import com.technopark.youtrader.network.CryptoCurrencyApi
 import com.technopark.youtrader.network.FirebaseService
 import com.technopark.youtrader.network.IAuthService
 import com.technopark.youtrader.network.retrofit.NetworkResponseAdapterFactory
+import com.technopark.youtrader.network.RetryInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -39,7 +39,8 @@ class AppModule {
         @Provides
         fun provideRetrofitInstance(application: Application): Retrofit {
             val client = OkHttpClient.Builder().addInterceptor(
-                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+                RetryInterceptor()
+                // HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             ).build()
 
             val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
