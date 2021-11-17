@@ -1,6 +1,9 @@
 package com.technopark.youtrader.ui.currencies
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CurrencyItem
@@ -29,23 +32,18 @@ class CurrenciesViewModel @Inject constructor(
         navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToChartFragment())
     }
 
-    fun navigateToWithoutBottomNavViewFragment() {
-        navigateTo(
-            CurrenciesFragmentDirections.actionCurrenciesFragmentToWithoutBottomNavViewFragment()
-        )
-    }
-
     private suspend fun getCurrencyItems(): List<CurrencyItem> = withContext(Dispatchers.IO) {
         return@withContext currenciesToCurrencyItems(getCurrencies())
     }
 
-    private suspend fun currenciesToCurrencyItems(currencies: List<CryptoCurrency>): List<CurrencyItem> = withContext(Dispatchers.IO) {
-        val currencyItems = mutableListOf<CurrencyItem>()
-        for (currency in currencies) {
-            currencyItems.add(CurrencyItem(currency))
+    private suspend fun currenciesToCurrencyItems(currencies: List<CryptoCurrency>): List<CurrencyItem> =
+        withContext(Dispatchers.IO) {
+            val currencyItems = mutableListOf<CurrencyItem>()
+            for (currency in currencies) {
+                currencyItems.add(CurrencyItem(currency))
+            }
+            return@withContext currencyItems
         }
-        return@withContext currencyItems
-    }
 
     private suspend fun getCurrencies(): List<CryptoCurrency> = withContext(Dispatchers.IO) {
         return@withContext repository.getCurrencies()
