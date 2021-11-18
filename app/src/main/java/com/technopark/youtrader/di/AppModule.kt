@@ -9,8 +9,8 @@ import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.network.CryptoCurrencyApi
 import com.technopark.youtrader.network.FirebaseService
 import com.technopark.youtrader.network.IAuthService
-import com.technopark.youtrader.network.retrofit.NetworkResponseAdapterFactory
 import com.technopark.youtrader.network.RetryInterceptor
+import com.technopark.youtrader.network.retrofit.NetworkResponseAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
