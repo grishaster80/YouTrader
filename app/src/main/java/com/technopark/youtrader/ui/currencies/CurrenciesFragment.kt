@@ -11,7 +11,10 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.CurrenciesFragmentBinding
 import com.technopark.youtrader.model.CurrencyItem
+import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.utils.VerticalItemDecoration
+import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,21 +52,21 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
             viewLifecycleOwner,
             { screenState ->
                 when (screenState) {
-                    is CurrenciesScreenState.Success -> {
+                    is Result.Success -> {
                         with(binding) {
-                            progressBar.visibility = View.GONE
-                            currencies_recycler_view.visibility = View.VISIBLE
+                            progressBar.gone()
+                            currencies_recycler_view.visible()
                         }
                         adapter.update(screenState.data)
                     }
-                    is CurrenciesScreenState.Loading -> {
+                    is Result.Loading -> {
                         with(binding) {
-                            progressBar.visibility = View.VISIBLE
-                            currencies_recycler_view.visibility = View.GONE
+                            progressBar.visible()
+                            currencies_recycler_view.gone()
                         }
                     }
-                    is CurrenciesScreenState.Error -> {
-                        Toast.makeText(requireContext(), screenState.message, Toast.LENGTH_SHORT).show()
+                    is Result.Error -> {
+                        Toast.makeText(requireContext(), screenState.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

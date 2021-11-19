@@ -45,4 +45,6 @@
     <string name="total_profit_description">total profit</string>
     <string name="portfolio_value_description">portfolio value</string>
     <string name="portfolio_status_description">portfolio status</string>
+    <string name="network_response_adapter_factory_return_type_is_not_parametrized_call"><![CDATA[return type must be parameterized as Call<NetworkResponse<<Foo>> or Call<NetworkResponse<out Foo>>]]></string>
+    <string name="network_response_adapter_factory_return_type_is_not_parametrized_network_response"><![CDATA[Response must be parameterized as NetworkResponse<Foo> or NetworkResponse<out Foo>]]></string>
 </resources>

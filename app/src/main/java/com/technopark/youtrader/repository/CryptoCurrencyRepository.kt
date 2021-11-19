@@ -15,7 +15,7 @@ class CryptoCurrencyRepository @Inject constructor(
         val currenciesFromNetwork = networkService.getCryptoCurrency()
         if (currenciesFromNetwork is NetworkResponse.Success) {
             // TODO cash in database
-            return@withContext NetworkResponse.Success(currenciesFromNetwork.body.data)
+            return@withContext NetworkResponse.Success(currenciesFromNetwork.value.data)
         } else {
             val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
             if (currenciesFromDatabase.isEmpty() &&

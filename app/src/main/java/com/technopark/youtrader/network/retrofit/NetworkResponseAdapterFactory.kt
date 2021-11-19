@@ -1,5 +1,7 @@
 package com.technopark.youtrader.network.retrofit
 
+import android.content.res.Resources
+import com.technopark.youtrader.R
 import com.technopark.youtrader.network.NetworkResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -18,7 +20,7 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
             return null
         }
         check(returnType is ParameterizedType) {
-            "return type must be parameterized as Call<NetworkResponse<<Foo>> or Call<NetworkResponse<out Foo>>"
+            Resources.getSystem().getString(R.string.network_response_adapter_factory_return_type_is_not_parametrized_call)
         }
 
         val responseType = getParameterUpperBound(0, returnType)
@@ -27,7 +29,7 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
         }
 
         check(responseType is ParameterizedType) {
-            "Response must be parameterized as NetworkResponse<Foo> or NetworkResponse<out Foo>"
+            Resources.getSystem().getString(R.string.network_response_adapter_factory_return_type_is_not_parametrized_network_response)
         }
 
         val successBodyType = getParameterUpperBound(0, responseType)

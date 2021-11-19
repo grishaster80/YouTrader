@@ -3,13 +3,14 @@ package com.technopark.youtrader.ui
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.ActivityMainBinding
+import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,23 +50,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             toolbar.setNavigationOnClickListener {
                 navigateBack()
             }
-        }
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.visibility = navViewVisibility(destination.id)
-            binding.toolbar.navigationIcon = navigationIconId(destination.id)
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id in bottomNavViewFragmentIds) {
+                    bottomNavView.visible()
+                } else {
+                    bottomNavView.gone()
+                }
+                toolbar.navigationIcon = navigationIconId(destination.id)
+            }
         }
     }
 
     private fun navigateBack() {
         navController.popBackStack()
-    }
-
-    private fun navViewVisibility(destinationId: Int): Int {
-        return if (destinationId in bottomNavViewFragmentIds)
-            View.VISIBLE
-        else
-            View.GONE
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

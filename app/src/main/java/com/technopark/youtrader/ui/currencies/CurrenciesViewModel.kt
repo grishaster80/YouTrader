@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CurrencyItem
+import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.network.NetworkResponse
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,28 +22,28 @@ class CurrenciesViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private var currencyItems: List<CurrencyItem> = listOf()
-    private val _screenState = MutableLiveData<CurrenciesScreenState>()
-    val screenState: LiveData<CurrenciesScreenState> = _screenState
+    private val _screenState = MutableLiveData<Result<List<CurrencyItem>>>()
+    val screenState: LiveData<Result<List<CurrencyItem>>> = _screenState
 
     init {
         viewModelScope.launch {
-            _screenState.value = CurrenciesScreenState.Loading
+            _screenState.value = Result.Loading
             when (val response = repository.getCurrencies()) {
                 is NetworkResponse.Success -> {
-                    currencyItems = (response.body as List<*>).map { cryptoCurrency ->
+                    currencyItems = (response.value as List<*>).map { cryptoCurrency ->
                         CurrencyItem(cryptoCurrency as CryptoCurrency)
                     }
                     _screenState.value =
-                        CurrenciesScreenState.Success(currencyItems)
+                        Result.Success(currencyItems)
                 }
                 is NetworkResponse.ApiError -> {
-                    _screenState.value = CurrenciesScreenState.Error("Ошибка сервера")
+                    _screenState.value = Result.Error(IllegalArgumentException())
                 }
                 is NetworkResponse.NetworkError -> {
-                    _screenState.value = CurrenciesScreenState.Error("Отсутствует сетевое подключение")
+                    _screenState.value = Result.Error(UnknownHostException())
                 }
                 is NetworkResponse.UnknownError -> {
-                    _screenState.value = CurrenciesScreenState.Error("Неизвестная ошибка")
+                    _screenState.value = Result.Error(Exception())
                 }
             }
         }
@@ -54,8 +56,8 @@ class CurrenciesViewModel @Inject constructor(
     fun updateCurrenciesByMatch(pattern: String) {
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
-                _screenState.value = CurrenciesScreenState.Loading
-                _screenState.value = CurrenciesScreenState.Success(
+                _screenState.value = Result.Loading
+                _screenState.value = Result.Success(
                     currencyItems.filter { currencyItem ->
                         currencyItem.currency.id
                             .contains(
