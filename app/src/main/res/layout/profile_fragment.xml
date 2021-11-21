@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,70 +30,86 @@
         app:layout_constraintEnd_toEndOf="@id/portrait"
         />
 
-
-    <TextView
-        android:id="@+id/full_name"
-        style="@style/RoundedTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/indent_very_big"
-        android:layout_marginTop="@dimen/indent_medium"
-        android:contentDescription="@string/profile_desc_full_name"
-        android:gravity="center"
-        android:text="@string/full_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portrait" />
-
-
-    <TextView
-        android:id="@+id/text_convert"
-        style="@style/RoundedTextView"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/indent_big"
-        android:layout_marginTop="44dp"
-        android:text="@string/profile_convert_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/full_name" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="300dp" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_currencies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/indent_big"
-        style="@style/RoundedTextView"
-        android:entries="@array/currencies"
-        android:popupBackground="@color/pink"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/text_convert"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_convert" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3"
+            app:layout_constraintBottom_toBottomOf="parent" >
 
-    <TextView
-        android:id="@+id/text_pin_code"
-        style="@style/RoundedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/indent_big"
-        android:layout_marginTop="@dimen/indent_medium"
-        android:text="@string/profile_pin_code_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_convert" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_pin_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rect_radius_100"
-        app:layout_constraintBottom_toBottomOf="@+id/text_pin_code"
-        app:layout_constraintStart_toStartOf="@id/spinner_currencies"
-        app:layout_constraintEnd_toEndOf="@id/spinner_currencies"
-        app:layout_constraintTop_toTopOf="@id/text_pin_code"
-        app:thumbTint="@color/gray"
-        app:trackTint="@color/shuttle_gray" />
+                <TextView
+                    android:id="@+id/full_name"
+                    style="@style/RoundedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/indent_very_big"
+                    android:contentDescription="@string/profile_desc_full_name"
+                    android:gravity="center"
+                    android:text="@string/full_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/text_convert"
+                    style="@style/RoundedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/indent_big"
+                    android:layout_marginTop="44dp"
+                    android:text="@string/profile_convert_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/full_name" />
 
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_currencies"
+                    style="@style/RoundedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/indent_big"
+                    android:entries="@array/currencies"
+                    android:popupBackground="@color/pink"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_convert"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_convert" />
 
+                <TextView
+                    android:id="@+id/text_pin_code"
+                    style="@style/RoundedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/indent_big"
+                    android:layout_marginTop="@dimen/indent_medium"
+                    android:text="@string/profile_pin_code_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_convert" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_pin_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_radius_100"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_pin_code"
+                    app:layout_constraintEnd_toEndOf="@id/spinner_currencies"
+                    app:layout_constraintStart_toStartOf="@id/spinner_currencies"
+                    app:layout_constraintTop_toTopOf="@id/text_pin_code"
+                    app:thumbTint="@color/gray"
+                    app:trackTint="@color/shuttle_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
