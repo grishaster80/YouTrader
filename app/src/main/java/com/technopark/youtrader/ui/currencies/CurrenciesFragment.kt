@@ -67,7 +67,11 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
                     }
                     is Result.Error -> {
                         // TODO parse error
-                        Toast.makeText(requireContext(), screenState.exception.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            screenState.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                         screenState.exception.message?.let { Log.d(TAG, it) }
                         binding.progressBar.gone()
                     }
