@@ -1,6 +1,5 @@
 package com.technopark.youtrader.network.retrofit
 
-import com.technopark.youtrader.network.NetworkResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import java.lang.reflect.Type

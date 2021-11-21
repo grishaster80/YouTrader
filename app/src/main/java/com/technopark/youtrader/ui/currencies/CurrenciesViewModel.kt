@@ -4,16 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CurrencyItem
 import com.technopark.youtrader.model.Result
-import com.technopark.youtrader.network.NetworkResponse
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,23 +24,14 @@ class CurrenciesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _screenState.value = Result.Loading
-            when (val response = repository.getCurrencies()) {
-                is NetworkResponse.Success -> {
-                    currencyItems = (response.value as List<*>).map { cryptoCurrency ->
-                        CurrencyItem(cryptoCurrency as CryptoCurrency)
-                    }
-                    _screenState.value =
-                        Result.Success(currencyItems)
+            try {
+                repository.getCurrencies().collect { currencies ->
+                    currencyItems =
+                        currencies.map { cryptoCurrency -> CurrencyItem(cryptoCurrency) }
+                    _screenState.value = Result.Success(currencyItems)
                 }
-                is NetworkResponse.ApiError -> {
-                    _screenState.value = Result.Error(IllegalArgumentException())
-                }
-                is NetworkResponse.NetworkError -> {
-                    _screenState.value = Result.Error(UnknownHostException())
-                }
-                is NetworkResponse.UnknownError -> {
-                    _screenState.value = Result.Error(Exception())
-                }
+            } catch (e: Exception) {
+                _screenState.value = Result.Error(e)
             }
         }
     }
@@ -54,20 +41,16 @@ class CurrenciesViewModel @Inject constructor(
     }
 
     fun updateCurrenciesByMatch(pattern: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.Main) {
-                _screenState.value = Result.Loading
-                _screenState.value = Result.Success(
-                    currencyItems.filter { currencyItem ->
-                        currencyItem.currency.id
-                            .contains(
-                                pattern,
-                                true
-                            )
-                    }
-                )
+        _screenState.value = Result.Loading
+        _screenState.value = Result.Success(
+            currencyItems.filter { currencyItem ->
+                currencyItem.currency.id
+                    .contains(
+                        pattern,
+                        true
+                    )
             }
-        }
+        )
     }
 
     companion object {

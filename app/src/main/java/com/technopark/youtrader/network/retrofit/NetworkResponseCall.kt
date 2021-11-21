@@ -1,12 +1,10 @@
 package com.technopark.youtrader.network.retrofit
 
-import com.technopark.youtrader.network.NetworkResponse
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
 
 internal class NetworkResponseCall<S : Any>(
     private val delegate: Call<S>,
@@ -34,10 +32,9 @@ internal class NetworkResponseCall<S : Any>(
                                 Response.success(NetworkResponse.Success(body))
                             )
                         } else {
-                            // Response is successful but the body is null
                             callback.onResponse(
                                 this@NetworkResponseCall,
-                                Response.success(NetworkResponse.UnknownError(null))
+                                Response.success(NetworkResponse.Failure(null))
                             )
                         }
                     } else {
@@ -49,18 +46,17 @@ internal class NetworkResponseCall<S : Any>(
                         } else {
                             callback.onResponse(
                                 this@NetworkResponseCall,
-                                Response.success(NetworkResponse.UnknownError(null))
+                                Response.success(NetworkResponse.Failure(null))
                             )
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<S>, throwable: Throwable) {
-                    val networkResponse = when (throwable) {
-                        is IOException -> NetworkResponse.NetworkError(throwable)
-                        else -> NetworkResponse.UnknownError(throwable)
-                    }
-                    callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))
+                    callback.onResponse(
+                        this@NetworkResponseCall,
+                        Response.success(NetworkResponse.Failure(throwable))
+                    )
                 }
             }
         )

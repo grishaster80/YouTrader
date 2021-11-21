@@ -1,35 +1,45 @@
 package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
-import com.technopark.youtrader.network.CryptoCurrencyNetworkService
-import com.technopark.youtrader.network.NetworkResponse
+import com.technopark.youtrader.model.CryptoCurrency
+import com.technopark.youtrader.network.retrofit.ApiErrorException
+import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
+import com.technopark.youtrader.network.retrofit.NetworkFailureException
+import com.technopark.youtrader.network.retrofit.NetworkResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class CryptoCurrencyRepository @Inject constructor(
-    private val networkService: CryptoCurrencyNetworkService,
+    private val cryptoApi: CryptoCurrencyApi,
     private val database: AppDatabase
 ) {
-    suspend fun getCurrencies(): NetworkResponse<Any> = withContext(Dispatchers.IO) {
-        val currenciesFromNetwork = networkService.getCryptoCurrency()
-        if (currenciesFromNetwork is NetworkResponse.Success) {
-            // TODO cash in database
-            return@withContext NetworkResponse.Success(currenciesFromNetwork.value.data)
-        } else {
-            val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
-            if (currenciesFromDatabase.isEmpty() &&
-                (
-                    currenciesFromNetwork is NetworkResponse.NetworkError ||
-                        currenciesFromNetwork is NetworkResponse.ApiError ||
-                        currenciesFromNetwork is NetworkResponse.UnknownError
-                    )
-            ) {
-                return@withContext currenciesFromNetwork
+    suspend fun getCurrencies(): Flow<List<CryptoCurrency>> = flow {
+        when (val currenciesFromNetwork = cryptoApi.getCryptoCurrencies()) {
+            is NetworkResponse.Success -> {
+                // TODO save data to database
+                emit(currenciesFromNetwork.value.data)
             }
-            return@withContext NetworkResponse.Success(currenciesFromDatabase)
+            is NetworkResponse.ApiError -> {
+                val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
+                if (currenciesFromDatabase.isNotEmpty()) {
+                    emit(currenciesFromDatabase)
+                } else {
+                    throw ApiErrorException(currenciesFromNetwork.error, currenciesFromNetwork.code)
+                }
+            }
+            is NetworkResponse.Failure -> {
+                val currenciesFromDatabase = database.cryptoCurrencyDao().getCurrencies()
+                if (currenciesFromDatabase.isNotEmpty()) {
+                    emit(currenciesFromDatabase)
+                } else {
+                    throw currenciesFromNetwork.error ?: NetworkFailureException()
+                }
+            }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     companion object {
         private const val TAG = "CryptoCurrencyRepositor"
