@@ -8,6 +8,7 @@ import com.technopark.youtrader.model.CurrencyItem
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,15 +25,15 @@ class CurrenciesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _screenState.value = Result.Loading
-            try {
-                repository.getCurrencies().collect { currencies ->
+            repository.getCurrencies()
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }
+                .collect { currencies ->
                     currencyItems =
                         currencies.map { cryptoCurrency -> CurrencyItem(cryptoCurrency) }
                     _screenState.value = Result.Success(currencyItems)
                 }
-            } catch (e: Exception) {
-                _screenState.value = Result.Error(e)
-            }
         }
     }
 
