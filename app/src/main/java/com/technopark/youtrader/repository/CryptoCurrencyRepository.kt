@@ -19,7 +19,7 @@ class CryptoCurrencyRepository @Inject constructor(
     suspend fun getCurrencies(): Flow<List<CryptoCurrency>> = flow {
         when (val currenciesFromNetwork = cryptoApi.getCryptoCurrencies()) {
             is NetworkResponse.Success -> {
-                // TODO save data to database
+                database.cryptoCurrencyDao().insertCurrencies(currenciesFromNetwork.value.data)
                 emit(currenciesFromNetwork.value.data)
             }
             is NetworkResponse.ApiError -> {
