@@ -5,7 +5,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="search">Search</string>
+    <string name="search">Поиск</string>
 
     <string name="pin_reg_logo">Установка PIN</string>
     <string name="pin_auth_logo">Авторизация по PIN</string>

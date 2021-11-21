@@ -1,4 +1,4 @@
-package com.technopark.youtrader.network
+package com.technopark.youtrader.network.retrofit
 
 import android.os.SystemClock
 import android.util.Log
