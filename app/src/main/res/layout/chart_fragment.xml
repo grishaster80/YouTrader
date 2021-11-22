@@ -2,22 +2,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/name_cryptocurrency"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bitcoin"
-        android:textSize="@dimen/text_size_h3"
-        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Headline3"
+        style="@style/Component.TextView.Title"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/indent_big"
-
-        />
+        app:layout_constraintBottom_toTopOf="@id/chart" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
@@ -26,35 +23,33 @@
         app:layout_constraintTop_toBottomOf="@id/name_cryptocurrency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:minHeight="300dp"
-        />
+        android:minHeight="300dp" />
 
     <EditText
         android:id="@+id/edit_count_currencies"
-        style="@style/RoundedTextView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.EditText.Rounded.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+
         android:width="128sp"
         android:height="48sp"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="@id/button_buy"
         app:layout_constraintBottom_toBottomOf="@id/button_buy"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="0"
-        android:layout_marginStart="@dimen/indent_big"
-        android:background="@drawable/rect_radius_100"
-        />
+        android:hint="@string/buy_amount_of_currency_hint" />
+
     <Button
         android:id="@+id/button_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Component.Button.Rounded.Filled"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/indent_big"
         android:layout_marginTop="@dimen/indent_big"
-        android:text="Приобрести"
-        app:layout_constraintTop_toBottomOf="@id/chart"
-        android:background="@drawable/rect_radius_100"
-        android:textAllCaps="false"
-        />
+        android:text="@string/buy_currency_button"
+        app:layout_constraintTop_toBottomOf="@id/chart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
