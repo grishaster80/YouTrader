@@ -2,17 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    style="@style/CustomCardView"
-
+    style="@style/Component.CardView.Filled"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content" >
 
 
     <TextView
         android:id="@+id/currency_name"
-        style="@style/OneLineTextNoPaddingView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.TextView.OneLineText.NoPadding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="160sp"
@@ -20,27 +18,27 @@
         android:contentDescription="@string/currency_name_content_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="BitCoin"
-        />
+        tools:text="BitCoin" />
+
     <TextView
         android:id="@+id/currency_count"
-        style="@style/OneLineTextNoPaddingView"
+        style="@style/Component.TextView.OneLineText.NoPadding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="160sp"
+        android:textAppearance="@style/TextAppearance.Caption"
         android:contentDescription="@string/currency_count_description"
         android:textColor="@color/shuttle_gray"
         android:layout_marginStart="@dimen/indent_small"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@id/currency_name"
-        tools:text="1 шт."
-        android:textSize="@dimen/text_size_h4.5"
-        />
+        tools:text="1 шт." />
 
     <TextView
         android:id="@+id/price"
-        style="@style/OneLineTextNoPaddingView"
+        style="@style/Component.TextView.OneLineText.NoPadding"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="160sp"
@@ -53,16 +51,15 @@
 
     <TextView
         android:id="@+id/change_price"
-        style="@style/OneLineTextNoPaddingView"
-        android:textSize="@dimen/text_size_h4.5"
+        style="@style/Component.TextView.OneLineText.NoPadding"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="160sp"
         android:contentDescription="@string/currency_price_content_description"
-        android:layout_marginEnd="@dimen/indent_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/price"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="+1 705,90 (+2,73%)"
-        />
+        tools:text="+1 705,90 (+2,73%)" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Component.TextView">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:padding">@dimen/indent_very_small</item>
+    </style>
+
+    <style name="Component.TextView.Title">
+        <item name="android:layout_marginTop">@dimen/indent_big</item>
+        <item name="android:layout_marginBottom">@dimen/indent_big</item>
+    </style>
+
+    <style name="Component.TextView.OneLineText">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Component.TextView.OneLineText.NoPadding">
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Component.TextView.ContainerText">
+        <item name="android:padding">@dimen/indent_very_small</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+</resources>

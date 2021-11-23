@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Component">
+        <item name="android:layout_marginTop">@dimen/indent_very_small</item>
+        <item name="android:layout_marginBottom">@dimen/indent_very_small</item>
+    </style>
+
+    <style name="Component.Container">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="Component.CardView">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:background">@drawable/rect_radius_100</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="Component.CardView.Filled">
+        <item name="android:backgroundTint">@color/hawkes_blue</item>
+    </style>
+
+    <style name="Component.SwitchCompat">
+        <item name="thumbTint">@color/gray</item>
+        <item name="trackTint">@color/shuttle_gray</item>
+    </style>
+
+</resources>

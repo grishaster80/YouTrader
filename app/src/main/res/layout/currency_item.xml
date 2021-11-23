@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    style="@style/CustomCardView"
+    style="@style/Component.CardView.Filled"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/indent_small"
         android:contentDescription="@string/currency_name_content_description"
-        android:padding="@dimen/indent_very_small"
-        style="@style/OneLineTextView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.TextView.OneLineText"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/currency_price"
@@ -29,7 +29,7 @@
         android:layout_marginEnd="@dimen/indent_small"
         android:contentDescription="@string/currency_price_content_description"
         android:padding="@dimen/indent_very_small"
-        style="@style/TextView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/currency_name"
         app:layout_constraintStart_toEndOf="@id/currency_name"

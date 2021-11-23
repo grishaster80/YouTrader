@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.Headline1" >
+        <item name="android:textSize">@dimen/text_size_h1</item>
+    </style>
+
+    <style name="TextAppearance.Headline1.Bold" >
+        <item name="android:textSize">@dimen/text_size_h1</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline2" >
+        <item name="android:textSize">@dimen/text_size_h2</item>
+    </style>
+
+    <style name="TextAppearance.Headline2.Bold" >
+        <item name="android:textSize">@dimen/text_size_h2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline3" >
+        <item name="android:textSize">@dimen/text_size_h3</item>
+    </style>
+
+    <style name="TextAppearance.Headline3.Bold" >
+        <item name="android:textSize">@dimen/text_size_h3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline4" >
+        <item name="android:textSize">@dimen/text_size_h4</item>
+    </style>
+
+    <style name="TextAppearance.Headline4.Bold" >
+        <item name="android:textSize">@dimen/text_size_h4</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline5" >
+        <item name="android:textSize">@dimen/text_size_h5</item>
+    </style>
+
+    <style name="TextAppearance.Headline5.Bold" >
+        <item name="android:textSize">@dimen/text_size_h5</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Headline6" >
+        <item name="android:textSize">@dimen/text_size_h6</item>
+    </style>
+
+    <style name="TextAppearance.Headline6.Bold" >
+        <item name="android:textSize">@dimen/text_size_h6</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle1">
+        <item name="android:textSize">@dimen/text_size_h7</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle1.Bold" >
+        <item name="android:textSize">@dimen/text_size_h7</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle2">
+        <item name="android:textSize">@dimen/text_size_h8</item>
+    </style>
+
+    <style name="TextAppearance.Subtitle2.Bold" >
+        <item name="android:textSize">@dimen/text_size_h8</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Caption">
+        <item name="android:textSize">@dimen/text_size_h9</item>
+    </style>
+
+    <style name="TextAppearance.Caption.Bold" >
+        <item name="android:textSize">@dimen/text_size_h9</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Overline">
+        <item name="android:textSize">@dimen/text_size_h10</item>
+    </style>
+
+    <style name="TextAppearance.Overline.Bold" >
+        <item name="android:textSize">@dimen/text_size_h10</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline1" >
+        <item name="android:textSize">@dimen/text_size_h1</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline2" >
+        <item name="android:textSize">@dimen/text_size_h2</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline3" >
+        <item name="android:textSize">@dimen/text_size_h3</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline4" >
+        <item name="android:textSize">@dimen/text_size_h4</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline5" >
+        <item name="android:textSize">@dimen/text_size_h5</item>
+    </style>
+
+    <style name="TextAppearance.Button.Headline6" >
+        <item name="android:textSize">@dimen/text_size_h6</item>
+    </style>
+
+    <style name="TextAppearance.Button.Subtitle1">
+        <item name="android:textSize">@dimen/text_size_h7</item>
+    </style>
+
+    <style name="TextAppearance.Button.Subtitle2">
+        <item name="android:textSize">@dimen/text_size_h8</item>
+    </style>
+
+    <style name="TextAppearance.Button.Caption">
+        <item name="android:textSize">@dimen/text_size_h9</item>
+    </style>
+
+    <style name="TextAppearance.Button.Overline">
+        <item name="android:textSize">@dimen/text_size_h9</item>
+    </style>
+
+</resources>

@@ -7,7 +7,8 @@
 
     <TextView
         android:id="@+id/text_portfolio_status"
-        style="@style/RoundedBigTextView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.TextView.OneLineText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/indent_small"
@@ -15,15 +16,15 @@
         android:height="150dp"
         android:contentDescription="@string/portfolio_status_description"
         android:gravity="center|top"
-        android:text="Состояние портфеля"
+        android:text="@string/portfolio_status_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/portfolio_value"
-        style="@style/OneLineTextNoPaddingView"
-        android:textSize="@dimen/text_size_h3"
+        style="@style/Component.TextView.OneLineText.NoPadding"
+        android:textAppearance="@style/TextAppearance.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/portfolio_value_description"
@@ -31,21 +32,19 @@
         app:layout_constraintBottom_toBottomOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
-        tools:text="64 193,2 $"
-        android:text="68 775,51856 $"
-        />
+        android:text="68 775,51856 $" />
+
     <TextView
         android:id="@+id/total_profit"
-        style="@style/OneLineTextNoPaddingView"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.TextView.OneLineText.NoPadding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/total_profit_description"
         app:layout_constraintTop_toBottomOf="@id/portfolio_value"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
-        tools:text="+1 706,90 (2.73.%)"
-        android:text="+1 705,919 (2,66%)"
-        />
+        android:text="+1 705,919 (2,66%)" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -59,9 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_portfolio_status"
-        tools:itemCount="1"
-        tools:listitem="@layout/portfolio_item"
-
-        />
+        tools:itemCount="5"
+        tools:listitem="@layout/portfolio_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
