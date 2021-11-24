@@ -59,6 +59,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/changeNameBtn"
+                style="@style/Component.Button.Flat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:drawableLeft="@drawable/ic_edit_24"
+                app:layout_constraintBottom_toBottomOf="@+id/full_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/full_name"
+                app:layout_constraintTop_toTopOf="@+id/full_name" />
+
             <TextView
                 android:id="@+id/text_convert"
                 android:layout_width="wrap_content"
@@ -104,6 +115,9 @@
                 app:layout_constraintEnd_toEndOf="@id/spinner_currencies"
                 app:layout_constraintTop_toTopOf="@id/text_pin_code"
                 style="@style/Component.SwitchCompat" />
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
