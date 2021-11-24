@@ -20,8 +20,6 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
     private val binding by viewBinding(ProfileFragmentBinding::bind)
 
-
-
     override val viewModel: ProfileViewModel by viewModels()
 
     private var imageHandler: ImageHandler? = null
@@ -54,8 +52,8 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
             changeNameBtn.setOnClickListener {
                 val inflater = layoutInflater
-                val dialogLayout = inflater.inflate(R.layout.change_name_dialog,null)
-                val editFullName  = dialogLayout.findViewById<EditText>(R.id.edit_full_name)
+                val dialogLayout = inflater.inflate(R.layout.change_name_dialog, null)
+                val editFullName = dialogLayout.findViewById<EditText>(R.id.edit_full_name)
                 editFullName.setText(fullName.text)
                 AlertDialog.Builder(context)
                     .setTitle("Изменить ФИО")
@@ -65,7 +63,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                             fullName.text = editFullName.text.toString()
                             setFullNameToPrefs(editFullName.text.toString())
                         }
-                     }
+                    }
                     .create().show()
             }
 
@@ -90,11 +88,11 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     }
 
     private fun getFullNameFromPrefs(): String {
-        return getStringFromPrefs("full_name","undefined")
+        return getStringFromPrefs("full_name", "undefined")
     }
 
-    private fun setFullNameToPrefs(fullName : String) {
-        setStringToPrefs("full_name",fullName)
+    private fun setFullNameToPrefs(fullName: String) {
+        setStringToPrefs("full_name", fullName)
     }
 
     override fun onDestroyView() {
