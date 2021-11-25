@@ -7,9 +7,9 @@
         android:id="@+id/name_cryptocurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bitcoin"
         android:textAppearance="@style/TextAppearance.Headline3"
-        style="@style/Component.TextView.Title"
+        style="@style/Component.TextView"
+
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

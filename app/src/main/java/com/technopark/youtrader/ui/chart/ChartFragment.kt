@@ -25,13 +25,15 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private var lineChart: LineChart? = null
     private var scoreList = ArrayList<Score>()
     private var id: String? = null
+    private var title: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        id = arguments?.getString("id")
         with(binding) {
             lineChart = chart
+            nameCryptocurrency.text = title
         }
-        id = arguments?.getString("id")
         initLineChart()
         viewModel.updateCurrencyChartHistory(id?:"bitcoin")
         viewModel.chartElements.observe(
@@ -40,7 +42,8 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
                 setDataToLineChart(chartElements)
             }
         )
-        }
+
+    }
 
     private fun initLineChart() {
 
@@ -72,6 +75,8 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
         for(i in chartElements) {
             scoreList.add(transformDateD1(i))
         }
+        title ="1 $id  = " + scoreList[0].value.toString()
+        binding.nameCryptocurrency.text = title
 
         for (i in scoreList.indices) {
             val score = scoreList[i]
@@ -83,8 +88,8 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
         lineDataSet.apply {
             mode = LineDataSet.Mode.HORIZONTAL_BEZIER
             color = Color.BLACK
-//            this.setDrawValues(false)
-//            this.setDrawIcons(false)
+            this.setDrawValues(false)
+            this.setDrawIcons(false)
             setDrawCircles(false)
         }
 
