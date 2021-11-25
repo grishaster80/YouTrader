@@ -70,7 +70,7 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
         val entries: ArrayList<Entry> = ArrayList()
         scoreList.clear()
         for(i in chartElements) {
-            scoreList.add(Score(i.date,i.priceUsd.toFloat()))
+            scoreList.add(transformDateD1(i))
         }
 
         for (i in scoreList.indices) {
@@ -83,11 +83,22 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
         lineDataSet.apply {
             mode = LineDataSet.Mode.HORIZONTAL_BEZIER
             color = Color.BLACK
+//            this.setDrawValues(false)
+//            this.setDrawIcons(false)
+            setDrawCircles(false)
         }
 
         val data = LineData(lineDataSet)
         lineChart?.data = data
 
         lineChart?.invalidate()
+    }
+    private fun transformDateD1(currencyChartElement: CurrencyChartElement) : Score{
+        val priceUsd = currencyChartElement.priceUsd.toFloat()
+        val date =  currencyChartElement.date.subSequence(2,4).toString() + '.' +
+                    currencyChartElement.date.subSequence(5,7).toString() + '.' +
+                    currencyChartElement.date.subSequence(8,10).toString()
+
+        return Score(date,priceUsd)
     }
 }
