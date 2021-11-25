@@ -7,11 +7,11 @@ import com.technopark.youtrader.network.retrofit.ApiErrorException
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkFailureException
 import com.technopark.youtrader.network.retrofit.NetworkResponse
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 class CryptoCurrencyRepository @Inject constructor(
     private val cryptoApi: CryptoCurrencyApi,
@@ -42,21 +42,22 @@ class CryptoCurrencyRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getCurrencyChartHistoryById(id: String) :  Flow<List<CurrencyChartElement>> = flow {
-        when(val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)){
+    suspend fun getCurrencyChartHistoryById(id: String): Flow<List<CurrencyChartElement>> = flow {
+        when (val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)) {
             is NetworkResponse.Success -> {
                 emit(currencyChartListFromNetwork.value.data)
             }
             is NetworkResponse.ApiError -> {
-                throw ApiErrorException(currencyChartListFromNetwork.error, currencyChartListFromNetwork.code)
+                throw ApiErrorException(
+                    currencyChartListFromNetwork.error,
+                    currencyChartListFromNetwork.code
+                )
             }
             is NetworkResponse.Failure -> {
                 throw currencyChartListFromNetwork.error ?: NetworkFailureException()
             }
-
         }
     }.flowOn(Dispatchers.IO)
-
 
     companion object {
         private const val TAG = "CryptoCurrencyRepositor"

@@ -7,9 +7,9 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
@@ -18,7 +18,7 @@ class ChartViewModel @Inject constructor(
     private val _chartElements = MutableLiveData<List<CurrencyChartElement>>()
     val chartElements: LiveData<List<CurrencyChartElement>> = _chartElements
 
-    fun updateCurrencyChartHistory(id: String){
+    fun updateCurrencyChartHistory(id: String) {
         viewModelScope.launch {
             repository.getCurrencyChartHistoryById(id)
                 .collect { currencies ->

@@ -17,7 +17,7 @@ import com.technopark.youtrader.model.CurrencyChartElement
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
+class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private val binding by viewBinding(ChartFragmentBinding::bind)
 
     override val viewModel: ChartViewModel by viewModels()
@@ -35,14 +35,13 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
             nameCryptocurrency.text = title
         }
         initLineChart()
-        viewModel.updateCurrencyChartHistory(id?:"bitcoin")
+        viewModel.updateCurrencyChartHistory(id ?: "bitcoin")
         viewModel.chartElements.observe(
             viewLifecycleOwner,
             { chartElements ->
                 setDataToLineChart(chartElements)
             }
         )
-
     }
 
     private fun initLineChart() {
@@ -72,10 +71,10 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private fun setDataToLineChart(chartElements: List<CurrencyChartElement>) {
         val entries: ArrayList<Entry> = ArrayList()
         scoreList.clear()
-        for(i in chartElements) {
+        for (i in chartElements) {
             scoreList.add(transformDateD1(i))
         }
-        title ="1 $id  = " + scoreList.last().value.toString() + " $"
+        title = "1 $id  = " + scoreList.last().value.toString() + " $"
         binding.nameCryptocurrency.text = title
 
         for (i in scoreList.indices) {
@@ -98,12 +97,12 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         lineChart?.invalidate()
     }
-    private fun transformDateD1(currencyChartElement: CurrencyChartElement) : Score{
+    private fun transformDateD1(currencyChartElement: CurrencyChartElement): Score {
         val priceUsd = currencyChartElement.priceUsd.toFloat()
-        val date =  currencyChartElement.date.subSequence(2,4).toString() + '.' +
-                    currencyChartElement.date.subSequence(5,7).toString() + '.' +
-                    currencyChartElement.date.subSequence(8,10).toString()
+        val date = currencyChartElement.date.subSequence(2, 4).toString() + '.' +
+            currencyChartElement.date.subSequence(5, 7).toString() + '.' +
+            currencyChartElement.date.subSequence(8, 10).toString()
 
-        return Score(date,priceUsd)
+        return Score(date, priceUsd)
     }
 }
