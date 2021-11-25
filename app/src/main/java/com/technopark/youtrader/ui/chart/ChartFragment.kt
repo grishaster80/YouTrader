@@ -75,7 +75,7 @@ class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
         for(i in chartElements) {
             scoreList.add(transformDateD1(i))
         }
-        title ="1 $id  = " + scoreList[0].value.toString()
+        title ="1 $id  = " + scoreList[0].value.toString() + " $"
         binding.nameCryptocurrency.text = title
 
         for (i in scoreList.indices) {
