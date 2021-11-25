@@ -27,7 +27,7 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
 
     private val onItemClickListener = OnItemClickListener { item, view ->
         if (item is PortfolioItem) {
-            Log.d(TAG, "Go to the currency purchase history: ${item.portfolio.currencyName}")
+            Log.d(TAG, "Go to the currency purchase history: ${item.portfolioCurrencyInfo.currencyName}")
             viewModel.navigateToInfoHistoryFragment()
         }
     }

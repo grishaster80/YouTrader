@@ -8,15 +8,15 @@ import com.technopark.youtrader.databinding.PortfolioItemBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
 class PortfolioItem(
-    val portfolio: Portfolio,
+    val portfolioCurrencyInfo: PortfolioCurrencyInfo,
 ) : BindableItem<PortfolioItemBinding>() {
 
     override fun bind(viewBinding: PortfolioItemBinding, position: Int) {
         with(viewBinding) {
-            currencyName.text = portfolio.currencyName
-            currencyCount.text = portfolio.count
-            price.text = portfolio.price
-            changePrice.text = portfolio.priceChange
+            currencyName.text = portfolioCurrencyInfo.currencyName
+            currencyCount.text = portfolioCurrencyInfo.count
+            price.text = portfolioCurrencyInfo.price
+            changePrice.text = portfolioCurrencyInfo.priceChange
             setPortfolioPriceTextColor(changePrice)
         }
     }
