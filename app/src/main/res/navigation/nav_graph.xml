@@ -44,7 +44,12 @@
             app:destination="@id/authFragment" />
         <action
             android:id="@+id/action_currenciesFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
+            app:destination="@id/chartFragment">
+            <argument
+                android:name="id"
+                app:argType="string"
+                android:defaultValue="empty" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

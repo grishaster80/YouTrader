@@ -2,6 +2,7 @@ package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.model.CryptoCurrency
+import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.network.retrofit.ApiErrorException
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkFailureException
@@ -40,6 +41,22 @@ class CryptoCurrencyRepository @Inject constructor(
             }
         }
     }.flowOn(Dispatchers.IO)
+
+    suspend fun getCurrencyChartHistoryById(id: String) :  Flow<List<CurrencyChartElement>> = flow {
+        when(val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)){
+            is NetworkResponse.Success -> {
+                emit(currencyChartListFromNetwork.value.data)
+            }
+            is NetworkResponse.ApiError -> {
+                throw ApiErrorException(currencyChartListFromNetwork.error, currencyChartListFromNetwork.code)
+            }
+            is NetworkResponse.Failure -> {
+                throw currencyChartListFromNetwork.error ?: NetworkFailureException()
+            }
+
+        }
+    }.flowOn(Dispatchers.IO)
+
 
     companion object {
         private const val TAG = "CryptoCurrencyRepositor"

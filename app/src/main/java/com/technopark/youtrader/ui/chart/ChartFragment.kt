@@ -13,24 +13,34 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
-class ChartFragment : BaseFragment(R.layout.chart_fragment) {
+import com.technopark.youtrader.model.CurrencyChartElement
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class   ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private val binding by viewBinding(ChartFragmentBinding::bind)
 
     override val viewModel: ChartViewModel by viewModels()
 
     private var lineChart: LineChart? = null
     private var scoreList = ArrayList<Score>()
+    private var id: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             lineChart = chart
         }
-
+        id = arguments?.getString("id")
         initLineChart()
-
-        setDataToLineChart()
-    }
+        viewModel.updateCurrencyChartHistory(id?:"bitcoin")
+        viewModel.chartElements.observe(
+            viewLifecycleOwner,
+            { chartElements ->
+                setDataToLineChart(chartElements)
+            }
+        )
+        }
 
     private fun initLineChart() {
 
@@ -56,10 +66,12 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.granularity = 1f
     }
 
-    private fun setDataToLineChart() {
+    private fun setDataToLineChart(chartElements: List<CurrencyChartElement>) {
         val entries: ArrayList<Entry> = ArrayList()
-
-        scoreList = getScoreList()
+        scoreList.clear()
+        for(i in chartElements) {
+            scoreList.add(Score(i.date,i.priceUsd.toFloat()))
+        }
 
         for (i in scoreList.indices) {
             val score = scoreList[i]
@@ -77,22 +89,5 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         lineChart?.data = data
 
         lineChart?.invalidate()
-    }
-
-    // simulate api call
-    private fun getScoreList(): ArrayList<Score> {
-        scoreList.add(Score("01.21", "34287.41".toFloat()))
-        scoreList.add(Score("02.21", "46972.322499999995".toFloat()))
-        scoreList.add(Score("03.21", "55298.89".toFloat()))
-        scoreList.add(Score("04.21", "57270.72".toFloat()))
-        scoreList.add(Score("05.21", "46863.76".toFloat()))
-        scoreList.add(Score("06.21", "35756.145".toFloat()))
-        scoreList.add(Score("07.21", "33659.42f".toFloat()))
-        scoreList.add(Score("08.21", "46075.585".toFloat()))
-        scoreList.add(Score("09.21", "45765.7625".toFloat()))
-        scoreList.add(Score("10.21", "59887.82000000001".toFloat()))
-        scoreList.add(Score("11.21", "62480.525".toFloat()))
-
-        return scoreList
     }
 }
