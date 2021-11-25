@@ -1,10 +1,9 @@
 package com.technopark.youtrader.ui.currencies
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,7 +11,10 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.CurrenciesFragmentBinding
 import com.technopark.youtrader.model.CurrencyItem
+import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.utils.VerticalItemDecoration
+import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,27 +48,40 @@ class CurrenciesFragment : BaseFragment(R.layout.currencies_fragment) {
 
         adapter.setOnItemClickListener(onItemClickListener)
 
-        viewModel.currencyItems.observe(
+        viewModel.screenState.observe(
             viewLifecycleOwner,
-            { currencies ->
-                adapter.update(currencies)
-            }
-        )
-
-        search.addTextChangedListener(
-            object : TextWatcher {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (binding.search.text.isEmpty()) {
-                        viewModel.loadCurrencies()
-                    } else {
-                        viewModel.updateCurrenciesByMatch(binding.search.text.toString())
+            { screenState ->
+                when (screenState) {
+                    is Result.Success -> {
+                        with(binding) {
+                            progressBar.gone()
+                            currencies_recycler_view.visible()
+                        }
+                        adapter.update(screenState.data)
+                    }
+                    is Result.Loading -> {
+                        with(binding) {
+                            progressBar.visible()
+                            currencies_recycler_view.gone()
+                        }
+                    }
+                    is Result.Error -> {
+                        // TODO parse error
+                        Toast.makeText(
+                            requireContext(),
+                            screenState.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        screenState.exception.message?.let { Log.d(TAG, it) }
+                        binding.progressBar.gone()
                     }
                 }
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-                override fun afterTextChanged(s: Editable) {}
             }
         )
+
+        search.addTextChangedListener {
+            viewModel.updateCurrenciesByMatch(binding.search.text.toString())
+        }
     }
 
     companion object {

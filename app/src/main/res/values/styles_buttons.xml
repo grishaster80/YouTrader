@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Component.Button" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Component.Button.Rounded">
+        <item name="android:background">@drawable/rect_radius_100</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Component.Button.Rounded.Filled">
+        <item name="backgroundTint">@color/heather</item>
+    </style>
+
+    <style name="Component.Button.Flat">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Component.Button.Flat.Filled">
+        <item name="android:background">@color/white</item>
+        <item name="backgroundTint">@color/heather</item>
+    </style>
+
+</resources>

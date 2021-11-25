@@ -12,9 +12,8 @@
         android:layout_height="wrap_content"
         android:text="ТыТрейдер"
 
-        style="@style/TextViewTitle"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:textAppearance="@style/TextAppearance.Headline4.Bold"
+        style="@style/Component.TextView.Title"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,13 +25,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        style="@style/RoundedEditText"
-        android:paddingHorizontal="@dimen/indent_very_small"
         android:inputType="textVisiblePassword|textNoSuggestions"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.EditText.Rounded.Filled"
+        android:paddingStart="@dimen/indent_small"
 
         android:hint="@string/enter_login_hint"
-        android:layout_marginStart="@dimen/indent_big"
-        android:layout_marginEnd="@dimen/indent_big"
 
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,20 +42,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        style="@style/RoundedEditText"
-        android:paddingHorizontal="@dimen/indent_very_small"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
+        style="@style/Component.EditText.Rounded.Filled"
         android:hint="@string/enter_password_hint"
         android:inputType="textPassword"
-
-        android:layout_marginTop="@dimen/indent_small"
-        android:layout_marginStart="@dimen/indent_big"
-        android:layout_marginEnd="@dimen/indent_big"
+        android:paddingStart="@dimen/indent_small"
 
         app:layout_constraintTop_toBottomOf="@id/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSign" />
-
 
     <Button
         android:id="@+id/buttonSign"
@@ -66,21 +60,21 @@
         android:layout_marginTop="@dimen/indent_small"
 
         android:text="@string/enter_button_text"
-        style="@style/RoundedFilledButton"
+        android:textAppearance="@style/TextAppearance.Button.Headline5"
+        style="@style/Component.Button.Rounded.Filled"
 
         app:layout_constraintTop_toBottomOf="@id/password"
         app:layout_constraintStart_toStartOf="@id/password"
         app:layout_constraintEnd_toEndOf="@id/password" />
-
-
 
     <Button
         android:id="@+id/buttonToNextFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        style="@style/WithoutBackground"
-        android:textSize="@dimen/text_size_h4"
+        tools:text="Регистрация"
+        android:textAppearance="@style/TextAppearance.Button.Subtitle1"
+        style="@style/Component.Button.Flat"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
