@@ -7,27 +7,26 @@ import com.technopark.youtrader.database.transaction_entity.Transaction
 import com.technopark.youtrader.databinding.HistoryOperationItemBinding
 import com.technopark.youtrader.utils.timestampToFormatDate
 import com.xwray.groupie.viewbinding.BindableItem
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToLong
 
 class HistoryOperationItem(
     private val transaction: Transaction,
-    private val sym : String
+    private val sym: String
 ) : BindableItem<HistoryOperationItemBinding>() {
 
     override fun bind(viewBinding: HistoryOperationItemBinding, position: Int) {
         with(viewBinding) {
 
-
             if (transaction.timestamp != null)
-                opDate.text = timestampToFormatDate(transaction.timestamp.toLong(),"dd MMM yyyy")
+                opDate.text = timestampToFormatDate(transaction.timestamp.toLong(), "dd MMM yyyy")
             if (transaction.amount > 0) {
-                amountCurrency.text = "+".plus (transaction.amount.toString())
+                amountCurrency.text = "+".plus(transaction.amount.toString())
             } else {
                 amountCurrency.text = (transaction.amount.toString())
             }
             tickerInfo.text = sym
-            price.text = "$".plus(transaction.price.toString())
+            price.text = "$".plus(((transaction.price * 100).roundToLong() / 100.0).toString())
 
             if (amountCurrency.text[0] == '-') {
                 amountCurrency.setTextColor(ContextCompat.getColor(amountCurrency.context, R.color.red))

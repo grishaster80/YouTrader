@@ -16,9 +16,7 @@ import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.currencies_fragment.*
-import kotlinx.android.synthetic.main.info_currency_fragment.*
-import kotlinx.android.synthetic.main.portfolio_fragment.*
+import kotlin.math.roundToLong
 
 @AndroidEntryPoint
 class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
@@ -32,12 +30,12 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currencyId  = arguments?.getString("currencyId")
+        val currencyId = arguments?.getString("currencyId")
 
         if (currencyId != null) {
-            viewModel.updateCurrency(currencyId)
+            viewModel.updateCurrencyInformation(currencyId)
             viewModel.updateCurrencyTransactions(currencyId)
-        };
+        }
 
         with(binding) {
             opHistoryRecyclerView.adapter = adapter
@@ -61,12 +59,22 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
             viewLifecycleOwner,
             {
                 currency ->
-                    with(binding) {
-                        ticker.text = currency.symbol
-
-                    }
+                with(binding) {
+                    ticker.text = currency.symbol
+                }
             }
         )
+        viewModel.totalAmount.observe(
+            viewLifecycleOwner,
+            { amount -> binding.total.text = amount.toString() }
+        )
+        viewModel.totalPrice.observe(
+            viewLifecycleOwner,
+            { price -> binding.price.text = "$".plus(((price * 100000).roundToLong() / 100000.0).toString()) }
+        )
+
+        // TODO update absChange, relativeChange
+
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->

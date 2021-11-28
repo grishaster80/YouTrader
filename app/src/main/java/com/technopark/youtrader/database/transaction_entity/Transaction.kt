@@ -5,9 +5,16 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "currencyTransaction",
-    foreignKeys = [ForeignKey(entity = LocalCryptoCurrencyTransaction::class,
-        parentColumns = ["id"], childColumns = ["cryptoCurrencyId"])])
+@Entity(
+    tableName = "currencyTransaction",
+    foreignKeys = [
+        ForeignKey(
+            entity = LocalCryptoCurrencyTransaction::class,
+            parentColumns = ["id"],
+            childColumns = ["cryptoCurrencyId"]
+        )
+    ]
+)
 data class Transaction(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
@@ -17,5 +24,5 @@ data class Transaction(
     @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     val timestamp: String? = null,
 
-    val cryptoCurrencyId : String
+    val cryptoCurrencyId: String
 )

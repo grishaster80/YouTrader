@@ -38,6 +38,11 @@ interface CryptoTransactionDao {
     suspend fun deleteCurrencyTransactions(id: String)
 
     @Query("SELECT * FROM currencyTransaction WHERE cryptoCurrencyId = :id ORDER BY timestamp DESC")
-    suspend fun getAllTransactionByCurrency(id: String) : List<Transaction>
+    suspend fun getAllTransactionByCurrency(id: String): List<Transaction>
 
+    @Query("SELECT SUM(amount) from currencyTransaction WHERE cryptoCurrencyId = :currencyId")
+    suspend fun getSumAmountByCurrencyId(currencyId: String): Double
+
+    @Query("SELECT SUM(price) from currencyTransaction WHERE cryptoCurrencyId = :currencyId")
+    suspend fun getSumPriceByCurrencyId(currencyId: String): Double
 }
