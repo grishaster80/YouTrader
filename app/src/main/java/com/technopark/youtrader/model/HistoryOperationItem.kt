@@ -24,7 +24,7 @@ class HistoryOperationItem(
             if (transaction.amount > 0) {
                 amountCurrency.text = "+".plus (transaction.amount.toString())
             } else {
-                amountCurrency.text = "-".plus (transaction.amount.toString())
+                amountCurrency.text = (transaction.amount.toString())
             }
             tickerInfo.text = sym
             price.text = "$".plus(transaction.price.toString())
