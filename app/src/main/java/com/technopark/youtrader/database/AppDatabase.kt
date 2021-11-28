@@ -1,8 +1,6 @@
 package com.technopark.youtrader.database
 
-import android.content.ContentValues
 import androidx.room.Database
-import androidx.room.OnConflictStrategy
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase

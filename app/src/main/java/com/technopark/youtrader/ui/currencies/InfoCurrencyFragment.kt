@@ -35,8 +35,8 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
         val currencyId  = arguments?.getString("currencyId")
 
         if (currencyId != null) {
-            viewModel.updateCurrencyTransactions(currencyId)
             viewModel.updateCurrency(currencyId)
+            viewModel.updateCurrencyTransactions(currencyId)
         };
 
         with(binding) {
