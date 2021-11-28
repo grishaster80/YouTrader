@@ -48,4 +48,5 @@
     <string name="buy_amount_of_currency_hint">0</string>
     <string name="portfolio_status_title">Состояние портфеля</string>
     <string name="buy_currency_button">Приобрести</string>
+    <string name="sum_label">Сумма:</string>
 </resources>

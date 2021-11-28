@@ -6,36 +6,68 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/currency_name_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/indent_small"
+        android:layout_marginTop="@dimen/indent_very_small"
+        tools:text="BitCoin"
+        android:textSize="@dimen/text_size_h4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/ticker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="15sp"
-        android:layout_marginLeft="25sp"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/indent_very_small"
+        android:textSize="@dimen/text_size_h6"
+        app:layout_constraintBottom_toBottomOf="@+id/total"
+        app:layout_constraintStart_toEndOf="@+id/total"
         tools:text="BTC" />
 
     <TextView
-        android:id="@+id/price"
-        android:textColor="@color/black"
+        android:id="@+id/total_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="15sp"
-        android:layout_marginLeft="25sp"
-        android:textSize="36sp"
-        android:textStyle="bold"
+        android:layout_marginStart="@dimen/indent_small"
+        android:layout_marginTop="@dimen/indent_small"
+        android:text="@string/sum_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ticker"
+        app:layout_constraintTop_toBottomOf="@+id/currency_name_info" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_very_small"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_h5"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/total"
+        app:layout_constraintTop_toBottomOf="@+id/total"
         tools:text="$62.000,3" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/indent_very_small"
+        tools:text="0,000222"
+        android:textSize="@dimen/text_size_h5"
+        app:layout_constraintBottom_toBottomOf="@+id/total_label"
+        app:layout_constraintStart_toEndOf="@+id/total_label"
+        app:layout_constraintTop_toTopOf="@+id/total_label"
+         />
 
     <TextView
         android:id="@+id/abs_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20sp"
-        android:textSize="22sp"
+        android:layout_marginStart="@dimen/indent_very_small"
+
         android:textColor="@color/green"
+        android:textSize="@dimen/text_size_h6"
         app:layout_constraintBottom_toBottomOf="@+id/price"
         app:layout_constraintStart_toEndOf="@+id/price"
         tools:text="+222,8" />
@@ -44,20 +76,30 @@
         android:id="@+id/relative_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="3,6%"
+        android:layout_marginStart="@dimen/indent_very_small"
         android:textColor="@color/green"
-        android:layout_marginLeft="25sp"
-        android:textSize="22sp"
-        android:layout_marginVertical="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        android:textSize="@dimen/text_size_h5"
+        app:layout_constraintBottom_toBottomOf="@+id/abs_change"
+        app:layout_constraintStart_toEndOf="@+id/abs_change"
+        tools:text="3,6%" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="183dp" />
+        app:layout_constraintGuide_begin="170dp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_medium"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/op_history_recycler_view"
@@ -75,5 +117,8 @@
         app:layout_constraintVertical_bias="1.0"
         tools:itemCount="10"
         tools:listitem="@layout/history_operation_item" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

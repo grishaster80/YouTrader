@@ -61,7 +61,13 @@
         android:label="@string/portfolio_fragment_label">
         <action
             android:id="@+id/action_portfolioFragment_to_infoHistoryFragment"
-            app:destination="@id/infoHistoryFragment" />
+            app:destination="@id/infoHistoryFragment">
+            <argument
+                android:name="currencyId"
+                app:argType="string"
+                android:defaultValue="empty" />
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/chartFragment"
