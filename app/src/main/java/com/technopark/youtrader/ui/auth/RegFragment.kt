@@ -24,15 +24,9 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val emailValue = "first.user@mail.com"
-        val passwordValue = "qwerty"
-
         with(binding) {
             buttonSign.text = getString(R.string.sign_up)
             buttonToNextFragment.text = getString(R.string.to_sign_in)
-
-            login.setText(emailValue)
-            password.setText(passwordValue)
 
             buttonSign.setOnClickListener {
                 viewModel.signUp(login.text.toString(), password.text.toString())
@@ -53,7 +47,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                "Регистрация прошла успешно",
+                                getString(R.string.registration_success),
                                 Toast.LENGTH_SHORT
                             ).show()
                             viewModel.navigateToCurrenciesFragment()
@@ -62,7 +56,12 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                "Ошибка регистрации: ${authState.exception.localizedMessage}",
+                                String.format(
+                                    getString(
+                                        R.string.registration_error,
+                                        authState.exception.localizedMessage
+                                    )
+                                ),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

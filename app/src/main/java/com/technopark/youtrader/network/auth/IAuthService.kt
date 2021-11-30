@@ -1,6 +1,5 @@
-package com.technopark.youtrader.network
+package com.technopark.youtrader.network.auth
 
-import com.technopark.youtrader.network.auth.CommonAuthResult
 import kotlinx.coroutines.flow.Flow
 
 interface IAuthService {

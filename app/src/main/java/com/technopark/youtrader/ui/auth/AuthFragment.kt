@@ -53,7 +53,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                "Авторизация прошла успешно",
+                                getString(R.string.auth_success),
                                 Toast.LENGTH_SHORT
                             ).show()
                             viewModel.navigateToCurrenciesFragment()
@@ -62,7 +62,12 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                "Ошибка авторизации: ${authState.exception.localizedMessage}",
+                                String.format(
+                                    getString(
+                                        R.string.auth_error,
+                                        authState.exception.localizedMessage
+                                    )
+                                ),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

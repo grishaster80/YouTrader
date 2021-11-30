@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.base.Event
 import com.technopark.youtrader.model.Result
-import com.technopark.youtrader.network.IAuthService
+import com.technopark.youtrader.network.auth.IAuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
