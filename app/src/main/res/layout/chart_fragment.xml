@@ -7,7 +7,7 @@
         android:id="@+id/name_cryptocurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Headline3"
+        android:textAppearance="@style/TextAppearance.Headline4"
         style="@style/Component.TextView"
 
 
@@ -51,5 +51,17 @@
         android:layout_marginTop="@dimen/indent_big"
         android:text="@string/buy_currency_button"
         app:layout_constraintTop_toBottomOf="@id/chart" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_medium"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/name_cryptocurrency"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="300dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

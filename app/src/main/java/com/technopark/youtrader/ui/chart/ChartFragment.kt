@@ -2,7 +2,9 @@ package com.technopark.youtrader.ui.chart
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -14,7 +16,13 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
 import com.technopark.youtrader.model.CurrencyChartElement
+import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.ui.currencies.CurrenciesFragment
+import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.invisible
+import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.currencies_fragment.*
 
 @AndroidEntryPoint
 class ChartFragment : BaseFragment(R.layout.chart_fragment) {
@@ -36,10 +44,34 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         }
         initLineChart()
         viewModel.updateCurrencyChartHistory(id ?: "bitcoin")
-        viewModel.chartElements.observe(
+        viewModel.screenState.observe(
             viewLifecycleOwner,
-            { chartElements ->
-                setDataToLineChart(chartElements)
+            { screenState ->
+                when (screenState) {
+                    is Result.Success -> {
+                        setDataToLineChart(screenState.data)
+                        with(binding) {
+                            progressBar.gone()
+                            chart.visible()
+                        }
+                    }
+                    is Result.Loading -> {
+                        with(binding) {
+                            progressBar.visible()
+                            chart.invisible()
+                        }
+                    }
+                    is Result.Error -> {
+                        // TODO parse error
+                        Toast.makeText(
+                            requireContext(),
+                            screenState.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        screenState.exception.message?.let { Log.d(ChartFragment.TAG, it) }
+                        binding.progressBar.gone()
+                    }
+                }
             }
         )
     }
@@ -104,5 +136,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             currencyChartElement.date.subSequence(8, 10).toString()
 
         return Score(date, priceUsd)
+    }
+
+    companion object {
+        private const val TAG = "ChartFragment"
     }
 }

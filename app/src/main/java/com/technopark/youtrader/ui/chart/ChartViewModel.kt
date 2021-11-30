@@ -5,24 +5,32 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
-import com.technopark.youtrader.repository.CryptoCurrencyRepository
+import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.repository.ChartHistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
-    private val repository: CryptoCurrencyRepository
+    private val repository: ChartHistoryRepository
 ) : BaseViewModel() {
-    private val _chartElements = MutableLiveData<List<CurrencyChartElement>>()
-    val chartElements: LiveData<List<CurrencyChartElement>> = _chartElements
+    private var chartElements: List<CurrencyChartElement> = listOf()
+    private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
+    val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
 
     fun updateCurrencyChartHistory(id: String) {
+        _screenState.value = Result.Loading
         viewModelScope.launch {
-            repository.getCurrencyChartHistoryById(id)
-                .collect { currencies ->
-                    _chartElements.value = currencies
+            repository.getChartHistoryById(id)
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }
+                .collect { elements ->
+                    chartElements = elements
+                    _screenState.value = Result.Success(chartElements)
                 }
         }
     }
