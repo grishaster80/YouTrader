@@ -17,7 +17,6 @@ import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
-import com.technopark.youtrader.ui.currencies.CurrenciesFragment
 import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.visible

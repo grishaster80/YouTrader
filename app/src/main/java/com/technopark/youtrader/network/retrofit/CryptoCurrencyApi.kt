@@ -11,5 +11,6 @@ interface CryptoCurrencyApi {
     suspend fun getCryptoCurrencies(): NetworkResponse<CurrenciesResponse>
 
     @GET("assets/{Id}/history?interval=d1")
-    suspend fun getCurrencyChartHistoryById(@Path("Id") id: String): NetworkResponse<CurrencyChartResponse>
+    suspend fun getCurrencyChartHistoryById(@Path("Id") id: String):
+        NetworkResponse<CurrencyChartResponse>
 }

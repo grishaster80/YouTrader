@@ -2,7 +2,6 @@ package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.model.CryptoCurrency
-import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.network.retrofit.ApiErrorException
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkFailureException
