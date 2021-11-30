@@ -21,7 +21,7 @@ class ChartViewModel @Inject constructor(
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
 
-    fun updateCurrencyChartHistory(id: String) {
+    fun updateCurrencyChartHistory(id: String?) {
         _screenState.value = Result.Loading
         viewModelScope.launch {
             repository.getChartHistoryById(id)

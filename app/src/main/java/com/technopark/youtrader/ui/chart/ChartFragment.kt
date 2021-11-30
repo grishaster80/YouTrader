@@ -42,7 +42,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             nameCryptocurrency.text = title
         }
         initLineChart()
-        viewModel.updateCurrencyChartHistory(id ?: "bitcoin")
+        viewModel.updateCurrencyChartHistory(id)
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -103,9 +103,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         val entries: ArrayList<Entry> = ArrayList()
         scoreList.clear()
         for (i in chartElements) {
-            scoreList.add(transformDateD1(i))
+            scoreList.add(currencyChartElementToScore(i))
         }
-        title = "1 $id  = " + scoreList.last().value.toString() + " $"
+        title = constructionTitle()
         binding.nameCryptocurrency.text = title
 
         for (i in scoreList.indices) {
@@ -128,13 +128,21 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         lineChart?.invalidate()
     }
-    private fun transformDateD1(currencyChartElement: CurrencyChartElement): Score {
+    private fun currencyChartElementToScore(currencyChartElement: CurrencyChartElement): Score {
         val priceUsd = currencyChartElement.priceUsd.toFloat()
-        val date = currencyChartElement.date.subSequence(2, 4).toString() + '.' +
-            currencyChartElement.date.subSequence(5, 7).toString() + '.' +
-            currencyChartElement.date.subSequence(8, 10).toString()
+        val date = transformDate(currencyChartElement.date)
 
         return Score(date, priceUsd)
+    }
+
+    private fun transformDate(date: String) :String{
+        val year = date.subSequence(2, 4).toString()
+        val month = date.subSequence(5, 7).toString()
+        val day = date.subSequence(8, 10).toString()
+        return "$year.$month.$day"
+    }
+    private fun constructionTitle():String{
+        return "1 $id  = " + scoreList.last().value.toString() + " $"
     }
 
     companion object {
