@@ -15,7 +15,8 @@ class ChartHistoryRepository @Inject constructor(
     private val cryptoApi: CryptoCurrencyApi,
 ) {
     suspend fun getChartHistoryById(id: String?): Flow<List<CurrencyChartElement>> = flow {
-        when (val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)) {
+        val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)
+        when (currencyChartListFromNetwork) {
             is NetworkResponse.Success -> {
                 emit(currencyChartListFromNetwork.value.data)
             }
