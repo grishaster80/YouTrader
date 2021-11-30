@@ -4,11 +4,16 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.technopark.youtrader.network.auth.CommonAuthResult
+import com.technopark.youtrader.network.auth.awaitFirebaseAuth
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
 
 class FirebaseService : IAuthService {
     private var auth: FirebaseAuth = Firebase.auth
 
-    override fun checkSignIn(email: String): Boolean {
+    fun checkSignIn(email: String): Boolean {
         val user = auth.currentUser
         if (user != null && user.email == email) {
             Log.d(TAG, "User: $email logged in already")
@@ -18,33 +23,21 @@ class FirebaseService : IAuthService {
         return false
     }
 
-    override fun signIn(email: String, password: String) {
-        if (checkSignIn(email)) {
-            Log.d(TAG, "User: $email logged in already")
-        } else {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "signInWithEmail:success")
-                    } else {
-                        Log.d(TAG, "signInWithEmail:failure", task.exception)
-                    }
-                }
+    override suspend fun authenticate(email: String, password: String): Flow<CommonAuthResult?> =
+        flow {
+            emit(
+                auth.signInWithEmailAndPassword(email, password)
+                    .awaitFirebaseAuth()
+            )
         }
-    }
 
-    override fun sighUp(email: String, password: String) {
-        if (!checkSignIn(email)) {
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "createUserWithEmail:success")
-                    } else {
-                        Log.d(TAG, "createUserWithEmail:failure", task.exception)
-                    }
-                }
-        }
-    }
+    override suspend fun registerUser(email: String, password: String): Flow<CommonAuthResult?> =
+        flow {
+            emit(
+                auth.createUserWithEmailAndPassword(email, password)
+                    .awaitFirebaseAuth()
+            )
+        }.onEach { Log.d(TAG, auth.currentUser?.email.toString()) }
 
     override fun sighOut() {
         Log.d(TAG, "sighOut")
@@ -56,6 +49,6 @@ class FirebaseService : IAuthService {
     }
 
     companion object {
-        private const val TAG = "FirebaseService"
+        private const val TAG = "FirebaseServiceTag"
     }
 }
