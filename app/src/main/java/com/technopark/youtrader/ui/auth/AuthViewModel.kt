@@ -18,6 +18,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
+    private val _authState = MutableLiveData<Event<Result<String?>>>()
+    val authState: LiveData<Event<Result<String?>>> = _authState
 
     fun navigateToCurrenciesFragment() {
         navigateTo(AuthFragmentDirections.actionAuthFragmentToCurrenciesFragment())
@@ -25,5 +27,23 @@ class AuthViewModel @Inject constructor(
 
     fun navigateToRegFragment() {
         navigateTo(AuthFragmentDirections.actionAuthFragmentToRegFragment())
+    }
+
+    fun signIn(email: String, password: String) {
+        viewModelScope.launch {
+            _authState.value = Event(Result.Loading)
+            authService.authenticate(email, password)
+                .catch {
+                    _authState.value = Event(Result.Error(it))
+                    Log.d(TAG, it.message.toString())
+                }.collect {
+                    _authState.value = Event(Result.Success(it?.userInfo))
+                    Log.d(TAG, it?.userInfo.toString())
+                }
+        }
+    }
+
+    companion object {
+        private const val TAG = "AuthViewModelTag"
     }
 }
