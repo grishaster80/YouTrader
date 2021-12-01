@@ -6,8 +6,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.technopark.youtrader.R
 import com.technopark.youtrader.database.AppDatabase
-import com.technopark.youtrader.network.FirebaseService
-import com.technopark.youtrader.network.IAuthService
+import com.technopark.youtrader.network.auth.FirebaseService
+import com.technopark.youtrader.network.auth.IAuthService
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkResponseAdapterFactory
 import com.technopark.youtrader.network.retrofit.RetryInterceptor
@@ -15,10 +15,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

@@ -17,7 +17,9 @@ class HistoryOperationItem(
             price.text = history.price
 
             if (amountCurrency.text[0] == '-') {
-                amountCurrency.setTextColor(ContextCompat.getColor(amountCurrency.context, R.color.red))
+                amountCurrency.setTextColor(
+                    ContextCompat.getColor(amountCurrency.context, R.color.red)
+                )
             }
         }
     }

@@ -48,4 +48,8 @@
     <string name="buy_amount_of_currency_hint">0</string>
     <string name="portfolio_status_title">Состояние портфеля</string>
     <string name="buy_currency_button">Приобрести</string>
+    <string name="auth_success">Авторизация прошла успешно</string>
+    <string name="auth_error">Ошибка авторизации: %s</string>
+    <string name="registration_success">Регистрация прошла успешно</string>
+    <string name="registration_error">Ошибка регистрации: %s</string>
 </resources>

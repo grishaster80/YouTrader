@@ -38,7 +38,9 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
             relativeChange.text = "+0.12%"
             if (price.text[0] == '-') {
                 absChange.setTextColor(ContextCompat.getColor(price.context, R.color.red))
-                relativeChange.setTextColor(ContextCompat.getColor(relativeChange.context, R.color.red))
+                relativeChange.setTextColor(
+                    ContextCompat.getColor(relativeChange.context, R.color.red)
+                )
             }
         }
 
