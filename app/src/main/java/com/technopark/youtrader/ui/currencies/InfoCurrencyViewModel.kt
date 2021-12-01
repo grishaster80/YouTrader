@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.database.transaction_entity.LocalCryptoCurrencyTransaction
 import com.technopark.youtrader.model.HistoryOperationItem
+import com.technopark.youtrader.model.InfoCurrencyModel
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,30 +20,25 @@ class InfoCurrencyViewModel @Inject constructor(
     private val repository: CryptoTransactionRepository
 ) : BaseViewModel() {
 
-    private var currencyTransactionItems: List<HistoryOperationItem> = listOf()
-    private val _screenState = MutableLiveData<Result<List<HistoryOperationItem>>>()
-    val screenState: LiveData<Result<List<HistoryOperationItem>>> = _screenState
-    val totalPrice = MutableLiveData<Double>(0.0)
-    val totalAmount = MutableLiveData<Double>(0.0)
-    val currency = MutableLiveData<LocalCryptoCurrencyTransaction>()
+    private lateinit var infoCurrencyModel: InfoCurrencyModel
+    private val _screenState = MutableLiveData<Result<InfoCurrencyModel>>()
+    val screenState: LiveData<Result<InfoCurrencyModel>> = _screenState
 
     init {
         viewModelScope.launch {
             _screenState.value = Result.Loading
-            repository.insertCurrency("1", "Bitcoin", "BTC")
-
-            repository.insertTransaction(12.22882, 4385.0, "1")
-            repository.insertTransaction(-0.22200, 435.76, "1")
+            //repository.insertCurrency("1", "Bitcoin", "BTC")
+            //repository.insertTransaction(12.22882, 4385.0, "1")
         }
     }
 
     fun updateCurrencyTransactions(currencyId: String) {
-
         viewModelScope.launch {
-            var sym: String = ""
+            _screenState.value = Result.Loading
+            var ticker: String = ""
             repository.getCurrency(currencyId).collect {
-                curr ->
-                sym = curr.symbol
+                currency ->
+                ticker = currency.symbol
             }
 
             repository.getAllCurrencyTransaction(currencyId)
@@ -50,28 +46,26 @@ class InfoCurrencyViewModel @Inject constructor(
                     _screenState.value = Result.Error(error)
                 }
                 .collect { currencyTransactions ->
-                    currencyTransactionItems =
-                        currencyTransactions.map { transaction -> HistoryOperationItem(transaction, sym) }
-                    _screenState.value = Result.Success(currencyTransactionItems)
+                    infoCurrencyModel.operationItemList =
+                        currencyTransactions.map { transaction -> HistoryOperationItem(transaction, ticker) }
+                    _screenState.value = Result.Success(infoCurrencyModel)
                 }
         }
     }
 
     fun updateCurrencyInformation(id: String) {
         viewModelScope.launch {
-            repository.getCurrency(id)
-                .collect {
-                    curr ->
-                    currency.value = curr
-                }
+            _screenState.value = Result.Loading
+            repository.getCurrency(id).collect {
+                currency -> infoCurrencyModel.cryptoCurrency = currency
+            }
             repository.getTotalPrice(id).collect {
-                price ->
-                totalPrice.value = price
+                price -> infoCurrencyModel.totalPrice = price
             }
             repository.getTotalAmount(id).collect {
-                amount ->
-                totalAmount.value = amount
+                amount -> infoCurrencyModel.totalAmount = amount
             }
+            _screenState.value = Result.Success(infoCurrencyModel)
             // TODO get current price from API
         }
     }

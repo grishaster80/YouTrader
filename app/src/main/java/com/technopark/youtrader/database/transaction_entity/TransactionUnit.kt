@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class Transaction(
+data class TransactionUnit(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val price: Double,

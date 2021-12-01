@@ -2,7 +2,7 @@ package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.database.transaction_entity.LocalCryptoCurrencyTransaction
-import com.technopark.youtrader.database.transaction_entity.Transaction
+import com.technopark.youtrader.database.transaction_entity.TransactionUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class CryptoTransactionRepository @Inject constructor(
     private val database: AppDatabase
 ) {
-    suspend fun getAllCurrencyTransaction(currencyId: String): Flow<List<Transaction>> = flow {
+    suspend fun getAllCurrencyTransaction(currencyId: String): Flow<List<TransactionUnit>> = flow {
         emit(database.cryptoTransactionDao().getAllTransactionByCurrency(currencyId))
     }.flowOn(Dispatchers.IO)
 
@@ -36,13 +36,13 @@ class CryptoTransactionRepository @Inject constructor(
         insertCurrency(LocalCryptoCurrencyTransaction(id, sym, name))
     }
 
-    private suspend fun insertTransaction(transaction: Transaction) {
-        database.cryptoTransactionDao().insertTransaction(transaction)
+    private suspend fun insertTransaction(transactionUnit: TransactionUnit) {
+        database.cryptoTransactionDao().insertTransaction(transactionUnit)
     }
 
     suspend fun insertTransaction(amount: Double, price: Double, currencyId: String) {
         insertTransaction(
-            Transaction(
+            TransactionUnit(
                 amount = amount,
                 price = price,
                 cryptoCurrencyId = currencyId,

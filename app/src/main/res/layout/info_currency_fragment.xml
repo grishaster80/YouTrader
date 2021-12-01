@@ -12,6 +12,7 @@
         android:layout_marginStart="@dimen/indent_small"
         android:layout_marginTop="@dimen/indent_very_small"
         tools:text="BitCoin"
+        android:text="Bitcoin"
         android:textSize="@dimen/text_size_h4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +47,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/total"
         app:layout_constraintTop_toBottomOf="@+id/total"
-        tools:text="$62.000,3" />
+        android:text="$62.000,3" />
 
     <TextView
         android:id="@+id/total"
@@ -70,7 +71,7 @@
         android:textSize="@dimen/text_size_h6"
         app:layout_constraintBottom_toBottomOf="@+id/price"
         app:layout_constraintStart_toEndOf="@+id/price"
-        tools:text="+222,8" />
+        android:text="+222,8" />
 
     <TextView
         android:id="@+id/relative_change"
@@ -81,7 +82,7 @@
         android:textSize="@dimen/text_size_h5"
         app:layout_constraintBottom_toBottomOf="@+id/abs_change"
         app:layout_constraintStart_toEndOf="@+id/abs_change"
-        tools:text="3,6%" />
+        android:text="3,6%" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -91,7 +92,7 @@
         app:layout_constraintGuide_begin="170dp" />
 
     <ProgressBar
-        android:id="@+id/progress_bar2"
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/indent_medium"
