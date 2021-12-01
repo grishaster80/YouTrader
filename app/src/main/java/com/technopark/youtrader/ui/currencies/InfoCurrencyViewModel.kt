@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.database.transaction_entity.LocalCryptoCurrencyTransaction
 import com.technopark.youtrader.model.HistoryOperationItem
 import com.technopark.youtrader.model.InfoCurrencyModel
 import com.technopark.youtrader.model.Result
@@ -20,15 +19,13 @@ class InfoCurrencyViewModel @Inject constructor(
     private val repository: CryptoTransactionRepository
 ) : BaseViewModel() {
 
-    private lateinit var infoCurrencyModel: InfoCurrencyModel
+    private val infoCurrencyModel: InfoCurrencyModel = InfoCurrencyModel()
     private val _screenState = MutableLiveData<Result<InfoCurrencyModel>>()
     val screenState: LiveData<Result<InfoCurrencyModel>> = _screenState
 
     init {
         viewModelScope.launch {
             _screenState.value = Result.Loading
-            //repository.insertCurrency("1", "Bitcoin", "BTC")
-            //repository.insertTransaction(12.22882, 4385.0, "1")
         }
     }
 
@@ -57,13 +54,16 @@ class InfoCurrencyViewModel @Inject constructor(
         viewModelScope.launch {
             _screenState.value = Result.Loading
             repository.getCurrency(id).collect {
-                currency -> infoCurrencyModel.cryptoCurrency = currency
+                currency ->
+                infoCurrencyModel.cryptoCurrency = currency
             }
             repository.getTotalPrice(id).collect {
-                price -> infoCurrencyModel.totalPrice = price
+                price ->
+                infoCurrencyModel.totalPrice = price
             }
             repository.getTotalAmount(id).collect {
-                amount -> infoCurrencyModel.totalAmount = amount
+                amount ->
+                infoCurrencyModel.totalAmount = amount
             }
             _screenState.value = Result.Success(infoCurrencyModel)
             // TODO get current price from API

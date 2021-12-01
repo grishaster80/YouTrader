@@ -21,8 +21,6 @@ import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.info_currency_fragment.*
-import kotlin.math.roundToLong
 
 @AndroidEntryPoint
 class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {

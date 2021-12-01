@@ -12,10 +12,6 @@
         <action
             android:id="@+id/action_authFragment_to_regFragment"
             app:destination="@id/regFragment">
-            <argument
-                android:name="someString"
-                app:argType="string"
-                android:defaultValue="empty" />
         </action>
         <action
             android:id="@+id/action_authFragment_to_currenciesFragment"
@@ -29,11 +25,10 @@
         <action
             android:id="@+id/action_regFragment_to_authFragment"
             app:destination="@id/authFragment">
-            <argument
-                android:name="someString"
-                app:argType="string"
-                android:defaultValue="empty" />
         </action>
+        <action
+            android:id="@+id/action_regFragment_to_currenciesFragment"
+            app:destination="@id/currenciesFragment" />
     </fragment>
     <fragment
         android:id="@+id/currenciesFragment"
@@ -44,7 +39,12 @@
             app:destination="@id/authFragment" />
         <action
             android:id="@+id/action_currenciesFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
+            app:destination="@id/chartFragment">
+            <argument
+                android:name="id"
+                app:argType="string"
+                android:defaultValue="empty" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

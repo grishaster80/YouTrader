@@ -12,7 +12,6 @@ import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
 import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.timestampToFormatDate
 import com.xwray.groupie.viewbinding.BindableItem
-import kotlin.math.roundToLong
 
 class HistoryOperationItem(
     private val transactionUnit: TransactionUnit,

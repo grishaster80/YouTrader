@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "LocalCryptoCurrencyTransaction")
 data class LocalCryptoCurrencyTransaction(
     @PrimaryKey(autoGenerate = false)
-    val id: String,
-    val symbol: String,
-    val name: String,
+    val id: String = "-1",
+    val symbol: String = "",
+    val name: String = "",
 
 )

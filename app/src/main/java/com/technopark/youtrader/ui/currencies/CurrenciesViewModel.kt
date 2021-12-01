@@ -37,8 +37,8 @@ class CurrenciesViewModel @Inject constructor(
         }
     }
 
-    fun navigateToChartFragment() {
-        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToChartFragment())
+    fun navigateToChartFragment(id: String) {
+        navigateTo(CurrenciesFragmentDirections.actionCurrenciesFragmentToChartFragment(id))
     }
 
     fun updateCurrenciesByMatch(pattern: String) {
