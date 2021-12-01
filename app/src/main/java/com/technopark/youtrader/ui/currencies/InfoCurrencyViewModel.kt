@@ -26,6 +26,9 @@ class InfoCurrencyViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _screenState.value = Result.Loading
+            // Без этого пока что не будет работать
+            repository.insertCurrency("1","Bitcoin","BTC")
+            repository.insertTransaction(0.122,456.0,"1")
         }
     }
 
