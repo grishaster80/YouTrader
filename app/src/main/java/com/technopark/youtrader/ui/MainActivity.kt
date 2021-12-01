@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val withoutToolbarNavIconFragmentIds = listOf(
         R.id.authFragment,
+        R.id.pinAuthFragment,
         R.id.regFragment,
         R.id.currenciesFragment,
         R.id.portfolioFragment,
