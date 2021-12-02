@@ -71,31 +71,6 @@
                 app:layout_constraintTop_toTopOf="@+id/full_name" />
 
             <TextView
-                android:id="@+id/text_convert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Headline6"
-                style="@style/Component.TextView.Title"
-                android:text="@string/profile_convert_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/spinner_currencies"
-                app:layout_constraintTop_toBottomOf="@id/full_name" />
-
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner_currencies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/indent_big"
-                style="@style/Component.CardView.Filled"
-                android:entries="@array/currencies"
-                android:popupBackground="@color/pink"
-                app:layout_constraintStart_toEndOf="@id/text_convert"
-                app:layout_constraintBottom_toBottomOf="@+id/text_convert"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_convert" />
-
-            <TextView
                 android:id="@+id/text_pin_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,15 +79,15 @@
                 android:text="@string/profile_pin_code_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/switch_pin_code"
-                app:layout_constraintTop_toBottomOf="@id/text_convert" />
+                app:layout_constraintTop_toBottomOf="@id/full_name" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_pin_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/text_pin_code"
                 app:layout_constraintBottom_toBottomOf="@+id/text_pin_code"
-                app:layout_constraintStart_toStartOf="@id/spinner_currencies"
-                app:layout_constraintEnd_toEndOf="@id/spinner_currencies"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_pin_code"
                 style="@style/Component.SwitchCompat" />
 

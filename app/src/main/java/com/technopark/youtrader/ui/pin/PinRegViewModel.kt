@@ -12,7 +12,7 @@ class PinRegViewModel @Inject constructor(
     private val authService: IAuthService
 ) : BaseViewModel() {
 
-    fun navigateToCurrenciesFragment() {
-        val someString = "Random text"
+    fun navigateToProfileFragment() {
+        navigateTo(PinRegFragmentDirections.actionPinRegFragmentToProfileFragment())
     }
 }
