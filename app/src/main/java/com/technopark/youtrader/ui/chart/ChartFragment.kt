@@ -52,9 +52,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         viewModel.updateCurrencyChartHistory(id, interval)
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                radioButtonDay.id -> {
-                    interval = "m1"
-                }
                 radioButtonWeek.id -> {
                     interval = "m15"
                 }

@@ -37,21 +37,13 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radio_button_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:button="@null"
-            android:layout_weight="1"
-            android:text="Д"/>
-        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radio_button_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:button="@null"
             android:layout_weight="1"
-            android:text="Н"/>
+            android:text="@string/chart_interval_week"/>
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radio_button_month"
             android:layout_width="wrap_content"
@@ -59,7 +51,7 @@
             android:gravity="center"
             android:button="@null"
             android:layout_weight="1"
-            android:text="М" />
+            android:text="@string/chart_interval_month" />
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radio_button_year"
             android:layout_width="wrap_content"
@@ -68,7 +60,7 @@
             android:button="@null"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Г" />
+            android:text="@string/chart_interval_year" />
     </RadioGroup>
 
 
