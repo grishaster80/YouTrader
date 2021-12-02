@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@id/passcode_view"
         style="@style/TextAppearance.Headline5"/>
 
-    <online.devliving.passcodeview.PasscodeView
+    <com.technopark.youtrader.ui.pin.MyPasscodeView
         android:id="@+id/passcode_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
