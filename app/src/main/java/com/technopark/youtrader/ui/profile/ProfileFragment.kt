@@ -44,10 +44,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
         with(binding) {
             val photoUri = getStringFromPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY)
             if (photoUri.isNotEmpty()) {
-                Glide.with(this@ProfileFragment)
-                    .load(Uri.parse(photoUri))
-                    .placeholder(R.drawable.avatar)
-                    .into(portrait)
+                loadPicture(Uri.parse(photoUri))
             }
 
             fullName.text = getFullNameFromPrefs()
@@ -72,10 +69,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             portrait.setOnClickListener {
                 imageHandler?.getImage { uri ->
                     if (uri != null) {
-                        Glide.with(this@ProfileFragment)
-                            .load(uri)
-                            .placeholder(R.drawable.avatar)
-                            .into(portrait)
+                        loadPicture(uri)
                         setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
                     }
                 }
@@ -84,15 +78,19 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             takePicture.setOnClickListener {
                 imageHandler?.takePicture { uri ->
                     if (uri != null) {
-                        Glide.with(this@ProfileFragment)
-                            .load(uri)
-                            .placeholder(R.drawable.avatar)
-                            .into(portrait)
+                        loadPicture(uri)
                         setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
                     }
                 }
             }
         }
+    }
+
+    private fun loadPicture(uri: Uri){
+        Glide.with(this@ProfileFragment)
+            .load(uri)
+            .placeholder(R.drawable.avatar)
+            .into(binding.portrait)
     }
 
     private fun getFullNameFromPrefs(): String {
