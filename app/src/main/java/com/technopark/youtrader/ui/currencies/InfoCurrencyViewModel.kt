@@ -39,6 +39,7 @@ class InfoCurrencyViewModel @Inject constructor(
             repository.getCurrency(currencyId).collect {
                 currency ->
                 ticker = currency.symbol
+                _screenState.value = Result.Success(infoCurrencyModel)
             }
 
             repository.getAllCurrencyTransaction(currencyId)
@@ -59,16 +60,19 @@ class InfoCurrencyViewModel @Inject constructor(
             repository.getCurrency(id).collect {
                 currency ->
                 infoCurrencyModel.cryptoCurrency = currency
+                _screenState.value = Result.Success(infoCurrencyModel)
             }
             repository.getTotalPrice(id).collect {
                 price ->
                 infoCurrencyModel.totalPrice = price
+                _screenState.value = Result.Success(infoCurrencyModel)
             }
             repository.getTotalAmount(id).collect {
                 amount ->
                 infoCurrencyModel.totalAmount = amount
+                _screenState.value = Result.Success(infoCurrencyModel)
             }
-            _screenState.value = Result.Success(infoCurrencyModel)
+
             // TODO get current price from API
         }
     }
