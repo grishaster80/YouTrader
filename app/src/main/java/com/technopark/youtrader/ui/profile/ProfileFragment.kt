@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ProfileFragmentBinding
@@ -43,9 +44,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
         with(binding) {
             val photoUri = getStringFromPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY)
             if (photoUri.isNotEmpty()) {
-                portrait.setImageURI(
-                    Uri.parse(photoUri)
-                )
+                loadPicture(Uri.parse(photoUri))
             }
 
             fullName.text = getFullNameFromPrefs()
@@ -70,7 +69,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             portrait.setOnClickListener {
                 imageHandler?.getImage { uri ->
                     if (uri != null) {
-                        portrait.setImageURI(uri)
+                        loadPicture(uri)
                         setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
                     }
                 }
@@ -79,7 +78,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             takePicture.setOnClickListener {
                 imageHandler?.takePicture { uri ->
                     if (uri != null) {
-                        portrait.setImageURI(uri)
+                        loadPicture(uri)
                         setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
                     }
                 }
@@ -96,6 +95,13 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             }
         }
 
+    }
+
+    private fun loadPicture(uri: Uri){
+        Glide.with(this)
+            .load(uri)
+            .placeholder(R.drawable.avatar)
+            .into(binding.portrait)
     }
 
     private fun getFullNameFromPrefs(): String {
