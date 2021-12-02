@@ -4,9 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.RadioButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -23,8 +21,10 @@ import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.chart_fragment.view.*
-import kotlinx.android.synthetic.main.currencies_fragment.*
+import com.github.mikephil.charting.components.YAxis
+
+
+
 
 @AndroidEntryPoint
 class ChartFragment : BaseFragment(R.layout.chart_fragment) {
@@ -44,11 +44,34 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         with(binding) {
             lineChart = chart
             nameCryptocurrency.text = title
-
         }
-        interval = "m1"
-        viewModel.updateCurrencyChartHistory(id, interval)
+        val radioGroup = binding.radioGroupInterval
+        val radioButtonDay = binding.radioButtonMonth
+        val radioButtonWeek = binding.radioButtonWeek
+        val radioButtonMonth = binding.radioButtonMonth
+        val radioButtonYear = binding.radioButtonYear
+        interval = "h1"
         initLineChart()
+        viewModel.updateCurrencyChartHistory(id, interval)
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                radioButtonDay.id -> {
+                    interval = "m1"
+                }
+                radioButtonWeek.id -> {
+                    interval = "m15"
+
+                }
+                radioButtonMonth.id -> {
+                    interval = "h1"
+                }
+                radioButtonYear.id -> {
+                    interval = "d1"
+                }
+            }
+            initLineChart()
+            viewModel.updateCurrencyChartHistory(id, interval)
+        }
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -83,6 +106,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     private fun initLineChart() {
 
+
 //        hide grid lines
         lineChart?.axisLeft?.setDrawGridLines(false)
         val xAxis: XAxis? = lineChart?.xAxis
@@ -103,6 +127,16 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.valueFormatter = MyAxisFormatter(scoreList)
         xAxis?.setDrawLabels(true)
         xAxis?.granularity = 1f
+        xAxis?.labelRotationAngle = -30f
+
+        lineChart?.setXAxisRenderer(
+            CustomXAxisRenderer(
+                lineChart?.viewPortHandler,
+                lineChart?.xAxis,
+                lineChart?.getTransformer(YAxis.AxisDependency.LEFT)
+            )
+        )
+
     }
 
     private fun setDataToLineChart(chartElements: List<CurrencyChartElement>) {
@@ -131,7 +165,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         val data = LineData(lineDataSet)
         lineChart?.data = data
-
         lineChart?.invalidate()
     }
     private fun currencyChartElementToScore(currencyChartElement: CurrencyChartElement): Score {
@@ -142,25 +175,12 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun transformDate(date: String) :String{
-        if (interval.equals("d1")){
+        val month = date.subSequence(5, 7)
+        val day = date.subSequence(8, 10)
+        val hour = date.subSequence(11,13)
+        val minute = date.subSequence(14,16)
 
-            val year = date.subSequence(2, 4)
-            val month = date.subSequence(5, 7)
-            val day = date.subSequence(8, 10)
-            return "$year.$month.$day "
-        }
-        if (interval.equals("h1")){
-            val day = date.subSequence(8, 10)
-            val hour = date.subSequence(11,13)
-            val minute = date.subSequence(14,16)
-            return "$day $hour:$minute "
-        }
-        if (interval.equals("m1")){
-            val hour = date.subSequence(11,13)
-            val minute = date.subSequence(14,16)
-            return "$hour:$minute "
-        }
-        return date
+        return "$day-$month\n$hour:$minute"
     }
     private fun constructionTitle():String{
         return "1 $id  = " + scoreList.last().value.toString() + " $"
