@@ -31,6 +31,7 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                 TAG,
                 "Go to the currency purchase history: ${item.portfolioCurrencyInfo.currencyName}"
             )
+            // TODO Замени на текущий id
             viewModel.navigateToInfoHistoryFragment("1")
         }
     }
