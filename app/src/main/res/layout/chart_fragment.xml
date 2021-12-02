@@ -25,6 +25,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:minHeight="300dp" />
 
+    <RadioGroup
+        android:id="@+id/interval"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/indent_big"
+        app:layout_constraintTop_toBottomOf="@id/chart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_button_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:text="Ч" />
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_button_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:text="Д"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_button_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:text="М" />
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_button_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_weight="1"
+            android:text="Г" />
+    </RadioGroup>
+
+
     <EditText
         android:id="@+id/edit_count_currencies"
         android:textAppearance="@style/TextAppearance.Subtitle1"
@@ -50,7 +95,7 @@
         android:layout_marginEnd="@dimen/indent_big"
         android:layout_marginTop="@dimen/indent_big"
         android:text="@string/buy_currency_button"
-        app:layout_constraintTop_toBottomOf="@id/chart" />
+        app:layout_constraintTop_toBottomOf="@id/interval" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

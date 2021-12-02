@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.flowOn
 class ChartHistoryRepository @Inject constructor(
     private val cryptoApi: CryptoCurrencyApi,
 ) {
-    suspend fun getChartHistoryById(id: String?): Flow<List<CurrencyChartElement>> = flow {
-        val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id)
+    suspend fun getChartHistoryById(id: String?, interval: String?): Flow<List<CurrencyChartElement>> = flow {
+        val currencyChartListFromNetwork = cryptoApi.getCurrencyChartHistoryById(id, interval)
         when (currencyChartListFromNetwork) {
             is NetworkResponse.Success -> {
                 emit(currencyChartListFromNetwork.value.data)

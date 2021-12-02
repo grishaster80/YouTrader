@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -21,6 +23,7 @@ import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.chart_fragment.view.*
 import kotlinx.android.synthetic.main.currencies_fragment.*
 
 @AndroidEntryPoint
@@ -33,6 +36,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private var scoreList = ArrayList<Score>()
     private var id: String? = null
     private var title: String? = null
+    private var interval: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,9 +44,11 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         with(binding) {
             lineChart = chart
             nameCryptocurrency.text = title
+
         }
+        interval = "m1"
+        viewModel.updateCurrencyChartHistory(id, interval)
         initLineChart()
-        viewModel.updateCurrencyChartHistory(id)
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -136,10 +142,25 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun transformDate(date: String) :String{
-        val year = date.subSequence(2, 4).toString()
-        val month = date.subSequence(5, 7).toString()
-        val day = date.subSequence(8, 10).toString()
-        return "$year.$month.$day"
+        if (interval.equals("d1")){
+
+            val year = date.subSequence(2, 4)
+            val month = date.subSequence(5, 7)
+            val day = date.subSequence(8, 10)
+            return "$year.$month.$day "
+        }
+        if (interval.equals("h1")){
+            val day = date.subSequence(8, 10)
+            val hour = date.subSequence(11,13)
+            val minute = date.subSequence(14,16)
+            return "$day $hour:$minute "
+        }
+        if (interval.equals("m1")){
+            val hour = date.subSequence(11,13)
+            val minute = date.subSequence(14,16)
+            return "$hour:$minute "
+        }
+        return date
     }
     private fun constructionTitle():String{
         return "1 $id  = " + scoreList.last().value.toString() + " $"

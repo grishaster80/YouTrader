@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Component.RadioButton">
+        <item name="colorControlActivated">@color/gray</item>
+        <item name="colorOnSurface">@color/pink</item>
+        <item name="colorSurface">@color/green</item>
+        <item name="android:textSize">@dimen/text_size_h7</item>
+    </style>
+</resources>
