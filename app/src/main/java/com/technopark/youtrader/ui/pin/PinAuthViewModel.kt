@@ -13,6 +13,6 @@ class PinAuthViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun navigateToCurrenciesFragment() {
-        val someString = "Random text"
+        navigateTo(PinAuthFragmentDirections.actionPinAuthFragmentToCurrenciesFragment())
     }
 }

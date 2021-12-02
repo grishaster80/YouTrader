@@ -84,7 +84,18 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     }
                 }
             }
+
+            switchPinCode.isChecked = isPinEnabled()
+
+            switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    viewModel.navigateToPinRegFragment()
+                } else {
+                    setPinDisabled()
+                }
+            }
         }
+
     }
 
     private fun getFullNameFromPrefs(): String {
@@ -93,6 +104,14 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
     private fun setFullNameToPrefs(fullName: String) {
         setStringToPrefs("full_name", fullName)
+    }
+
+    private fun isPinEnabled(): Boolean{
+        return getStringFromPrefs("pin", "undefined") != "undefined"
+    }
+
+    private fun setPinDisabled() {
+        setStringToPrefs("pin", "undefined")
     }
 
     override fun onDestroyView() {

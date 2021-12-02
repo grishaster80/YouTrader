@@ -110,4 +110,7 @@ dependencies {
 
     // MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // PIN
+    implementation 'online.devliving:passcodeview:1.0.3'
 }
