@@ -87,7 +87,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     }
 
     private fun loadPicture(uri: Uri){
-        Glide.with(this@ProfileFragment)
+        Glide.with(this)
             .load(uri)
             .placeholder(R.drawable.avatar)
             .into(binding.portrait)
