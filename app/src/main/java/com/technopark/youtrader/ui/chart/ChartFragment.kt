@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -21,10 +22,6 @@ import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import com.github.mikephil.charting.components.YAxis
-
-
-
 
 @AndroidEntryPoint
 class ChartFragment : BaseFragment(R.layout.chart_fragment) {
@@ -60,7 +57,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                 }
                 radioButtonWeek.id -> {
                     interval = "m15"
-
                 }
                 radioButtonMonth.id -> {
                     interval = "h1"
@@ -106,7 +102,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     private fun initLineChart() {
 
-
 //        hide grid lines
         lineChart?.axisLeft?.setDrawGridLines(false)
         val xAxis: XAxis? = lineChart?.xAxis
@@ -136,7 +131,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                 lineChart?.getTransformer(YAxis.AxisDependency.LEFT)
             )
         )
-
     }
 
     private fun setDataToLineChart(chartElements: List<CurrencyChartElement>) {
@@ -174,15 +168,15 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         return Score(date, priceUsd)
     }
 
-    private fun transformDate(date: String) :String{
+    private fun transformDate(date: String): String {
         val month = date.subSequence(5, 7)
         val day = date.subSequence(8, 10)
-        val hour = date.subSequence(11,13)
-        val minute = date.subSequence(14,16)
+        val hour = date.subSequence(11, 13)
+        val minute = date.subSequence(14, 16)
 
         return "$day-$month\n$hour:$minute"
     }
-    private fun constructionTitle():String{
+    private fun constructionTitle(): String {
         return "1 $id  = " + scoreList.last().value.toString() + " $"
     }
 
