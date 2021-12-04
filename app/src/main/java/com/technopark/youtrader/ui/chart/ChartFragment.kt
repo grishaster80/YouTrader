@@ -220,6 +220,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     companion object {
         private const val TAG = "ChartFragment"
-        private val rotationAngleXaxis = -30f
+        private const val rotationAngleXaxis = -30f
     }
 }
