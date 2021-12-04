@@ -142,12 +142,12 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
     private fun currencyChartElementToScore(currencyChartElement: CurrencyChartElement): Score {
         val priceUsd = currencyChartElement.priceUsd.toFloat()
-        val date = transformDate(currencyChartElement.date)
+        val date = convertFormatDate(currencyChartElement.date)
 
         return Score(date, priceUsd)
     }
 
-    private fun transformDate(date: String): String {
+    private fun convertFormatDate(date: String): String {
         /* yyyy-mm-ddTHH:MM:SS.mmmZ
            ->
            dd-mm
