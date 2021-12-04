@@ -44,7 +44,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             lineChart = chart
             nameCryptocurrency.text = title
         }
-        interval = "d1"
+        interval = intervalYear
         initLineChart()
         viewModel.updateCurrencyChartHistory(id, interval)
         updateRadioButton()
@@ -170,10 +170,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         val radioButtonWeek = binding.radioButtonWeek
         val radioButtonMonth = binding.radioButtonMonth
         val radioButtonYear = binding.radioButtonYear
-        val intervalDay = "m1"
-        val intervalWeek = "m15"
-        val intervalMonth = "h1"
-        val intervalYear = "d1"
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (radioButtonDay.id == checkedId) {
                 interval = intervalDay
@@ -223,5 +219,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         private const val TAG = "ChartFragment"
         private const val xAxisRotationAngle = -30f
         private const val granularity = 1f
+        private const val intervalDay = "m1"
+        private const val intervalWeek = "m15"
+        private const val intervalMonth = "h1"
+        private const val intervalYear = "d1"
     }
 }
