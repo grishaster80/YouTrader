@@ -101,8 +101,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.position = XAxis.XAxisPosition.BOTTOM
         xAxis?.valueFormatter = MyAxisFormatter(scoreList)
         xAxis?.setDrawLabels(true)
-        xAxis?.granularity = 1f
-        xAxis?.labelRotationAngle = -30f
+        xAxis?.labelRotationAngle = rotationAngleXaxis
 
         lineChart?.setXAxisRenderer(
             CustomXAxisRenderer(
@@ -149,6 +148,11 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun transformDate(date: String): String {
+        /* yyyy-mm-ddTHH:MM:SS.mmmZ
+           ->
+           dd-mm
+           hh:mm
+        */
         val month = date.subSequence(5, 7)
         val day = date.subSequence(8, 10)
         val hour = date.subSequence(11, 13)
@@ -165,29 +169,33 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         val radioButtonWeek = binding.radioButtonWeek
         val radioButtonMonth = binding.radioButtonMonth
         val radioButtonYear = binding.radioButtonYear
+        val intervalDay = "m1"
+        val intervalWeek = "m15"
+        val intervalMonth = "h1"
+        val intervalYear = "d1"
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (radioButtonDay.id == checkedId) {
-                interval = "m1"
+                interval = intervalDay
                 changeRadioButtonColor(radioButtonDay, R.color.gray)
             } else {
                 changeRadioButtonColor(radioButtonDay, R.color.white)
             }
 
             if (radioButtonWeek.id == checkedId) {
-                interval = "m15"
+                interval = intervalWeek
                 changeRadioButtonColor(radioButtonWeek, R.color.gray)
             } else {
                 changeRadioButtonColor(radioButtonWeek, R.color.white)
             }
 
             if (radioButtonMonth.id == checkedId) {
-                interval = "h1"
+                interval = intervalMonth
                 changeRadioButtonColor(radioButtonMonth, R.color.gray)
             } else {
                 changeRadioButtonColor(radioButtonMonth, R.color.white)
             }
             if (radioButtonYear.id == checkedId) {
-                interval = "d1"
+                interval = intervalYear
                 changeRadioButtonColor(radioButtonYear, R.color.gray)
             } else {
                 changeRadioButtonColor(radioButtonYear, R.color.white)
@@ -212,5 +220,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     companion object {
         private const val TAG = "ChartFragment"
+        private val rotationAngleXaxis = -30f
     }
 }
