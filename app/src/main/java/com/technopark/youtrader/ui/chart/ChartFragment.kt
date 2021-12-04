@@ -102,7 +102,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.valueFormatter = MyAxisFormatter(scoreList)
         xAxis?.setDrawLabels(true)
         xAxis?.granularity = granularity
-        xAxis?.labelRotationAngle = rotationAngleXaxis
+        xAxis?.labelRotationAngle = xAxisRotationAngle
 
         lineChart?.setXAxisRenderer(
             CustomXAxisRenderer(
