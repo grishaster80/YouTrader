@@ -68,6 +68,7 @@
             android:button="@null"
             android:layout_weight="1"
             android:checked="true"
+            android:background="@color/gray"
             android:text="@string/chart_interval_year" />
     </RadioGroup>
 

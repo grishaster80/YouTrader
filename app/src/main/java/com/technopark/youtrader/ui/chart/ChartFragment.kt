@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -42,32 +44,10 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             lineChart = chart
             nameCryptocurrency.text = title
         }
-        val radioGroup = binding.radioGroupInterval
-        val radioButtonDay = binding.radioButtonDay
-        val radioButtonWeek = binding.radioButtonWeek
-        val radioButtonMonth = binding.radioButtonMonth
-        val radioButtonYear = binding.radioButtonYear
-        interval = "h1"
+        interval = "d1"
         initLineChart()
         viewModel.updateCurrencyChartHistory(id, interval)
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                radioButtonDay.id -> {
-                    interval = "m1"
-                }
-                radioButtonWeek.id -> {
-                    interval = "m15"
-                }
-                radioButtonMonth.id -> {
-                    interval = "h1"
-                }
-                radioButtonYear.id -> {
-                    interval = "d1"
-                }
-            }
-            initLineChart()
-            viewModel.updateCurrencyChartHistory(id, interval)
-        }
+        updateRadioButton()
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -179,6 +159,56 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private fun constructionTitle(): String {
         return "1 $id  = " + scoreList.last().value.toString() + " $"
     }
+    private fun updateRadioButton() {
+        val radioGroup = binding.radioGroupInterval
+        val radioButtonDay = binding.radioButtonDay
+        val radioButtonWeek = binding.radioButtonWeek
+        val radioButtonMonth = binding.radioButtonMonth
+        val radioButtonYear = binding.radioButtonYear
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            if (radioButtonDay.id == checkedId) {
+                interval = "m1"
+                changeRadioButtonColor(radioButtonDay, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonDay, R.color.white)
+            }
+
+            if (radioButtonWeek.id == checkedId) {
+                interval = "m15"
+                changeRadioButtonColor(radioButtonWeek, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonWeek, R.color.white)
+            }
+
+            if (radioButtonMonth.id == checkedId) {
+                interval = "h1"
+                changeRadioButtonColor(radioButtonMonth, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonMonth, R.color.white)
+            }
+            if (radioButtonYear.id == checkedId) {
+                interval = "d1"
+                changeRadioButtonColor(radioButtonYear, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonYear, R.color.white)
+            }
+
+
+            initLineChart()
+            viewModel.updateCurrencyChartHistory(id, interval)
+        }
+
+    }
+    private fun changeRadioButtonColor(button: AppCompatRadioButton, color: Int) {
+        button.setBackgroundColor(
+            ContextCompat.getColor(
+                button.context,
+                color
+            )
+        )
+    }
+
+
 
     companion object {
         private const val TAG = "ChartFragment"
