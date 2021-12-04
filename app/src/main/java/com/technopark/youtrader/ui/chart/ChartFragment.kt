@@ -101,6 +101,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.position = XAxis.XAxisPosition.BOTTOM
         xAxis?.valueFormatter = MyAxisFormatter(scoreList)
         xAxis?.setDrawLabels(true)
+        xAxis?.granularity = granularity
         xAxis?.labelRotationAngle = rotationAngleXaxis
 
         lineChart?.setXAxisRenderer(
@@ -220,6 +221,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
     companion object {
         private const val TAG = "ChartFragment"
-        private const val rotationAngleXaxis = -30f
+        private const val xAxisRotationAngle = -30f
+        private const val granularity = 1f
     }
 }
