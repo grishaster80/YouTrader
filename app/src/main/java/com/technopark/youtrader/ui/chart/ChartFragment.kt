@@ -152,7 +152,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         /* yyyy-mm-ddTHH:MM:SS.mmmZ
            ->
            dd-mm
-           hh:mm
+           HH:MM
         */
         val month = date.subSequence(5, 7)
         val day = date.subSequence(8, 10)
