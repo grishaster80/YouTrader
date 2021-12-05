@@ -41,8 +41,7 @@ class CryptoCurrencyRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-
-    suspend fun getCurrencyById(currencyId: String) : Flow<CryptoCurrency> {
+    suspend fun getCurrencyById(currencyId: String): Flow<CryptoCurrency> {
         return flow {
             when (val currenciesFromNetwork = cryptoApi.getCurrencyById(currencyId)) {
                 is NetworkResponse.Success -> {

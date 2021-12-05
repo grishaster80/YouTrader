@@ -87,7 +87,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             switchPinCode.isChecked = isPinEnabled()
 
             switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (!isChecked){
+                if (!isChecked) {
                     setPinDisabled()
                 }
                 switchPinCode.isChecked = isChecked
@@ -99,10 +99,9 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 switchPinCode.isChecked = isPinEnabled()
             }
         }
-
     }
 
-    private fun loadPicture(uri: Uri){
+    private fun loadPicture(uri: Uri) {
         Glide.with(this)
             .load(uri)
             .placeholder(R.drawable.avatar)
@@ -117,7 +116,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
         setStringToPrefs("full_name", fullName)
     }
 
-    private fun isPinEnabled(): Boolean{
+    private fun isPinEnabled(): Boolean {
         return getStringFromPrefs("pin", "undefined") != "undefined"
     }
 

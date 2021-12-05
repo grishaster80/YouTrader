@@ -27,7 +27,7 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
             label.text = getString(R.string.pin_reg_logo)
 
             passcodeView.setPasscodeEntryListener { passcode ->
-                when(pin){
+                when (pin) {
                     "undefined" -> {
                         pin = passcode
                         passcodeView.clearText()
@@ -35,12 +35,12 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
                     }
                     passcode -> {
                         setPinToPrefs(pin)
-                        Toast.makeText(activity,"PIN успешно установлен", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "PIN успешно установлен", Toast.LENGTH_SHORT).show()
                         viewModel.navigateToProfileFragment()
                     }
                     else -> {
                         passcodeView.clearText()
-                        Toast.makeText(activity,"Неправильно введен PIN", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Неправильно введен PIN", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

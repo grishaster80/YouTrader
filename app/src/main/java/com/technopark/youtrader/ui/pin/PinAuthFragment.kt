@@ -21,7 +21,7 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
         // Don't forget to call super.onViewCreated
         super.onViewCreated(view, savedInstanceState)
 
-        if(!isPinEnabled()){
+        if (!isPinEnabled()) {
             viewModel.navigateToCurrenciesFragment()
         }
 
@@ -29,12 +29,11 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
             label.text = getFullNameFromPrefs()
 
             passcodeView.setPasscodeEntryListener { passcode ->
-                if(passcode == getPinFromPrefs()){
+                if (passcode == getPinFromPrefs()) {
                     viewModel.navigateToCurrenciesFragment()
-                }
-                else{
+                } else {
                     passcodeView.clearText()
-                    Toast.makeText(activity,"Введен неверный PIN", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Введен неверный PIN", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -46,11 +45,11 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
         return getStringFromPrefs("full_name", "undefined")
     }
 
-    private fun getPinFromPrefs(): String{
+    private fun getPinFromPrefs(): String {
         return getStringFromPrefs("pin", "0000")
     }
 
-    private fun isPinEnabled(): Boolean{
+    private fun isPinEnabled(): Boolean {
         return getStringFromPrefs("pin", "undefined") != "undefined"
     }
 

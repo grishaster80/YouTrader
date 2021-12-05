@@ -77,9 +77,9 @@ class InfoCurrencyViewModel @Inject constructor(
                     _screenState.value = Result.Error(error)
                 }.collect {
                     infoCurrencyModel.absChange =
-                         infoCurrencyModel.totalAmount*it.priceUsd - infoCurrencyModel.totalPrice
-                    infoCurrencyModel.relativeChange = infoCurrencyModel.absChange/infoCurrencyModel.totalPrice*100
-                    infoCurrencyModel.totalPrice = infoCurrencyModel.totalAmount*it.priceUsd
+                        infoCurrencyModel.totalAmount * it.priceUsd - infoCurrencyModel.totalPrice
+                    infoCurrencyModel.relativeChange = infoCurrencyModel.absChange / infoCurrencyModel.totalPrice * 100
+                    infoCurrencyModel.totalPrice = infoCurrencyModel.totalAmount * it.priceUsd
                     _screenState.value = Result.Success(infoCurrencyModel)
                 }
         }

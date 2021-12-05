@@ -1,10 +1,10 @@
 package com.technopark.youtrader.ui.pin
-import android.view.LayoutInflater
-import android.util.SparseArray
-import android.view.View
-import android.widget.LinearLayout
 import android.content.Context
 import android.util.AttributeSet
+import android.util.SparseArray
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
 import com.technopark.youtrader.R
 import online.devliving.passcodeview.PasscodeView
 
@@ -18,7 +18,7 @@ class MyKeyboard(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     private var keyValues = SparseArray<String>()
 
     override fun onClick(v: View) {
-        when (v.id){
+        when (v.id) {
             R.id.button_delete -> {
                 mPassView?.clearText()
             }
@@ -29,7 +29,7 @@ class MyKeyboard(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         }
     }
 
-    fun setPasscodeView(pv: PasscodeView){
+    fun setPasscodeView(pv: PasscodeView) {
         mPassView = pv
     }
 

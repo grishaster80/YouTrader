@@ -1,6 +1,6 @@
-package com.technopark.youtrader.model;
+package com.technopark.youtrader.model
 
 data class CurrencyResponse(
-        val data: CryptoCurrency,
-        val timestamp: Long
+    val data: CryptoCurrency,
+    val timestamp: Long
 )

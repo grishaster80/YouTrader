@@ -22,5 +22,4 @@ interface CryptoCurrencyApi {
     suspend fun getCurrencyById(
         @Path("Id") id: String?,
     ): NetworkResponse<CurrencyResponse>
-
 }
