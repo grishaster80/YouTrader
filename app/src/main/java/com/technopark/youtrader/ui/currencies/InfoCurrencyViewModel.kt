@@ -72,7 +72,7 @@ class InfoCurrencyViewModel @Inject constructor(
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
 
-            apiRepository.getCurrencyById("bitcoin")
+            apiRepository.getCurrencyById(id)
                 .catch { error ->
                     _screenState.value = Result.Error(error)
                 }.collect {
