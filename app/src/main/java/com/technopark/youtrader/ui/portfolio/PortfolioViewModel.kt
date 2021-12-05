@@ -12,9 +12,9 @@ class PortfolioViewModel : BaseViewModel() {
         MutableLiveData(getPortfolioItems())
     val portfolioItems: LiveData<List<PortfolioItem>> = _portfolioItems
 
-    fun navigateToInfoHistoryFragment() {
+    fun navigateToInfoHistoryFragment(currencyId: String) {
         navigateTo(
-            PortfolioFragmentDirections.actionPortfolioFragmentToInfoHistoryFragment()
+            PortfolioFragmentDirections.actionPortfolioFragmentToInfoHistoryFragment(currencyId)
         )
     }
 

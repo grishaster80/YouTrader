@@ -8,10 +8,10 @@ import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.ChartHistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(

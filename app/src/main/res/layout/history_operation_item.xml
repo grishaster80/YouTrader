@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15sp"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_h8"
         android:textColor="@color/shuttle_gray"
         app:layout_constraintBottom_toBottomOf="@+id/amount_currency"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,13 +21,13 @@
         android:id="@+id/amount_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5sp"
-        android:textSize="22sp"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/eq"
-        app:layout_constraintEnd_toStartOf="@+id/eq"
+        android:textSize="@dimen/text_size_h6"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ticker_info"
+        app:layout_constraintEnd_toStartOf="@+id/ticker_info"
+        app:layout_constraintTop_toTopOf="@+id/ticker_info"
 
-        app:layout_constraintTop_toTopOf="@+id/eq"
         tools:text="+0,0001963" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_marginHorizontal="5sp"
         android:text="="
 
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_h6"
         app:layout_constraintBottom_toBottomOf="@+id/price"
         app:layout_constraintEnd_toStartOf="@+id/price"
         app:layout_constraintTop_toTopOf="@+id/price" />
@@ -46,11 +46,19 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:layout_marginVertical="20sp"
+        android:textSize="@dimen/text_size_h5"
+
         android:layout_marginRight="15sp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="$123" />
+
+    <TextView
+        android:id="@+id/ticker_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/eq"
+        app:layout_constraintEnd_toStartOf="@+id/eq"
+        tools:text="BTC" />
 </androidx.constraintlayout.widget.ConstraintLayout>

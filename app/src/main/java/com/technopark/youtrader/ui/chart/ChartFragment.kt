@@ -148,7 +148,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         return Score(date, priceUsd)
     }
 
-    private fun convertFormatDate(date: String): String {
+private fun convertFormatDate(date: String): String {
         /* yyyy-mm-ddTHH:MM:SS.mmmZ
            ->
            dd-mm

@@ -2,33 +2,76 @@ package com.technopark.youtrader.ui.currencies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.model.HistoryOperation
 import com.technopark.youtrader.model.HistoryOperationItem
+import com.technopark.youtrader.model.InfoCurrencyModel
+import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.repository.CryptoTransactionRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InfoCurrencyViewModel : BaseViewModel() {
+@HiltViewModel
+class InfoCurrencyViewModel @Inject constructor(
+    private val repository: CryptoTransactionRepository
+) : BaseViewModel() {
 
-    private val _historyOperationItems: MutableLiveData<List<HistoryOperationItem>> =
-        MutableLiveData(getHistoryOperationItems())
-    val historyOperationItems: LiveData<List<HistoryOperationItem>> = _historyOperationItems
+    private val infoCurrencyModel: InfoCurrencyModel = InfoCurrencyModel()
+    private val _screenState = MutableLiveData<Result<InfoCurrencyModel>>()
+    val screenState: LiveData<Result<InfoCurrencyModel>> = _screenState
 
-    private fun getHistoryOperationItems(): List<HistoryOperationItem> {
-        val historyItems = mutableListOf<HistoryOperationItem>()
-        for (history in getHistoryOperation()) {
-            historyItems.add(HistoryOperationItem(history))
+    init {
+        viewModelScope.launch {
+            _screenState.value = Result.Loading
         }
-        return historyItems
     }
 
-    private fun getHistoryOperation(): List<HistoryOperation> {
-        return listOf(
-            HistoryOperation("17 ноя. 2021", "0.022", "$1330.2"),
-            HistoryOperation("15 ноя. 2021", "0.1", "$6043.2"),
-            HistoryOperation("28 окт. 2021", "-0.000832", "$50.300"),
-            HistoryOperation("1 сен. 2020", "0,0000004", "$45"),
-            HistoryOperation("12 дек. 2020", "-0,0002184", "$4523")
+    fun updateCurrencyTransactions(currencyId: String) {
+        viewModelScope.launch {
+            _screenState.value = Result.Loading
+            var ticker: String = ""
+            repository.getCurrency(currencyId).collect {
+                currency ->
+                ticker = currency.symbol
+                _screenState.value = Result.Success(infoCurrencyModel)
+            }
 
-        )
+            repository.getAllCurrencyTransaction(currencyId)
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }
+                .collect { currencyTransactions ->
+                    infoCurrencyModel.operationItemList =
+                        currencyTransactions.map { transaction -> HistoryOperationItem(transaction, ticker) }
+                    _screenState.value = Result.Success(infoCurrencyModel)
+                }
+        }
+    }
+
+    fun updateCurrencyInformation(id: String) {
+        viewModelScope.launch {
+            _screenState.value = Result.Loading
+            repository.getCurrency(id).collect {
+                currency ->
+                infoCurrencyModel.cryptoCurrency = currency
+                _screenState.value = Result.Success(infoCurrencyModel)
+            }
+            repository.getTotalPrice(id).collect {
+                price ->
+                infoCurrencyModel.totalPrice = price
+                _screenState.value = Result.Success(infoCurrencyModel)
+            }
+            repository.getTotalAmount(id).collect {
+                amount ->
+                infoCurrencyModel.totalAmount = amount
+                _screenState.value = Result.Success(infoCurrencyModel)
+            }
+
+            // TODO get current price from API
+        }
     }
 
     companion object {

@@ -1,8 +1,8 @@
 package com.technopark.youtrader.network.retrofit
 
-import java.lang.reflect.Type
 import retrofit2.Call
 import retrofit2.CallAdapter
+import java.lang.reflect.Type
 
 class NetworkResponseAdapter<S : Any>(
     private val successType: Type,
