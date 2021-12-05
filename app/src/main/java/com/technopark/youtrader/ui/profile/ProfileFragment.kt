@@ -87,11 +87,16 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             switchPinCode.isChecked = isPinEnabled()
 
             switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
-                    viewModel.navigateToPinRegFragment()
-                } else {
+                if (!isChecked){
                     setPinDisabled()
                 }
+                switchPinCode.isChecked = isChecked
+            }
+            switchPinCode.setOnClickListener {
+                if (switchPinCode.isChecked) {
+                    viewModel.navigateToPinRegFragment()
+                }
+                switchPinCode.isChecked = isPinEnabled()
             }
         }
 
