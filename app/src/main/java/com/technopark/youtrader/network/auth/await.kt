@@ -2,9 +2,9 @@ package com.technopark.youtrader.network.auth
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resumeWithException
 
 suspend fun Task<AuthResult>.awaitFirebaseAuth(): CommonAuthResult? {
     if (isComplete) {

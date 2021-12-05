@@ -53,4 +53,8 @@
     <string name="auth_error">Ошибка авторизации: %s</string>
     <string name="registration_success">Регистрация прошла успешно</string>
     <string name="registration_error">Ошибка регистрации: %s</string>
+    <string name="chart_interval_day">Д</string>
+    <string name="chart_interval_week">Н</string>
+    <string name="chart_interval_month">М</string>
+    <string name="chart_interval_year">Г</string>
 </resources>

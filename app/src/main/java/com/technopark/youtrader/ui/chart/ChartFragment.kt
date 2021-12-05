@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -21,7 +24,6 @@ import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.currencies_fragment.*
 
 @AndroidEntryPoint
 class ChartFragment : BaseFragment(R.layout.chart_fragment) {
@@ -33,6 +35,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private var scoreList = ArrayList<Score>()
     private var id: String? = null
     private var title: String? = null
+    private var interval: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,8 +44,10 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             lineChart = chart
             nameCryptocurrency.text = title
         }
+        interval = intervalYear
         initLineChart()
-        viewModel.updateCurrencyChartHistory(id)
+        viewModel.updateCurrencyChartHistory(id, interval)
+        updateRadioButton()
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -96,7 +101,16 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         xAxis?.position = XAxis.XAxisPosition.BOTTOM
         xAxis?.valueFormatter = MyAxisFormatter(scoreList)
         xAxis?.setDrawLabels(true)
-        xAxis?.granularity = 1f
+        xAxis?.granularity = granularity
+        xAxis?.labelRotationAngle = xAxisRotationAngle
+
+        lineChart?.setXAxisRenderer(
+            CustomXAxisRenderer(
+                lineChart?.viewPortHandler,
+                lineChart?.xAxis,
+                lineChart?.getTransformer(YAxis.AxisDependency.LEFT)
+            )
+        )
     }
 
     private fun setDataToLineChart(chartElements: List<CurrencyChartElement>) {
@@ -125,27 +139,89 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         val data = LineData(lineDataSet)
         lineChart?.data = data
-
         lineChart?.invalidate()
     }
     private fun currencyChartElementToScore(currencyChartElement: CurrencyChartElement): Score {
         val priceUsd = currencyChartElement.priceUsd.toFloat()
-        val date = transformDate(currencyChartElement.date)
+        val date = convertFormatDate(currencyChartElement.date)
 
         return Score(date, priceUsd)
     }
 
-    private fun transformDate(date: String): String {
-        val year = date.subSequence(2, 4).toString()
-        val month = date.subSequence(5, 7).toString()
-        val day = date.subSequence(8, 10).toString()
-        return "$year.$month.$day"
+private fun convertFormatDate(date: String): String {
+        /* yyyy-mm-ddTHH:MM:SS.mmmZ
+           ->
+           dd-mm
+           HH:MM
+        */
+        val month = date.subSequence(5, 7)
+        val day = date.subSequence(8, 10)
+        val hour = date.subSequence(11, 13)
+        val minute = date.subSequence(14, 16)
+
+        return "$day-$month\n$hour:$minute"
     }
     private fun constructionTitle(): String {
         return "1 $id  = " + scoreList.last().value.toString() + " $"
     }
+    private fun updateRadioButton() {
+        val radioGroup = binding.radioGroupInterval
+        val radioButtonDay = binding.radioButtonDay
+        val radioButtonWeek = binding.radioButtonWeek
+        val radioButtonMonth = binding.radioButtonMonth
+        val radioButtonYear = binding.radioButtonYear
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            if (radioButtonDay.id == checkedId) {
+                interval = intervalDay
+                changeRadioButtonColor(radioButtonDay, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonDay, R.color.white)
+            }
+
+            if (radioButtonWeek.id == checkedId) {
+                interval = intervalWeek
+                changeRadioButtonColor(radioButtonWeek, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonWeek, R.color.white)
+            }
+
+            if (radioButtonMonth.id == checkedId) {
+                interval = intervalMonth
+                changeRadioButtonColor(radioButtonMonth, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonMonth, R.color.white)
+            }
+            if (radioButtonYear.id == checkedId) {
+                interval = intervalYear
+                changeRadioButtonColor(radioButtonYear, R.color.gray)
+            } else {
+                changeRadioButtonColor(radioButtonYear, R.color.white)
+            }
+
+
+            initLineChart()
+            viewModel.updateCurrencyChartHistory(id, interval)
+        }
+
+    }
+    private fun changeRadioButtonColor(button: AppCompatRadioButton, color: Int) {
+        button.setBackgroundColor(
+            ContextCompat.getColor(
+                button.context,
+                color
+            )
+        )
+    }
+
+
 
     companion object {
         private const val TAG = "ChartFragment"
+        private const val xAxisRotationAngle = -30f
+        private const val granularity = 1f
+        private const val intervalDay = "m1"
+        private const val intervalWeek = "m15"
+        private const val intervalMonth = "h1"
+        private const val intervalYear = "d1"
     }
 }
