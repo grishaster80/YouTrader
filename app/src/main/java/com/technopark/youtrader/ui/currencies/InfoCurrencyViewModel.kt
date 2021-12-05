@@ -7,6 +7,7 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.HistoryOperationItem
 import com.technopark.youtrader.model.InfoCurrencyModel
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InfoCurrencyViewModel @Inject constructor(
-    private val repository: CryptoTransactionRepository
+    private val repository: CryptoTransactionRepository,
+    private val apiRepository: CryptoCurrencyRepository
 ) : BaseViewModel() {
 
     private val infoCurrencyModel: InfoCurrencyModel = InfoCurrencyModel()
@@ -70,7 +72,16 @@ class InfoCurrencyViewModel @Inject constructor(
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
 
-            // TODO get current price from API
+            apiRepository.getCurrencyById("bitcoin")
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }.collect {
+                    infoCurrencyModel.absChange =
+                         infoCurrencyModel.totalAmount*it.priceUsd - infoCurrencyModel.totalPrice
+                    infoCurrencyModel.relativeChange = infoCurrencyModel.absChange/infoCurrencyModel.totalPrice*100
+                    infoCurrencyModel.totalPrice = infoCurrencyModel.totalAmount*it.priceUsd
+                    _screenState.value = Result.Success(infoCurrencyModel)
+                }
         }
     }
 
