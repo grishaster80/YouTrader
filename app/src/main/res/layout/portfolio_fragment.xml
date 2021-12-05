@@ -7,7 +7,6 @@
 
     <TextView
         android:id="@+id/text_portfolio_status"
-        android:textAppearance="@style/TextAppearance.Subtitle1"
         style="@style/Component.TextView.OneLineText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +16,7 @@
         android:contentDescription="@string/portfolio_status_description"
         android:gravity="center|top"
         android:text="@string/portfolio_status_title"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,5 +60,14 @@
         app:layout_constraintTop_toBottomOf="@id/text_portfolio_status"
         tools:itemCount="5"
         tools:listitem="@layout/portfolio_item" />
+
+    <Button
+        android:id="@+id/clean_portfolio"
+        style="@style/Component.Button.Flat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:drawableTop="@drawable/ic_round_delete_24"
+        app:layout_constraintEnd_toEndOf="@+id/text_portfolio_status"
+        app:layout_constraintTop_toTopOf="@+id/text_portfolio_status" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
