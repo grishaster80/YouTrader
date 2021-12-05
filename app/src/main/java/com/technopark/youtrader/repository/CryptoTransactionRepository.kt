@@ -1,8 +1,7 @@
 package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
-import com.technopark.youtrader.database.transaction_entity.LocalCryptoCurrencyTransaction
-import com.technopark.youtrader.database.transaction_entity.TransactionUnit
+import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,11 +11,11 @@ import javax.inject.Inject
 class CryptoTransactionRepository @Inject constructor(
     private val database: AppDatabase
 ) {
-    suspend fun getAllCurrencyTransaction(currencyId: String): Flow<List<TransactionUnit>> = flow {
+    suspend fun getAllCurrencyTransaction(currencyId: String): Flow<List<CryptoCurrencyTransaction>> = flow {
         emit(database.cryptoTransactionDao().getAllTransactionByCurrency(currencyId))
     }.flowOn(Dispatchers.IO)
 
-    fun getCurrency(currencyId: String): Flow<LocalCryptoCurrencyTransaction> = flow {
+    fun getCurrency(currencyId: String): Flow<CryptoCurrencyTransaction> = flow {
         emit(database.cryptoTransactionDao().getCurrency(currencyId))
     }.flowOn(Dispatchers.IO)
 
@@ -28,27 +27,11 @@ class CryptoTransactionRepository @Inject constructor(
         emit(database.cryptoTransactionDao().getSumPriceByCurrencyId(currencyId))
     }.flowOn(Dispatchers.IO)
 
-    private suspend fun insertCurrency(cur: LocalCryptoCurrencyTransaction) {
-        database.cryptoTransactionDao().insertCurrency(cur)
-    }
+    suspend fun insertTransaction(id: String, amount: Double, price: Double) {
+        val timestamp = System.currentTimeMillis()
+        val transaction = CryptoCurrencyTransaction(id, timestamp, amount, price)
 
-    suspend fun insertCurrency(id: String, name: String, sym: String) {
-        insertCurrency(LocalCryptoCurrencyTransaction(id, sym, name))
-    }
-
-    private suspend fun insertTransaction(transactionUnit: TransactionUnit) {
-        database.cryptoTransactionDao().insertTransaction(transactionUnit)
-    }
-
-    suspend fun insertTransaction(amount: Double, price: Double, currencyId: String) {
-        insertTransaction(
-            TransactionUnit(
-                amount = amount,
-                price = price,
-                cryptoCurrencyId = currencyId,
-                timestamp = System.currentTimeMillis().toString()
-            )
-        )
+        database.cryptoTransactionDao().insertTransaction(transaction)
     }
 
     companion object {

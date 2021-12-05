@@ -32,9 +32,7 @@ abstract class AppModule {
                 application,
                 AppDatabase::class.java,
                 "cryptoCurrencyDatabase"
-            )
-                .addMigrations(AppDatabase.MIGRATION_1_2)
-                .build()
+            ).build()
         }
 
         @Singleton

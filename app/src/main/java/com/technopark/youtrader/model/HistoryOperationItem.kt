@@ -3,7 +3,6 @@ package com.technopark.youtrader.model
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.technopark.youtrader.R
-import com.technopark.youtrader.database.transaction_entity.TransactionUnit
 import com.technopark.youtrader.databinding.HistoryOperationItemBinding
 import com.technopark.youtrader.utils.Constants.Companion.MINUS_SYMBOL
 import com.technopark.youtrader.utils.Constants.Companion.PLUS_SYMBOL
@@ -14,15 +13,14 @@ import com.technopark.youtrader.utils.timestampToFormatDate
 import com.xwray.groupie.viewbinding.BindableItem
 
 class HistoryOperationItem(
-    private val transactionUnit: TransactionUnit,
+    private val transactionUnit: CryptoCurrencyTransaction,
     private val ticker: String
 ) : BindableItem<HistoryOperationItemBinding>() {
 
     override fun bind(viewBinding: HistoryOperationItemBinding, position: Int) {
         with(viewBinding) {
 
-            if (transactionUnit.timestamp != null)
-                opDate.text = timestampToFormatDate(transactionUnit.timestamp.toLong(), SIMPLE_DATE_FORMAT)
+            opDate.text = timestampToFormatDate(transactionUnit.timestamp, SIMPLE_DATE_FORMAT)
             if (transactionUnit.amount > 0) {
                 amountCurrency.text = PLUS_SYMBOL.plus(roundTo(transactionUnit.amount))
             } else {
