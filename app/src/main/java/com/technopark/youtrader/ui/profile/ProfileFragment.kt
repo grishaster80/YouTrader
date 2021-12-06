@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ProfileFragmentBinding
+import com.technopark.youtrader.utils.Constants.Companion.PREF_FULL_NAME
+import com.technopark.youtrader.utils.Constants.Companion.PREF_PIN
 import com.technopark.youtrader.utils.ImageHandler
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -109,19 +111,19 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     }
 
     private fun getFullNameFromPrefs(): String {
-        return getStringFromPrefs("full_name", "undefined")
+        return getStringFromPrefs(PREF_FULL_NAME, "undefined")
     }
 
     private fun setFullNameToPrefs(fullName: String) {
-        setStringToPrefs("full_name", fullName)
+        setStringToPrefs(PREF_FULL_NAME, fullName)
     }
 
     private fun isPinEnabled(): Boolean {
-        return getStringFromPrefs("pin", "undefined") != "undefined"
+        return getStringFromPrefs(PREF_PIN, "undefined") != "undefined"
     }
 
     private fun setPinDisabled() {
-        setStringToPrefs("pin", "undefined")
+        setStringToPrefs(PREF_PIN, "undefined")
     }
 
     override fun onDestroyView() {
