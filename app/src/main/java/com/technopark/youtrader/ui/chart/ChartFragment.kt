@@ -216,11 +216,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                 changeRadioButtonColor(radioButtonYear, R.color.white)
             }
 
-
             initLineChart()
             viewModel.updateCurrencyChartHistory(id, interval)
         }
-
     }
 
     private fun changeRadioButtonColor(button: AppCompatRadioButton, color: Int) {

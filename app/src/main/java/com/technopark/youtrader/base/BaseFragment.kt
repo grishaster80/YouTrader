@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.technopark.youtrader.ui.AppActivity
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
@@ -45,7 +46,7 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     }
 
     private fun getSharedPrefs(): SharedPreferences? =
-        activity?.getSharedPreferences(PREFS_NAME, 0)
+        (activity as? AppActivity)?.getSharedPreferences()
 
     fun getStringFromPrefs(key: String, defValue: String = ""): String {
         return getSharedPrefs()?.getString(key, defValue) ?: ""
@@ -60,6 +61,5 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     companion object {
         private const val TAG = "BaseFragment"
-        private const val PREFS_NAME = "OurSharedPref"
     }
 }

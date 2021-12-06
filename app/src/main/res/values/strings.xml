@@ -29,7 +29,7 @@
     <string name="briefcase_fragment_title">Портфель</string>
     <string name="profile_fragment_title">Профиль</string>
     <string name="shared_preference_name">OurSharedPref</string>
-    <string name="enter_login_hint">Введите логин</string>
+    <string name="enter_email_hint">Введите email</string>
     <string name="enter_password_hint">Введите пароль</string>
     <string name="enter_button_text">Войти</string>
     <string name="currency_name_content_description">currency_name</string>
@@ -50,13 +50,24 @@
     <string name="buy_currency_button">Приобрести</string>
     <string name="sum_label">Сумма:</string>
     <string name="auth_success">Авторизация прошла успешно</string>
-    <string name="auth_error">Ошибка авторизации: %s</string>
+    <string name="auth_error">Произошла ошибка при попытке авторизации</string>
     <string name="registration_success">Регистрация прошла успешно</string>
-    <string name="registration_error">Ошибка регистрации: %s</string>
+    <string name="registration_error">Произошла ошибка при попытке регистрации</string>
     <string name="chart_interval_day">Д</string>
     <string name="chart_interval_week">Н</string>
     <string name="chart_interval_month">М</string>
     <string name="chart_interval_year">Г</string>
     <string name="invalid_input">Введен неверный формат числа</string>
     <string name="buy_successful">"Вы приобрели"</string>
+    <string name="not_registered_title">Еще не зарегистрированы?</string>
+    <string name="have_account_already">Уже есть учетная запись?</string>
+    <string name="update_password_button">Изменить пароль</string>
+    <string name="sign_out">Выйти</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="change_fio">Изменить ФИО</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="password_was_successfully_changed">Пароль был успешно изменен</string>
+    <string name="password_changing_error">Произошла ошибка при попытке смены пароля</string>
+    <string name="sign_out_error">Произошла ошибка при попытке выхода из приложения</string>
+    <string name="auth_app_title">ТыТрейдер</string>
 </resources>

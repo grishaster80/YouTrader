@@ -1,8 +1,14 @@
 package com.technopark.youtrader.database
 
-import androidx.room.*
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import com.technopark.youtrader.model.PortfolioCurrencyInfo
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+
 
 @Dao
 interface CryptoTransactionDao {

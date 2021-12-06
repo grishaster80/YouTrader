@@ -19,7 +19,8 @@ interface CryptoCurrencyApi {
     ): NetworkResponse<CurrencyChartResponse>
 
     @GET("assets/{Id}")
-    suspend fun getCryptoCurrencyById(
-        @Path("Id") id: String?
+
+    suspend fun getCurrencyById(
+        @Path("Id") id: String?,
     ): NetworkResponse<CurrencyResponse>
 }
