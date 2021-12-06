@@ -148,7 +148,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         return Score(date, priceUsd)
     }
 
-private fun convertFormatDate(date: String): String {
+    private fun convertFormatDate(date: String): String {
         /* yyyy-mm-ddTHH:MM:SS.mmmZ
            ->
            dd-mm
@@ -198,11 +198,9 @@ private fun convertFormatDate(date: String): String {
                 changeRadioButtonColor(radioButtonYear, R.color.white)
             }
 
-
             initLineChart()
             viewModel.updateCurrencyChartHistory(id, interval)
         }
-
     }
     private fun changeRadioButtonColor(button: AppCompatRadioButton, color: Int) {
         button.setBackgroundColor(
@@ -212,8 +210,6 @@ private fun convertFormatDate(date: String): String {
             )
         )
     }
-
-
 
     companion object {
         private const val TAG = "ChartFragment"

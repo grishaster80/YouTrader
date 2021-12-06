@@ -11,16 +11,6 @@ import kotlinx.coroutines.flow.onEach
 class FirebaseService : IAuthService {
     private var auth: FirebaseAuth = Firebase.auth
 
-    fun checkSignIn(email: String): Boolean {
-        val user = auth.currentUser
-        if (user != null && user.email == email) {
-            Log.d(TAG, "User: $email logged in already")
-            return true
-        }
-        Log.d(TAG, "User: $email isn't logged in")
-        return false
-    }
-
     override suspend fun authenticate(email: String, password: String): Flow<CommonAuthResult?> =
         flow {
             emit(
@@ -37,13 +27,14 @@ class FirebaseService : IAuthService {
             )
         }.onEach { Log.d(TAG, auth.currentUser?.email.toString()) }
 
-    override fun sighOut() {
-        Log.d(TAG, "sighOut")
+    override suspend fun sighOut(): Flow<Boolean> = flow {
         auth.signOut()
+        // TODO wrap in task and emit real value
+        emit(true)
     }
 
-    override fun updatePassword(password: String) {
-        auth.currentUser?.updatePassword(password)
+    override suspend fun updatePassword(password: String): Flow<Boolean?> = flow {
+        emit(auth.currentUser?.updatePassword(password)?.awaitVoid())
     }
 
     companion object {

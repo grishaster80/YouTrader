@@ -30,9 +30,6 @@
         app:layout_constraintEnd_toEndOf="@id/portrait"
         />
 
-
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -91,8 +88,33 @@
                 app:layout_constraintTop_toTopOf="@id/text_pin_code"
                 style="@style/Component.SwitchCompat" />
 
+            <Button
+                android:id="@+id/button_update_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:text="@string/update_password_button"
+                android:textAppearance="@style/TextAppearance.Button.Subtitle1"
+                style="@style/Component.Button"
 
+                android:layout_marginTop="@dimen/indent_small"
+                app:layout_constraintTop_toBottomOf="@id/text_pin_code"
+                app:layout_constraintStart_toStartOf="@id/text_pin_code"
+                />
+
+            <Button
+                android:id="@+id/sign_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/sign_out"
+                android:textAppearance="@style/TextAppearance.Button.Subtitle1"
+                style="@style/Component.Button"
+
+                android:layout_marginTop="@dimen/indent_small"
+                app:layout_constraintTop_toBottomOf="@id/button_update_password"
+                app:layout_constraintStart_toStartOf="@id/text_pin_code"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

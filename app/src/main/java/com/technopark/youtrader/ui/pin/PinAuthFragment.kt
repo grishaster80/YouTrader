@@ -8,6 +8,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PinFragmentBinding
+import com.technopark.youtrader.ui.AppActivity
+import com.technopark.youtrader.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,10 +20,9 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
     override val viewModel: PinAuthViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Don't forget to call super.onViewCreated
         super.onViewCreated(view, savedInstanceState)
 
-        if(!isPinEnabled()){
+        if (!isPinSet()) {
             viewModel.navigateToCurrenciesFragment()
         }
 
@@ -29,12 +30,11 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
             label.text = getFullNameFromPrefs()
 
             passcodeView.setPasscodeEntryListener { passcode ->
-                if(passcode == getPinFromPrefs()){
+                if (passcode == getPinFromPrefs()) {
                     viewModel.navigateToCurrenciesFragment()
-                }
-                else{
+                } else {
                     passcodeView.clearText()
-                    Toast.makeText(activity,"Введен неверный PIN", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Введен неверный PIN", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -46,13 +46,11 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
         return getStringFromPrefs("full_name", "undefined")
     }
 
-    private fun getPinFromPrefs(): String{
-        return getStringFromPrefs("pin", "0000")
+    private fun getPinFromPrefs(): String {
+        return getStringFromPrefs(Constants.PIN_KEY, Constants.PIN_DEFAULT_VALUE)
     }
 
-    private fun isPinEnabled(): Boolean{
-        return getStringFromPrefs("pin", "undefined") != "undefined"
-    }
+    private fun isPinSet(): Boolean = (activity as AppActivity).isPinSet()
 
     companion object {
         const val TAG = "PinAuthFragmentTag"
