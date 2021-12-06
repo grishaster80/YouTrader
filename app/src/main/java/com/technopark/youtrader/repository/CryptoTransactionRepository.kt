@@ -2,6 +2,7 @@ package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
+import com.technopark.youtrader.model.PortfolioCurrencyInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,6 +14,10 @@ class CryptoTransactionRepository @Inject constructor(
 ) {
     suspend fun getAllCurrencyTransaction(currencyId: String): Flow<List<CryptoCurrencyTransaction>> = flow {
         emit(database.cryptoTransactionDao().getAllTransactionByCurrency(currencyId))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun getPortfolioCurrencies(): Flow<List<PortfolioCurrencyInfo>> = flow {
+        emit(database.cryptoTransactionDao().getPortfolioCurrencies())
     }.flowOn(Dispatchers.IO)
 
     fun getCurrency(currencyId: String): Flow<CryptoCurrencyTransaction> = flow {

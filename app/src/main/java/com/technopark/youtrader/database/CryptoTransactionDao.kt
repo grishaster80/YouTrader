@@ -2,6 +2,7 @@ package com.technopark.youtrader.database
 
 import androidx.room.*
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
+import com.technopark.youtrader.model.PortfolioCurrencyInfo
 
 @Dao
 interface CryptoTransactionDao {
@@ -44,4 +45,8 @@ interface CryptoTransactionDao {
 
     @Query("SELECT SUM(price) from CryptoCurrencyTransaction WHERE id = :currencyId")
     suspend fun getSumPriceByCurrencyId(currencyId: String): Double
+
+    @Query("SELECT id, SUM(amount) AS amount, SUM(price) AS price FROM CryptoCurrencyTransaction GROUP BY id")
+    suspend fun getPortfolioCurrencies(): List<PortfolioCurrencyInfo>
+
 }

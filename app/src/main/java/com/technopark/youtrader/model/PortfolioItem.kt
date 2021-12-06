@@ -13,10 +13,10 @@ class PortfolioItem(
 
     override fun bind(viewBinding: PortfolioItemBinding, position: Int) {
         with(viewBinding) {
-            currencyName.text = portfolioCurrencyInfo.currencyName
-            currencyCount.text = portfolioCurrencyInfo.count
-            price.text = portfolioCurrencyInfo.price
-            changePrice.text = portfolioCurrencyInfo.priceChange
+            currencyName.text = portfolioCurrencyInfo.id
+            currencyCount.text = portfolioCurrencyInfo.amount.toString()
+            price.text = portfolioCurrencyInfo.price.toString()
+            changePrice.text = "???" // TODO take from API to compare
             setPortfolioPriceTextColor(changePrice)
         }
     }
