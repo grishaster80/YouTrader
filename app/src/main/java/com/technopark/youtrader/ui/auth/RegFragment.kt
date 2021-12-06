@@ -27,6 +27,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
         with(binding) {
             buttonSign.text = getString(R.string.sign_up)
             buttonToNextFragment.text = getString(R.string.to_sign_in)
+            anotherAuthFragment.setText(R.string.have_account_already)
 
             buttonSign.setOnClickListener {
                 viewModel.signUp(login.text.toString(), password.text.toString())

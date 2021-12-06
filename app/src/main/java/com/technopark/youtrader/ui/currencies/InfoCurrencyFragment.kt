@@ -37,9 +37,9 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
         val currencyId = arguments?.getString(ARG_CURRENCY_ID)
 
         if (currencyId != null) {
-            //TODO Раскоменть когда добавишь покупку
-            //viewModel.updateCurrencyInformation(currencyId)
-            //viewModel.updateCurrencyTransactions(currencyId)
+            // TODO Раскоменть когда добавишь покупку
+            // viewModel.updateCurrencyInformation(currencyId)
+            // viewModel.updateCurrencyTransactions(currencyId)
         }
 
         with(binding) {

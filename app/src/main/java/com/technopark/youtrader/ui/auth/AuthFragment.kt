@@ -30,6 +30,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
         with(binding) {
             buttonSign.text = getString(R.string.sign_in)
             buttonToNextFragment.text = getString(R.string.to_sign_up)
+            anotherAuthFragment.setText(R.string.not_registered_title)
 
             login.setText(emailValue)
             password.setText(passwordValue)
