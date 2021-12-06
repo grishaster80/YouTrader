@@ -57,4 +57,6 @@
     <string name="chart_interval_week">Н</string>
     <string name="chart_interval_month">М</string>
     <string name="chart_interval_year">Г</string>
+    <string name="invalid_input">Введен неверный формат числа</string>
+    <string name="buy_successful">"Вы приобрели"</string>
 </resources>

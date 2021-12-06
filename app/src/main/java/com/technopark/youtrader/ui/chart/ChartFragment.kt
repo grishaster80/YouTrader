@@ -46,15 +46,15 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
             buttonBuy.setOnClickListener{
                 val amountStr = editCountCurrencies.text.toString()
-                if(amountStr in listOf("", "0", "0.") ){
-                    Toast.makeText(activity,"Введен неверный формат числа", Toast.LENGTH_SHORT).show()
+                if(amountStr in badInputValues){
+                    Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 val amount = amountStr.toDouble()
                 //TODO убрать, когда будем получать цену из API
-                val price = scoreList.last().value.toDouble()
-                viewModel.buyCryptoCurrency(id!!, amount, price)
-                Toast.makeText(activity,"Вы приобрели $amount $id", Toast.LENGTH_LONG).show()
+                val price = scoreList.last().value.toDouble() * amount
+                id?.let{ viewModel.buyCryptoCurrency(it, amount, price) }
+                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount $price" , Toast.LENGTH_LONG).show()
             }
         }
         interval = intervalYear
@@ -240,5 +240,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         private const val intervalWeek = "m15"
         private const val intervalMonth = "h1"
         private const val intervalYear = "d1"
+        private val badInputValues = listOf("","0","0.")
     }
 }
