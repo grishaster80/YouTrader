@@ -10,6 +10,9 @@ class Constants private constructor() {
         const val API_ERROR_MESSAGE = "Api error: %s with code: %d"
         const val FIREBASE_UNKNOWN_ERROR_MESSAGE = "Api error: %s with code: %d"
         const val INVALID_PIN = "Введен неверный PIN"
+        const val SUCCESS_SET_PIN = "PIN успешно установлен"
+        const val WRONG_SET_PIN = "Неправильно введен PIN"
+        const val TRY_SET_PIN = "Повторите PIN"
 
         const val STANDARD_TIME_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
         const val STANDARD_DATE_FORMAT = "yyyy-MM-dd"

@@ -8,6 +8,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PinFragmentBinding
+import com.technopark.youtrader.utils.Constants.Companion.PREF_PIN
+import com.technopark.youtrader.utils.Constants.Companion.SUCCESS_SET_PIN
+import com.technopark.youtrader.utils.Constants.Companion.TRY_SET_PIN
+import com.technopark.youtrader.utils.Constants.Companion.WRONG_SET_PIN
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,16 +35,16 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
                     "undefined" -> {
                         pin = passcode
                         passcodeView.clearText()
-                        label.text = "Повторите PIN"
+                        label.text = TRY_SET_PIN
                     }
                     passcode -> {
                         setPinToPrefs(pin)
-                        Toast.makeText(activity, "PIN успешно установлен", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, SUCCESS_SET_PIN, Toast.LENGTH_SHORT).show()
                         viewModel.navigateToProfileFragment()
                     }
                     else -> {
                         passcodeView.clearText()
-                        Toast.makeText(activity, "Неправильно введен PIN", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, WRONG_SET_PIN, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -50,7 +54,7 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
     }
 
     private fun setPinToPrefs(pin: String) {
-        setStringToPrefs("pin", pin)
+        setStringToPrefs(PREF_PIN, pin)
     }
 
     companion object {
