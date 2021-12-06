@@ -27,6 +27,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
         with(binding) {
             buttonSign.text = getString(R.string.sign_up)
             buttonToNextFragment.text = getString(R.string.to_sign_in)
+            anotherAuthFragment.setText(R.string.have_account_already)
 
             buttonSign.setOnClickListener {
                 viewModel.signUp(login.text.toString(), password.text.toString())
@@ -56,12 +57,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                String.format(
-                                    getString(
-                                        R.string.registration_error,
-                                        authState.exception.localizedMessage
-                                    )
-                                ),
+                                getString(R.string.registration_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

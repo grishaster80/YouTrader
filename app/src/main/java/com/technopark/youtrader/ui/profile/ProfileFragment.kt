@@ -1,20 +1,22 @@
 package com.technopark.youtrader.ui.profile
 
-import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
+import com.technopark.youtrader.base.EventObserver
 import com.technopark.youtrader.databinding.ProfileFragmentBinding
-import com.technopark.youtrader.utils.Constants.Companion.PREF_FULL_NAME
-import com.technopark.youtrader.utils.Constants.Companion.PREF_PIN
+import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.ui.AppActivity
+import com.technopark.youtrader.utils.AlertDialogHelper
+import com.technopark.youtrader.utils.Constants
 import com.technopark.youtrader.utils.ImageHandler
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,20 +54,15 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             fullName.text = getFullNameFromPrefs()
 
             changeNameBtn.setOnClickListener {
-                val inflater = layoutInflater
-                val dialogLayout = inflater.inflate(R.layout.change_name_dialog, null)
-                val editFullName = dialogLayout.findViewById<EditText>(R.id.edit_full_name)
-                editFullName.setText(fullName.text)
-                AlertDialog.Builder(context)
-                    .setTitle("Изменить ФИО")
-                    .setView(dialogLayout)
-                    .setPositiveButton("OK") { _, _ ->
-                        if (editFullName.text.toString().isNotEmpty()) {
-                            fullName.text = editFullName.text.toString()
-                            setFullNameToPrefs(editFullName.text.toString())
-                        }
-                    }
-                    .create().show()
+                AlertDialogHelper.showOneEditText(
+                    layoutInflater,
+                    requireContext(),
+                    getString(R.string.change_fio),
+                    fullName.text.toString()
+                ) { newName: String ->
+                    fullName.text = newName
+                    setFullNameToPrefs(newName)
+                }
             }
 
             portrait.setOnClickListener {
@@ -86,11 +83,11 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 }
             }
 
-            switchPinCode.isChecked = isPinEnabled()
+            switchPinCode.isChecked = isPinSet()
 
-            switchPinCode.setOnCheckedChangeListener { buttonView, isChecked ->
+            switchPinCode.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
-                    setPinDisabled()
+                    unsetPin()
                 }
                 switchPinCode.isChecked = isChecked
             }
@@ -98,8 +95,52 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 if (switchPinCode.isChecked) {
                     viewModel.navigateToPinRegFragment()
                 }
-                switchPinCode.isChecked = isPinEnabled()
+                switchPinCode.isChecked = isPinSet()
             }
+
+            buttonUpdatePassword.setOnClickListener {
+                AlertDialogHelper.showOneEditText(
+                    layoutInflater,
+                    requireContext(),
+                    getString(R.string.change_password),
+                    "",
+                    getString(R.string.new_password)
+                ) { newPassword: String ->
+                    viewModel.updatePassword(newPassword)
+                }
+            }
+
+            signOut.setOnClickListener {
+                viewModel.signOut()
+            }
+
+            viewModel.updatePasswordState.observe(
+                viewLifecycleOwner,
+                EventObserver { state ->
+                    when (state) {
+                        is Result.Success -> {
+                            Toast.makeText(requireContext(), getString(R.string.password_was_successfully_changed), Toast.LENGTH_SHORT).show()
+                        }
+                        is Result.Error -> {
+                            Toast.makeText(requireContext(), getString(R.string.password_changing_error), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            )
+
+            viewModel.signOutState.observe(
+                viewLifecycleOwner,
+                EventObserver { state ->
+                    when (state) {
+                        is Result.Success -> {
+                            activity?.finish()
+                        }
+                        is Result.Error -> {
+                            Toast.makeText(requireContext(), getString(R.string.sign_out_error), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            )
         }
     }
 
@@ -111,19 +152,17 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     }
 
     private fun getFullNameFromPrefs(): String {
-        return getStringFromPrefs(PREF_FULL_NAME, "undefined")
+        return getStringFromPrefs("full_name", "undefined")
     }
 
     private fun setFullNameToPrefs(fullName: String) {
-        setStringToPrefs(PREF_FULL_NAME, fullName)
+        setStringToPrefs("full_name", fullName)
     }
 
-    private fun isPinEnabled(): Boolean {
-        return getStringFromPrefs(PREF_PIN, "undefined") != "undefined"
-    }
+    private fun isPinSet(): Boolean = (activity as AppActivity).isPinSet()
 
-    private fun setPinDisabled() {
-        setStringToPrefs(PREF_PIN, "undefined")
+    private fun unsetPin() {
+        setStringToPrefs(Constants.PIN_KEY, Constants.PIN_UNDEFINED)
     }
 
     override fun onDestroyView() {

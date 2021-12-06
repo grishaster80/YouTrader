@@ -10,7 +10,7 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ТыТрейдер"
+        android:text="@string/auth_app_title"
 
         android:textAppearance="@style/TextAppearance.Headline4.Bold"
         style="@style/Component.TextView.Title"
@@ -30,7 +30,7 @@
         style="@style/Component.EditText.Rounded.Filled"
         android:paddingStart="@dimen/indent_small"
 
-        android:hint="@string/enter_login_hint"
+        android:hint="@string/enter_email_hint"
 
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,8 +78,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/another_auth_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        tools:text="@string/not_registered_title"
+
+        style="@style/Component.TextView.Title"
+        android:textAppearance="@style/TextAppearance.Headline6"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_to_next_fragment"
+        />
+
     <Button
-        android:id="@+id/buttonToNextFragment"
+        android:id="@+id/button_to_next_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
