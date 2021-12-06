@@ -53,6 +53,19 @@ class InfoCurrencyViewModel @Inject constructor(
         }
     }
 
+    private fun calcProfit(amount: Double, price: Double, oldTotalPrice: Double): Double {
+        return amount * price - oldTotalPrice
+    }
+
+    private  fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double{
+        return calcProfit(amount,price,oldTotalPrice) / oldTotalPrice
+    }
+
+    private fun asPercent(number: Double): Double {
+        return number * MULTIPLY_NUM
+    }
+
+
     fun updateCurrencyInformation(id: String) {
         viewModelScope.launch {
             _screenState.value = Result.Loading
@@ -76,9 +89,12 @@ class InfoCurrencyViewModel @Inject constructor(
                 .catch { error ->
                     _screenState.value = Result.Error(error)
                 }.collect {
-                    infoCurrencyModel.absChange =
-                        infoCurrencyModel.totalAmount * it.priceUsd - infoCurrencyModel.totalPrice
-                    infoCurrencyModel.relativeChange = infoCurrencyModel.absChange / infoCurrencyModel.totalPrice * 100
+                    infoCurrencyModel.absChange = calcProfit(
+                        infoCurrencyModel.totalAmount,it.priceUsd,infoCurrencyModel.totalPrice)
+
+                    infoCurrencyModel.relativeChange = asPercent(
+                        calcProfitPercentage(infoCurrencyModel.totalAmount,it.priceUsd,infoCurrencyModel.totalPrice))
+
                     infoCurrencyModel.totalPrice = infoCurrencyModel.totalAmount * it.priceUsd
                     _screenState.value = Result.Success(infoCurrencyModel)
                 }
@@ -87,5 +103,6 @@ class InfoCurrencyViewModel @Inject constructor(
 
     companion object {
         private const val TAG = "InfoCurrencyViewModel"
+        private const val MULTIPLY_NUM = 100.0
     }
 }
