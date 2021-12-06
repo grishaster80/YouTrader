@@ -63,12 +63,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                             progressBar.gone()
                             Toast.makeText(
                                 requireContext(),
-                                String.format(
-                                    getString(
-                                        R.string.auth_error,
-                                        authState.exception.localizedMessage
-                                    )
-                                ),
+                                getString(R.string.auth_error),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

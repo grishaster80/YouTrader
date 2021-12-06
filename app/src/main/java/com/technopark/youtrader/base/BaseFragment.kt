@@ -45,16 +45,16 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         }
     }
 
-    private fun getSharedPrefs(): SharedPreferences =
-        (activity as AppActivity).getSharedPreferences()
+    private fun getSharedPrefs(): SharedPreferences? =
+        (activity as? AppActivity)?.getSharedPreferences()
 
     fun getStringFromPrefs(key: String, defValue: String = ""): String {
-        return getSharedPrefs().getString(key, defValue) ?: ""
+        return getSharedPrefs()?.getString(key, defValue) ?: ""
     }
 
     fun setStringToPrefs(key: String, value: String = "") {
         getSharedPrefs()
-            .edit()
+            ?.edit()
             ?.apply { putString(key, value) }
             ?.apply()
     }

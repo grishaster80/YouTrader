@@ -15,9 +15,9 @@ import com.technopark.youtrader.base.EventObserver
 import com.technopark.youtrader.databinding.ProfileFragmentBinding
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.ui.AppActivity
+import com.technopark.youtrader.utils.AlertDialogHelper
 import com.technopark.youtrader.utils.Constants
 import com.technopark.youtrader.utils.ImageHandler
-import com.technopark.youtrader.utils.showOneEditTextAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,7 +54,9 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             fullName.text = getFullNameFromPrefs()
 
             changeNameBtn.setOnClickListener {
-                showOneEditTextAlertDialog(
+                AlertDialogHelper.showOneEditText(
+                    layoutInflater,
+                    requireContext(),
                     getString(R.string.change_fio),
                     fullName.text.toString()
                 ) { newName: String ->
@@ -97,7 +99,9 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             }
 
             buttonUpdatePassword.setOnClickListener {
-                showOneEditTextAlertDialog(
+                AlertDialogHelper.showOneEditText(
+                    layoutInflater,
+                    requireContext(),
                     getString(R.string.change_password),
                     "",
                     getString(R.string.new_password)

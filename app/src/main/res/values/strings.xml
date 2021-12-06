@@ -50,9 +50,9 @@
     <string name="buy_currency_button">Приобрести</string>
     <string name="sum_label">Сумма:</string>
     <string name="auth_success">Авторизация прошла успешно</string>
-    <string name="auth_error">Ошибка авторизации: %s</string>
+    <string name="auth_error">Произошла ошибка при попытке авторизации</string>
     <string name="registration_success">Регистрация прошла успешно</string>
-    <string name="registration_error">Ошибка регистрации: %s</string>
+    <string name="registration_error">Произошла ошибка при попытке регистрации</string>
     <string name="chart_interval_day">Д</string>
     <string name="chart_interval_week">Н</string>
     <string name="chart_interval_month">М</string>
@@ -65,7 +65,7 @@
     <string name="change_fio">Изменить ФИО</string>
     <string name="change_password">Изменить пароль</string>
     <string name="password_was_successfully_changed">Пароль был успешно изменен</string>
-    <string name="password_changing_error">Ошибка смены пароля</string>
-    <string name="sign_out_error">Ошибка выхода</string>
+    <string name="password_changing_error">Произошла ошибка при попытке смены пароля</string>
+    <string name="sign_out_error">Произошла ошибка при попытке выхода из приложения</string>
     <string name="auth_app_title">ТыТрейдер</string>
 </resources>
