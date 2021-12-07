@@ -244,6 +244,5 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         private const val intervalWeek = "m15"
         private const val intervalMonth = "h1"
         private const val intervalYear = "d1"
-        private val badInputValues = listOf("","0","0.")
     }
 }
