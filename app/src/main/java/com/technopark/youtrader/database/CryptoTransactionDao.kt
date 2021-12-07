@@ -8,6 +8,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.technopark.youtrader.model.CryptoCurrency
 
 
 @Dao
@@ -16,8 +17,8 @@ interface CryptoTransactionDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCurrency(currency: CryptoCurrencyTransaction)
 
-    @Query("SELECT * from CryptoCurrencyTransaction WHERE id = :id")
-    suspend fun getCurrency(id: String): CryptoCurrencyTransaction
+    @Query("SELECT * from CryptoCurrency WHERE id = :id")
+    suspend fun getCurrency(id: String): CryptoCurrency
 
     @Update
     suspend fun updateCurrency(currency: CryptoCurrencyTransaction)
