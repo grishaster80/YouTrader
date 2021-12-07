@@ -45,12 +45,18 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             nameCryptocurrency.text = title
 
             buttonBuy.setOnClickListener{
-                val amountStr = editCountCurrencies.text.toString()
-                if(amountStr in badInputValues){
+                var amount: Double
+                try {
+                    amount = editCountCurrencies.text.toString().toDouble()
+                }
+                catch (e: Exception){
                     Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                val amount = amountStr.toDouble()
+                if (amount <= 0.0){
+                    Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 //TODO убрать, когда будем получать цену из API
                 val price = scoreList.last().value.toDouble() * amount
                 id?.let{ viewModel.buyCryptoCurrency(it, amount, price) }
