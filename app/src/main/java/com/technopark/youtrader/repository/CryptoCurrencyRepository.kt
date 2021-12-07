@@ -57,7 +57,23 @@ class CryptoCurrencyRepository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getCurrenciesByIds(ids: List<String>) : Flow<List<CryptoCurrency>> {
+        return flow {
+            when (val currenciesFromNetwork = cryptoApi.getCurrenciesByIds(ids)) {
+                is NetworkResponse.Success -> {
+                    emit(currenciesFromNetwork.value.data)
+                }
+                is NetworkResponse.ApiError -> {
+                    throw ApiErrorException(currenciesFromNetwork.error, currenciesFromNetwork.code)
+                }
+                is NetworkResponse.Failure -> {
+                    throw currenciesFromNetwork.error ?: NetworkFailureException()
+                }
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     companion object {
-        private const val TAG = "CryptoCurrencyRepositor"
+        private const val TAG = "CryptoCurrencyRepository"
     }
 }
