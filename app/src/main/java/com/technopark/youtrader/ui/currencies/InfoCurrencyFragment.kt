@@ -58,7 +58,7 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                         with(binding) {
                             progressBar.gone()
 
-                            ticker.text = screenState.data.cryptoCurrency.id
+                            ticker.text = screenState.data.cryptoCurrency.symbol
                             total.text = roundTo(screenState.data.totalAmount)
                             price.text = USD_SYMBOL.plus(roundTo(screenState.data.totalPrice))
                             absChange.text = roundTo(screenState.data.absChange)
@@ -67,7 +67,7 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                                 absChange.setTextColor(ContextCompat.getColor(price.context, R.color.red))
                                 relativeChange.setTextColor(ContextCompat.getColor(relativeChange.context, R.color.red))
                             }
-                            currencyNameInfo.text = screenState.data.cryptoCurrency.id
+                            currencyNameInfo.text = screenState.data.cryptoCurrency.name
 
                             adapter.update(screenState.data.operationItemList)
                         }
