@@ -57,10 +57,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                     Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                //TODO убрать, когда будем получать цену из API
-                val price = scoreList.last().value.toDouble() * amount
-                id?.let{ viewModel.buyCryptoCurrency(it, amount, price) }
-                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount $price" , Toast.LENGTH_LONG).show()
+
+                id?.let{ viewModel.buyCryptoCurrency(it, amount) }
+                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount" , Toast.LENGTH_LONG).show()
             }
         }
         interval = intervalYear

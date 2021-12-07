@@ -20,6 +20,7 @@ class Constants private constructor() {
         const val MINUS_SYMBOL = '-'
 
         const val STANDARD_PRECISION = "#.######"
+        const val SIMPLE_PRECISION = "#.###"
         const val PERCENTAGE_PRECISION = "#.##"
 
         const val ARG_CURRENCY_ID = "currencyId"

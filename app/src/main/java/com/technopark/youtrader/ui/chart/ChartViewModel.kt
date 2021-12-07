@@ -7,17 +7,20 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.ChartHistoryRepository
+import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
     private val chartHistoryRepository: ChartHistoryRepository,
-    private val transactionRepository: CryptoTransactionRepository
+    private val transactionRepository: CryptoTransactionRepository,
+    private val apiRepository: CryptoCurrencyRepository
 ) : BaseViewModel() {
     private var chartElements: List<CurrencyChartElement> = listOf()
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
@@ -37,11 +40,15 @@ class ChartViewModel @Inject constructor(
         }
     }
 
-    fun buyCryptoCurrency(id: String, amount: Double, price: Double){
-        //TODO получать цену из API
-
+    fun buyCryptoCurrency(id: String, amount: Double){
         viewModelScope.launch {
-            transactionRepository.insertTransaction(id, amount, price)
+            var newPrice: Double? = null
+            apiRepository.getCurrencyById(id).collect {
+                newPrice = it.priceUsd*amount
+            }
+            if ( newPrice != null) {
+                transactionRepository.insertTransaction(id, amount, newPrice!! )
+            }
         }
     }
 }

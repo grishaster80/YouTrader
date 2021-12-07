@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
-        android:text="68 775,51856 $" />
+        android:text=" " />
 
     <TextView
         android:id="@+id/total_profit"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/portfolio_value"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
-        android:text="+1 705,919 (2,66%)" />
+        android:text=" " />
 
 
     <androidx.recyclerview.widget.RecyclerView
