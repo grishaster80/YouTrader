@@ -12,7 +12,6 @@ import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +24,17 @@ class ChartViewModel @Inject constructor(
     private var chartElements: List<CurrencyChartElement> = listOf()
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
+
+    private val _currentPrice = MutableLiveData<Double>()
+    val currentPrice: LiveData<Double> = _currentPrice
+
+    fun updatePrice(currencyId: String) {
+        viewModelScope.launch {
+            apiRepository.getCurrencyById(currencyId).collect {
+                _currentPrice.value =  it.priceUsd
+            }
+        }
+    }
 
     fun updateCurrencyChartHistory(id: String?, interval: String?) {
         _screenState.value = Result.Loading
