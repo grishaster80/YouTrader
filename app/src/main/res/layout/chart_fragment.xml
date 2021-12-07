@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -75,30 +75,33 @@
 
     <EditText
         android:id="@+id/edit_count_currencies"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/indent_small"
         android:textAppearance="@style/TextAppearance.Subtitle1"
         style="@style/Component.EditText.Rounded.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
-        android:width="128sp"
-        android:height="48sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="@id/button_buy"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="@id/button_buy"
+        app:layout_constraintTop_toTopOf="@id/button_buy"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_buy"
         android:hint="@string/buy_amount_of_currency_hint" />
 
     <Button
         android:id="@+id/button_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/indent_big"
+        android:layout_marginBottom="@dimen/indent_big"
         style="@style/Component.Button.Rounded.Filled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginEnd="@dimen/indent_big"
         android:layout_marginTop="@dimen/indent_big"
         android:text="@string/buy_currency_button"
         app:layout_constraintTop_toBottomOf="@id/radio_group_interval" />
+
 
     <ProgressBar
         android:id="@+id/progress_bar"

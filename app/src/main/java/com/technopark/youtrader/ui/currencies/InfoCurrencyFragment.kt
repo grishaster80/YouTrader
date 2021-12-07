@@ -37,9 +37,8 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
         val currencyId = arguments?.getString(ARG_CURRENCY_ID)
 
         if (currencyId != null) {
-            // TODO Раскоменть когда добавишь покупку
-            // viewModel.updateCurrencyInformation(currencyId)
-            // viewModel.updateCurrencyTransactions(currencyId)
+            viewModel.updateCurrencyInformation(currencyId)
+            viewModel.updateCurrencyTransactions(currencyId)
         }
 
         with(binding) {
@@ -59,7 +58,7 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                         with(binding) {
                             progressBar.gone()
 
-                            ticker.text = screenState.data.cryptoCurrency.symbol
+                            ticker.text = screenState.data.cryptoCurrency.id
                             total.text = roundTo(screenState.data.totalAmount)
                             price.text = USD_SYMBOL.plus(roundTo(screenState.data.totalPrice))
                             absChange.text = roundTo(screenState.data.absChange)
@@ -68,7 +67,7 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                                 absChange.setTextColor(ContextCompat.getColor(price.context, R.color.red))
                                 relativeChange.setTextColor(ContextCompat.getColor(relativeChange.context, R.color.red))
                             }
-                            currencyNameInfo.text = screenState.data.cryptoCurrency.name
+                            currencyNameInfo.text = screenState.data.cryptoCurrency.id
 
                             adapter.update(screenState.data.operationItemList)
                         }

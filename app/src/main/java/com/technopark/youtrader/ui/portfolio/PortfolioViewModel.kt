@@ -2,36 +2,46 @@ package com.technopark.youtrader.ui.portfolio
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
-import com.technopark.youtrader.model.PortfolioCurrencyInfo
 import com.technopark.youtrader.model.PortfolioItem
+import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.repository.CryptoTransactionRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PortfolioViewModel : BaseViewModel() {
+@HiltViewModel
+class PortfolioViewModel @Inject constructor(
+    private val repository: CryptoTransactionRepository
+) : BaseViewModel() {
 
-    private val _portfolioItems: MutableLiveData<List<PortfolioItem>> =
-        MutableLiveData(getPortfolioItems())
-    val portfolioItems: LiveData<List<PortfolioItem>> = _portfolioItems
+    private var portfolioItems: List<PortfolioItem> = listOf()
+    private val _screenState = MutableLiveData<Result<List<PortfolioItem>>>()
+    val screenState: LiveData<Result<List<PortfolioItem>>> = _screenState
+
+    init {
+        viewModelScope.launch {
+            _screenState.value = Result.Loading
+            repository.getPortfolioCurrencies()
+                .collect { currencies ->
+                    // TODO API request with to get current price
+                    //  val ids = currencies.map{ it.id }
+
+                    // TODO update portfolio_value
+                    //  val totalPrice = currencies.sumOf { it.price }
+
+                    portfolioItems = currencies.map { PortfolioItem(it) }
+                    _screenState.value = Result.Success(portfolioItems)
+                }
+        }
+    }
+
 
     fun navigateToInfoHistoryFragment(currencyId: String) {
         navigateTo(
             PortfolioFragmentDirections.actionPortfolioFragmentToInfoHistoryFragment(currencyId)
-        )
-    }
-
-    private fun getPortfolioItems(): List<PortfolioItem> {
-        val portfolioItems = mutableListOf<PortfolioItem>()
-        for (currency in getCurrencies()) {
-            portfolioItems.add(PortfolioItem(currency))
-        }
-        return portfolioItems
-    }
-
-    private fun getCurrencies(): List<PortfolioCurrencyInfo> {
-        return listOf(
-            PortfolioCurrencyInfo("BitCoin", "1 шт.", "64 193,2 \$", "+1 705,90 (2,73%)"),
-            PortfolioCurrencyInfo("Ethereum", "1 шт.", "4 584,80 \$", "+0,05038 (1,10%)"),
-            PortfolioCurrencyInfo("Dogecoin", "1 шт.", "0,26144 \$", "-0,02714 (1,37%)"),
-            PortfolioCurrencyInfo("Tether", "2 шт.", "2,22 \$", "-0,0038 (0,16%)"),
         )
     }
 }

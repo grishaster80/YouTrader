@@ -43,6 +43,19 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         with(binding) {
             lineChart = chart
             nameCryptocurrency.text = title
+
+            buttonBuy.setOnClickListener{
+                val amountStr = editCountCurrencies.text.toString()
+                if(amountStr in badInputValues){
+                    Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                val amount = amountStr.toDouble()
+                //TODO убрать, когда будем получать цену из API
+                val price = scoreList.last().value.toDouble() * amount
+                id?.let{ viewModel.buyCryptoCurrency(it, amount, price) }
+                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount $price" , Toast.LENGTH_LONG).show()
+            }
         }
         interval = intervalYear
         initLineChart()
@@ -55,12 +68,14 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                     is Result.Success -> {
                         setDataToLineChart(screenState.data)
                         with(binding) {
+                            buttonBuy.isEnabled = true
                             progressBar.gone()
                             chart.visible()
                         }
                     }
                     is Result.Loading -> {
                         with(binding) {
+                            buttonBuy.isEnabled = false
                             progressBar.visible()
                             chart.invisible()
                         }
@@ -72,7 +87,8 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                             screenState.exception.message,
                             Toast.LENGTH_SHORT
                         ).show()
-                        screenState.exception.message?.let { Log.d(ChartFragment.TAG, it) }
+                        screenState.exception.message?.let { Log.d(TAG, it) }
+                        binding.buttonBuy.isEnabled = true
                         binding.progressBar.gone()
                     }
                 }
@@ -141,6 +157,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         lineChart?.data = data
         lineChart?.invalidate()
     }
+
     private fun currencyChartElementToScore(currencyChartElement: CurrencyChartElement): Score {
         val priceUsd = currencyChartElement.priceUsd.toFloat()
         val date = convertFormatDate(currencyChartElement.date)
@@ -161,6 +178,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
 
         return "$day-$month\n$hour:$minute"
     }
+
     private fun constructionTitle(): String {
         return "1 $id  = " + scoreList.last().value.toString() + " $"
     }
@@ -202,6 +220,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             viewModel.updateCurrencyChartHistory(id, interval)
         }
     }
+
     private fun changeRadioButtonColor(button: AppCompatRadioButton, color: Int) {
         button.setBackgroundColor(
             ContextCompat.getColor(
@@ -219,5 +238,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         private const val intervalWeek = "m15"
         private const val intervalMonth = "h1"
         private const val intervalYear = "d1"
+        private val badInputValues = listOf("","0","0.")
     }
 }

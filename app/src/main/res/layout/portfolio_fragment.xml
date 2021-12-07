@@ -61,6 +61,17 @@
         tools:itemCount="5"
         tools:listitem="@layout/portfolio_item" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_medium"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/total_profit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/clean_portfolio"
         style="@style/Component.Button.Flat"
@@ -69,5 +80,6 @@
         android:drawableTop="@drawable/ic_round_delete_24"
         app:layout_constraintEnd_toEndOf="@+id/text_portfolio_status"
         app:layout_constraintTop_toTopOf="@+id/text_portfolio_status" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

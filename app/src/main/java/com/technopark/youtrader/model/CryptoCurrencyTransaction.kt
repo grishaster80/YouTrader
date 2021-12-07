@@ -1,14 +1,12 @@
 package com.technopark.youtrader.model
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "CryptoCurrencyTransaction")
+@Entity(tableName = "CryptoCurrencyTransaction", primaryKeys = ["id", "timestamp"])
 data class CryptoCurrencyTransaction(
-    @PrimaryKey
     val id: String,
-    val price: Double,
-    val amount: Double,
     // TODO check timestamp timezone
-    val data: Long
+    val timestamp: Long,
+    val amount: Double,
+    val price: Double
 )

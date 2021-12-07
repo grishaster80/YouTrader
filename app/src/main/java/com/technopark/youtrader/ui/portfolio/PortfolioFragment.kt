@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -11,7 +12,10 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PortfolioFragmentBinding
 import com.technopark.youtrader.model.PortfolioItem
+import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.utils.VerticalItemDecoration
+import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,10 +33,9 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
         if (item is PortfolioItem) {
             Log.d(
                 TAG,
-                "Go to the currency purchase history: ${item.portfolioCurrencyInfo.currencyName}"
+                "Go to the currency purchase history: ${item.portfolioCurrencyInfo.id}"
             )
-            // TODO Замени на текущий id
-            viewModel.navigateToInfoHistoryFragment("1")
+            viewModel.navigateToInfoHistoryFragment(item.portfolioCurrencyInfo.id)
         }
     }
 
@@ -51,13 +54,38 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
 
         adapter.setOnItemClickListener(onItemClickListener)
 
-        viewModel.portfolioItems.observe(
+        viewModel.screenState.observe(
             viewLifecycleOwner,
-            { currencies ->
-                adapter.update(currencies)
+            { screenState ->
+                when (screenState) {
+                    is Result.Success -> {
+                        with(binding) {
+                            progressBar.gone()
+                            portfolioRecyclerView.visible()
+                        }
+                        adapter.update(screenState.data)
+                    }
+                    is Result.Loading -> {
+                        with(binding) {
+                            progressBar.visible()
+                            portfolioRecyclerView.gone()
+                        }
+                    }
+                    is Result.Error -> {
+                        // TODO parse error
+                        Toast.makeText(
+                            requireContext(),
+                            screenState.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        screenState.exception.message?.let { Log.d(TAG, it) }
+                        binding.progressBar.gone()
+                    }
+                }
             }
         )
     }
+
     private fun setPortfolioTotalPriceTextColor(totalProfit: TextView) {
         if (totalProfit.text[0] == '-') totalProfit.setTextColor(
             ContextCompat.getColor(
