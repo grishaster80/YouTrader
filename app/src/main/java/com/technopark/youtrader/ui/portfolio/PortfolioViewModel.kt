@@ -60,17 +60,17 @@ class PortfolioViewModel @Inject constructor(
             val priceUsd = (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
             portfolioInfoModel.totalPrice += priceUsd * oldCurrency.amount
             portfolioInfoModel.absChange += calcProfit(oldCurrency.amount, priceUsd, oldCurrency.price)
-            portfolioInfoModel.relativeChange = asPercent(calcProfitPercentage(portfolioInfoModel.absChange, oldTotalPrice))
         }
+        portfolioInfoModel.relativeChange = asPercent(calcProfitPercentage(portfolioInfoModel.absChange, oldTotalPrice))
     }
 
     private fun createPortfolioItem(oldCurrency: PortfolioCurrencyInfo): PortfolioItem {
         val priceUsd = (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
         val newPrice = priceUsd * oldCurrency.amount
         val item = PortfolioCurrencyInfo(oldCurrency.id, oldCurrency.amount, newPrice)
-        val change = roundTo(calcProfit(item.amount, newPrice, oldCurrency.price), SIMPLE_PRECISION) + " (" +
+        val change = roundTo(calcProfit(item.amount, priceUsd, oldCurrency.price), SIMPLE_PRECISION) + " (" +
             roundTo(
-                asPercent(calcProfitPercentage(item.amount, newPrice, oldCurrency.price)),
+                asPercent(calcProfitPercentage(item.amount, priceUsd, oldCurrency.price)),
                 PERCENTAGE_PRECISION
             ) + "%)"
         return PortfolioItem(item, change)
