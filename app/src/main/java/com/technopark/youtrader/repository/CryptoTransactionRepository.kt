@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 class CryptoTransactionRepository @Inject constructor(
     private val database: AppDatabase
@@ -34,10 +35,18 @@ class CryptoTransactionRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
     suspend fun insertTransaction(id: String, amount: Double, price: Double) {
-        val timestamp = System.currentTimeMillis()
-        val transaction = CryptoCurrencyTransaction(id, timestamp, amount, price)
+        withContext(Dispatchers.IO) {
+            val timestamp = System.currentTimeMillis()
+            val transaction = CryptoCurrencyTransaction(id, timestamp, amount, price)
 
-        database.cryptoTransactionDao().insertTransaction(transaction)
+            database.cryptoTransactionDao().insertTransaction(transaction)
+        }
+    }
+
+    suspend fun deleteAllCryptoCurrencyTransaction() {
+        withContext(Dispatchers.IO) {
+            database.cryptoTransactionDao().deleteAllCryptoCurrencyTransaction()
+        }
     }
 
     companion object {
