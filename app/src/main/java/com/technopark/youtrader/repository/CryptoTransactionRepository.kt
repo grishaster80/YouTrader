@@ -1,6 +1,7 @@
 package com.technopark.youtrader.repository
 
 import com.technopark.youtrader.database.AppDatabase
+import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import com.technopark.youtrader.model.PortfolioCurrencyInfo
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class CryptoTransactionRepository @Inject constructor(
         emit(database.cryptoTransactionDao().getPortfolioCurrencies())
     }.flowOn(Dispatchers.IO)
 
-    fun getCurrency(currencyId: String): Flow<CryptoCurrencyTransaction> = flow {
+    fun getCurrency(currencyId: String): Flow<CryptoCurrency> = flow {
         emit(database.cryptoTransactionDao().getCurrency(currencyId))
     }.flowOn(Dispatchers.IO)
 

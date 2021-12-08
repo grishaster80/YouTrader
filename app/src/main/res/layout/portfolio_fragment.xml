@@ -16,7 +16,7 @@
         android:contentDescription="@string/portfolio_status_description"
         android:gravity="center|top"
         android:text="@string/portfolio_status_title"
-        android:textAppearance="@style/TextAppearance.Subtitle1"
+        android:textAppearance="@style/TextAppearance.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/portfolio_value"
         style="@style/Component.TextView.OneLineText.NoPadding"
-        android:textAppearance="@style/TextAppearance.Headline4"
+        android:textAppearance="@style/TextAppearance.Headline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/portfolio_value_description"
@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
-        android:text="68 775,51856 $" />
+        android:text=" " />
 
     <TextView
         android:id="@+id/total_profit"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/portfolio_value"
         app:layout_constraintEnd_toEndOf="@id/text_portfolio_status"
         app:layout_constraintStart_toStartOf="@id/text_portfolio_status"
-        android:text="+1 705,919 (2,66%)" />
+        android:text=" " />
 
 
     <androidx.recyclerview.widget.RecyclerView

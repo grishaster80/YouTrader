@@ -1,13 +1,15 @@
 package com.technopark.youtrader.database
 
+import com.technopark.youtrader.model.CryptoCurrencyTransaction
+import com.technopark.youtrader.model.PortfolioCurrencyInfo
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.technopark.youtrader.model.CryptoCurrencyTransaction
-import com.technopark.youtrader.model.PortfolioCurrencyInfo
+import com.technopark.youtrader.model.CryptoCurrency
+
 
 @Dao
 interface CryptoTransactionDao {
@@ -15,8 +17,8 @@ interface CryptoTransactionDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCurrency(currency: CryptoCurrencyTransaction)
 
-    @Query("SELECT * from CryptoCurrencyTransaction WHERE id = :id")
-    suspend fun getCurrency(id: String): CryptoCurrencyTransaction
+    @Query("SELECT * from CryptoCurrency WHERE id = :id")
+    suspend fun getCurrency(id: String): CryptoCurrency
 
     @Update
     suspend fun updateCurrency(currency: CryptoCurrencyTransaction)
@@ -51,8 +53,7 @@ interface CryptoTransactionDao {
     @Query("SELECT SUM(price) from CryptoCurrencyTransaction WHERE id = :currencyId")
     suspend fun getSumPriceByCurrencyId(currencyId: String): Double
 
-    @Query(
-        "SELECT id, SUM(amount) AS amount, SUM(price) AS price FROM CryptoCurrencyTransaction GROUP BY id"
-    )
+    @Query("SELECT id, SUM(amount) AS amount, SUM(price) AS price FROM CryptoCurrencyTransaction GROUP BY id")
     suspend fun getPortfolioCurrencies(): List<PortfolioCurrencyInfo>
+
 }

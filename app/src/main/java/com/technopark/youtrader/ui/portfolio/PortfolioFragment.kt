@@ -13,8 +13,11 @@ import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PortfolioFragmentBinding
 import com.technopark.youtrader.model.PortfolioItem
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.VerticalItemDecoration
 import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
@@ -61,9 +64,27 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                     is Result.Success -> {
                         with(binding) {
                             progressBar.gone()
+                            portfolioValue.text = String.format(
+                                getString(
+                                    R.string.value_with_currency_string_template
+                                ),
+                                roundTo(
+                                    screenState.data.totalPrice, PERCENTAGE_PRECISION
+                                )
+                            )
+                            totalProfit.text =
+                                getString(
+                                    R.string.profit_with_percentage,
+                                    roundTo(screenState.data.absChange, SIMPLE_PRECISION),
+                                    roundTo(
+                                        screenState.data.relativeChange,
+                                        PERCENTAGE_PRECISION
+                                    )
+                                )
+                            setPortfolioTotalPriceTextColor(totalProfit)
                             portfolioRecyclerView.visible()
                         }
-                        adapter.update(screenState.data)
+                        adapter.update(screenState.data.currencies)
                     }
                     is Result.Loading -> {
                         with(binding) {

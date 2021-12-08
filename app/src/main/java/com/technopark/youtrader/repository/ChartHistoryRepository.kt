@@ -88,7 +88,12 @@ class ChartHistoryRepository @Inject constructor(
         if (currencyChartListFromDatabase.isNotEmpty()) {
             emit(currencyChartListFromDatabase)
         } else {
-            emit(getChartHistoryById(id, interval).first())
+            val chartListFromNetwork = getChartHistoryById(id, interval).first()
+            if (chartListFromNetwork.isNotEmpty()) {
+                emit(chartListFromNetwork)
+            } else {
+                throw NetworkFailureException()
+            }
         }
     }.flowOn(Dispatchers.IO)
 

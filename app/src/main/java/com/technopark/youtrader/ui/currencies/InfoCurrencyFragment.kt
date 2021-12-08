@@ -14,6 +14,7 @@ import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.utils.Constants.Companion.ARG_CURRENCY_ID
 import com.technopark.youtrader.utils.Constants.Companion.MINUS_SYMBOL
 import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
 import com.technopark.youtrader.utils.VerticalItemDecoration
 import com.technopark.youtrader.utils.gone
@@ -58,23 +59,16 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                         with(binding) {
                             progressBar.gone()
 
-                            ticker.text = screenState.data.cryptoCurrency.id
+                            ticker.text = screenState.data.cryptoCurrency.symbol
                             total.text = roundTo(screenState.data.totalAmount)
-                            price.text = USD_SYMBOL.plus(roundTo(screenState.data.totalPrice))
-                            absChange.text = roundTo(screenState.data.absChange)
-                            relativeChange.text = roundTo(
-                                screenState.data.relativeChange,
-                                PERCENTAGE_PRECISION
-                            )
+                            price.text = USD_SYMBOL.plus(roundTo(screenState.data.totalPrice, SIMPLE_PRECISION))
+                            absChange.text = roundTo(screenState.data.absChange, SIMPLE_PRECISION)
+                            relativeChange.text = roundTo(screenState.data.relativeChange, PERCENTAGE_PRECISION).plus( "%")
                             if (relativeChange.text[0] == MINUS_SYMBOL) {
-                                absChange.setTextColor(
-                                    ContextCompat.getColor(price.context, R.color.red)
-                                )
-                                relativeChange.setTextColor(
-                                    ContextCompat.getColor(relativeChange.context, R.color.red)
-                                )
+                                absChange.setTextColor(ContextCompat.getColor(price.context, R.color.red))
+                                relativeChange.setTextColor(ContextCompat.getColor(relativeChange.context, R.color.red))
                             }
-                            currencyNameInfo.text = screenState.data.cryptoCurrency.id
+                            currencyNameInfo.text = screenState.data.cryptoCurrency.name
 
                             adapter.update(screenState.data.operationItemList)
                         }

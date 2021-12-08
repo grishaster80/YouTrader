@@ -20,8 +20,10 @@ import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.ChartFragmentBinding
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.invisible
+import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,31 +42,41 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         id = arguments?.getString("id")
+
+        id?.let { viewModel.updatePrice(it) }
+
         with(binding) {
             lineChart = chart
             nameCryptocurrency.text = title
 
-            buttonBuy.setOnClickListener {
-                val amountStr = editCountCurrencies.text.toString()
-                if (amountStr in badInputValues) {
+            buttonBuy.setOnClickListener{
+                var amount: Double
+                try {
+                    amount = editCountCurrencies.text.toString().toDouble()
+                }
+                catch (e: Exception){
                     Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                val amount = amountStr.toDouble()
-                // TODO убрать, когда будем получать цену из API
-                val price = scoreList.last().value.toDouble() * amount
-                id?.let { viewModel.buyCryptoCurrency(it, amount, price) }
-                Toast.makeText(
-                    activity,
-                    getString(R.string.buy_successful) + " $amount $price",
-                    Toast.LENGTH_LONG
-                ).show()
+                if (amount <= 0.0){
+                    Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                id?.let{ viewModel.buyCryptoCurrency(it, amount) }
+                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount" , Toast.LENGTH_LONG).show()
             }
         }
         interval = intervalYear
         initLineChart()
         viewModel.getCurrencyChartHistory(id, interval)
         updateRadioButton()
+        viewModel.currentPrice.observe(
+            viewLifecycleOwner,
+            { price ->
+                binding.price.text = "$".plus(roundTo(price, SIMPLE_PRECISION))
+            }
+        )
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -184,7 +196,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     }
 
     private fun constructionTitle(): String {
-        return "1 $id  = " + scoreList.last().value.toString() + " $"
+        return "1 $id  = "
     }
     private fun updateRadioButton() {
         val radioGroup = binding.radioGroupInterval
@@ -247,6 +259,5 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         private const val intervalWeek = "m15"
         private const val intervalMonth = "h1"
         private const val intervalYear = "d1"
-        private val badInputValues = listOf("", "0", "0.")
     }
 }

@@ -7,6 +7,7 @@ import com.technopark.youtrader.databinding.HistoryOperationItemBinding
 import com.technopark.youtrader.utils.Constants.Companion.MINUS_SYMBOL
 import com.technopark.youtrader.utils.Constants.Companion.PLUS_SYMBOL
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_DATE_FORMAT
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
 import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.timestampToFormatDate
@@ -27,7 +28,7 @@ class HistoryOperationItem(
                 amountCurrency.text = (transactionUnit.amount.toString())
             }
             tickerInfo.text = ticker
-            price.text = USD_SYMBOL.plus(roundTo(transactionUnit.price))
+            price.text = USD_SYMBOL.plus(roundTo(transactionUnit.price, SIMPLE_PRECISION))
 
             if (amountCurrency.text[0] == MINUS_SYMBOL) {
                 amountCurrency.setTextColor(

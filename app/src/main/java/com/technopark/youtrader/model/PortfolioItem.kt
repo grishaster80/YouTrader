@@ -5,18 +5,21 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.PortfolioItemBinding
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
+import com.technopark.youtrader.utils.roundTo
 import com.xwray.groupie.viewbinding.BindableItem
 
 class PortfolioItem(
     val portfolioCurrencyInfo: PortfolioCurrencyInfo,
+    private val change: String
 ) : BindableItem<PortfolioItemBinding>() {
 
     override fun bind(viewBinding: PortfolioItemBinding, position: Int) {
         with(viewBinding) {
             currencyName.text = portfolioCurrencyInfo.id
             currencyCount.text = portfolioCurrencyInfo.amount.toString()
-            price.text = portfolioCurrencyInfo.price.toString()
-            changePrice.text = "???" // TODO take from API to compare
+            price.text = roundTo( portfolioCurrencyInfo.price,SIMPLE_PRECISION)
+            changePrice.text = change
             setPortfolioPriceTextColor(changePrice)
         }
     }

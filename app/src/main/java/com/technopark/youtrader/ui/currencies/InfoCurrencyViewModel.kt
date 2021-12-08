@@ -37,7 +37,7 @@ class InfoCurrencyViewModel @Inject constructor(
             var ticker: String = ""
             repository.getCurrency(currencyId).collect {
                 currency ->
-                ticker = currency.id
+                ticker = currency.symbol
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
 
