@@ -22,7 +22,6 @@ import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.round
 
 @AndroidEntryPoint
 class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
@@ -65,9 +64,23 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                     is Result.Success -> {
                         with(binding) {
                             progressBar.gone()
-                            portfolioValue.text = "$".plus(screenState.data.totalPrice.toString())
-                            totalProfit.text =  roundTo(screenState.data.absChange, SIMPLE_PRECISION) +
-                                    " (" + roundTo(screenState.data.relativeChange, PERCENTAGE_PRECISION) + "%)"
+                            portfolioValue.text = String.format(
+                                getString(
+                                    R.string.value_with_currency_string_template
+                                ),
+                                roundTo(
+                                    screenState.data.totalPrice, PERCENTAGE_PRECISION
+                                )
+                            )
+                            totalProfit.text =
+                                getString(
+                                    R.string.profit_with_percentage,
+                                    roundTo(screenState.data.absChange, SIMPLE_PRECISION),
+                                    roundTo(
+                                        screenState.data.relativeChange,
+                                        PERCENTAGE_PRECISION
+                                    )
+                                )
                             portfolioRecyclerView.visible()
                         }
                         adapter.update(screenState.data.currencies)

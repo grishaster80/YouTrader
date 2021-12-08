@@ -33,9 +33,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/indent_small"
         android:layout_marginTop="@dimen/indent_small"
-        android:text="@string/sum_label"
+        android:text="@string/amount_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currency_name_info" />
+
+    <TextView
+        android:id="@+id/sum_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_very_small"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/total_label"
+        app:layout_constraintTop_toBottomOf="@+id/total"
+        android:text="@string/sum_title" />
 
     <TextView
         android:id="@+id/price"
@@ -62,6 +72,17 @@
          />
 
     <TextView
+        android:id="@+id/profit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/indent_very_small"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/total_label"
+        app:layout_constraintTop_toBottomOf="@+id/sum_title"
+        android:text="@string/profit_title" />
+
+
+    <TextView
         android:id="@+id/abs_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +90,8 @@
 
         android:textColor="@color/green"
         android:textSize="@dimen/text_size_h6"
-        app:layout_constraintBottom_toBottomOf="@+id/price"
-        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintStart_toStartOf="@+id/total"
         android:text="+222,8" />
 
     <TextView

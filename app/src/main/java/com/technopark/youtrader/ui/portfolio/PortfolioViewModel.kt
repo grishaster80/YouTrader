@@ -7,13 +7,11 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.*
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
-import com.technopark.youtrader.ui.currencies.InfoCurrencyViewModel
 import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.roundTo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,8 +23,8 @@ class PortfolioViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private var portfolioInfoModel: PortfolioInfoModel = PortfolioInfoModel()
-    private var currenciesMap: MutableMap<String,CryptoCurrency> = mutableMapOf()
-    private var currenciesList:  List<PortfolioCurrencyInfo> = listOf()
+    private var currenciesMap: MutableMap<String, CryptoCurrency> = mutableMapOf()
+    private var currenciesList: List<PortfolioCurrencyInfo> = listOf()
     private val _screenState = MutableLiveData<Result<PortfolioInfoModel>>()
     val screenState: LiveData<Result<PortfolioInfoModel>> = _screenState
 
@@ -37,7 +35,7 @@ class PortfolioViewModel @Inject constructor(
             repository.getPortfolioCurrencies()
                 .collect { currencies ->
                     val ids = currencies.map { it.id }
-                    apiRepository.getCurrenciesByIds(ids).collect{
+                    apiRepository.getCurrenciesByIds(ids).collect {
                         it.map { currency ->
                             currenciesMap[currency.id] = currency
                         }
@@ -59,32 +57,34 @@ class PortfolioViewModel @Inject constructor(
 
         currenciesList.map {
             oldCurrency ->
-                val priceUsd =  (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
-                portfolioInfoModel.totalPrice +=  priceUsd * oldCurrency.amount
-                portfolioInfoModel.absChange += calcProfit(oldCurrency.amount,priceUsd,oldCurrency.price)
-            portfolioInfoModel.relativeChange = asPercent(calcProfitPercentage(portfolioInfoModel.absChange,oldTotalPrice))
+            val priceUsd = (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
+            portfolioInfoModel.totalPrice += priceUsd * oldCurrency.amount
+            portfolioInfoModel.absChange += calcProfit(oldCurrency.amount, priceUsd, oldCurrency.price)
+            portfolioInfoModel.relativeChange = asPercent(calcProfitPercentage(portfolioInfoModel.absChange, oldTotalPrice))
         }
     }
 
     private fun createPortfolioItem(oldCurrency: PortfolioCurrencyInfo): PortfolioItem {
-            val priceUsd =  (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
-            val newPrice = priceUsd * oldCurrency.amount
-            val item = PortfolioCurrencyInfo(oldCurrency.id,oldCurrency.amount,newPrice)
-            val change = roundTo(calcProfit(item.amount,newPrice,oldCurrency.price),SIMPLE_PRECISION) + " (" +
-                    roundTo(asPercent(calcProfitPercentage(item.amount,newPrice,oldCurrency.price)),
-                        PERCENTAGE_PRECISION) + "%)"
-            return PortfolioItem(item,change)
+        val priceUsd = (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
+        val newPrice = priceUsd * oldCurrency.amount
+        val item = PortfolioCurrencyInfo(oldCurrency.id, oldCurrency.amount, newPrice)
+        val change = roundTo(calcProfit(item.amount, newPrice, oldCurrency.price), SIMPLE_PRECISION) + " (" +
+            roundTo(
+                asPercent(calcProfitPercentage(item.amount, newPrice, oldCurrency.price)),
+                PERCENTAGE_PRECISION
+            ) + "%)"
+        return PortfolioItem(item, change)
     }
 
     private fun calcProfit(amount: Double, price: Double, oldTotalPrice: Double): Double {
         return amount * price - oldTotalPrice
     }
 
-    private  fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double{
-        return calcProfit(amount,price,oldTotalPrice) / oldTotalPrice
+    private fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double {
+        return calcProfit(amount, price, oldTotalPrice) / oldTotalPrice
     }
 
-    private  fun calcProfitPercentage(change: Double, oldTotalPrice: Double): Double{
+    private fun calcProfitPercentage(change: Double, oldTotalPrice: Double): Double {
         return change / oldTotalPrice
     }
 
