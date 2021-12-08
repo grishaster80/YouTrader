@@ -13,12 +13,16 @@ import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PortfolioFragmentBinding
 import com.technopark.youtrader.model.PortfolioItem
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
+import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.VerticalItemDecoration
 import com.technopark.youtrader.utils.gone
+import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.round
 
 @AndroidEntryPoint
 class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
@@ -61,9 +65,12 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                     is Result.Success -> {
                         with(binding) {
                             progressBar.gone()
+                            portfolioValue.text = "$".plus(screenState.data.totalPrice.toString())
+                            totalProfit.text =  roundTo(screenState.data.absChange, SIMPLE_PRECISION) +
+                                    " (" + roundTo(screenState.data.relativeChange, PERCENTAGE_PRECISION) + "%)"
                             portfolioRecyclerView.visible()
                         }
-                        adapter.update(screenState.data)
+                        adapter.update(screenState.data.currencies)
                     }
                     is Result.Loading -> {
                         with(binding) {
