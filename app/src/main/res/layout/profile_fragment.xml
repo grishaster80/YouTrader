@@ -52,8 +52,9 @@
                 android:contentDescription="@string/profile_desc_full_name"
                 android:text="@string/full_name"
                 android:textAppearance="@style/TextAppearance.Headline6"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/indent_medium"
+                android:layout_marginStart="@dimen/indent_medium"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -74,17 +75,19 @@
                 android:textAppearance="@style/TextAppearance.Headline6"
                 style="@style/Component.TextView.Title"
                 android:text="@string/profile_pin_code_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/switch_pin_code"
-                app:layout_constraintTop_toBottomOf="@id/full_name" />
+                android:layout_marginTop="@dimen/indent_small"
+                app:layout_constraintStart_toStartOf="@+id/full_name"
+                app:layout_constraintTop_toBottomOf="@id/full_name"
+                app:layout_constraintBottom_toTopOf="@+id/button_update_password"
+                />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_pin_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/text_pin_code"
+                app:layout_constraintStart_toStartOf="@id/changeNameBtn"
                 app:layout_constraintBottom_toBottomOf="@+id/text_pin_code"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/changeNameBtn"
                 app:layout_constraintTop_toTopOf="@id/text_pin_code"
                 style="@style/Component.SwitchCompat" />
 
