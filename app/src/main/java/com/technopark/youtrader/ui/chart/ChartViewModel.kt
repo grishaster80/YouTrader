@@ -23,7 +23,7 @@ class ChartViewModel @Inject constructor(
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
 
-    fun updateCurrencyChartHistory(id: String?, interval: String?) {
+    fun getCurrencyChartHistory(id: String?, interval: String?) {
         _screenState.value = Result.Loading
         viewModelScope.launch {
             chartHistoryRepository.getChartHistoryById(id, interval)
@@ -36,7 +36,24 @@ class ChartViewModel @Inject constructor(
                 }
         }
     }
-
+    fun getDatabaseCurrencyChartHistory(id: String?, interval: String?) {
+        _screenState.value = Result.Loading
+        viewModelScope.launch {
+            chartHistoryRepository.getDatabaseChartHistoryById(id,interval)
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }
+                .collect { elements ->
+                    chartElements = elements
+                    _screenState.value = Result.Success(chartElements)
+                }
+        }
+    }
+    fun deleteAll() {
+        viewModelScope.launch {
+            chartHistoryRepository.deleteAllCharts()
+        }
+    }
     fun buyCryptoCurrency(id: String, amount: Double, price: Double){
         //TODO получать цену из API
 

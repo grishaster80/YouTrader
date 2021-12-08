@@ -59,7 +59,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         }
         interval = intervalYear
         initLineChart()
-        viewModel.updateCurrencyChartHistory(id, interval)
+        viewModel.getCurrencyChartHistory(id, interval)
         updateRadioButton()
         viewModel.screenState.observe(
             viewLifecycleOwner,
@@ -217,7 +217,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             }
 
             initLineChart()
-            viewModel.updateCurrencyChartHistory(id, interval)
+            viewModel.getDatabaseCurrencyChartHistory(id, interval)
         }
     }
 
@@ -228,6 +228,11 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                 color
             )
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.deleteAll()
     }
 
     companion object {
