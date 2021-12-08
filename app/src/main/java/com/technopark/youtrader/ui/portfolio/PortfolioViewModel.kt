@@ -102,7 +102,9 @@ class PortfolioViewModel @Inject constructor(
 
     fun deleteAllCryptoCurrencyTransaction() {
         viewModelScope.launch {
+            _screenState.value = Result.Loading
             repository.deleteAllCryptoCurrencyTransaction()
+            _screenState.value = Result.Success(PortfolioInfoModel())
         }
     }
 
