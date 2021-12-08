@@ -85,8 +85,8 @@
 
         tools:text="@string/not_registered_title"
 
-        style="@style/Component.TextView.Title"
-        android:textAppearance="@style/TextAppearance.Headline6"
+        style="@style/Component.TextView.OneLineText"
+        android:textAppearance="@style/TextAppearance.Subtitle1"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,8 @@
 
         tools:text="Регистрация"
         android:textAppearance="@style/TextAppearance.Button.Subtitle1"
-        style="@style/Component.Button.Flat"
+        style="@style/Component.Button.Flat.Filled"
+        android:layout_marginBottom="@dimen/indent_small"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -48,7 +48,8 @@
     <string name="buy_amount_of_currency_hint">0</string>
     <string name="portfolio_status_title">Состояние портфеля</string>
     <string name="buy_currency_button">Приобрести</string>
-    <string name="sum_label">Сумма:</string>
+    <string name="amount_label">Количество:</string>
+    <string name="sum_title">Сумма:</string>
     <string name="auth_success">Авторизация прошла успешно</string>
     <string name="auth_error">Произошла ошибка при попытке авторизации</string>
     <string name="registration_success">Регистрация прошла успешно</string>
@@ -70,4 +71,7 @@
     <string name="password_changing_error">Произошла ошибка при попытке смены пароля</string>
     <string name="sign_out_error">Произошла ошибка при попытке выхода из приложения</string>
     <string name="auth_app_title">ТыТрейдер</string>
+    <string name="value_with_currency_string_template">Активы: $%s</string>
+    <string name="profit_with_percentage">%1$s $ (%2$s %%)</string>
+    <string name="profit_title">Прибыль</string>
 </resources>
