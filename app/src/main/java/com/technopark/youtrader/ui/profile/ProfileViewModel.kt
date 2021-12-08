@@ -8,10 +8,10 @@ import com.technopark.youtrader.base.Event
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.network.auth.IAuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(

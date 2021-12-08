@@ -62,10 +62,17 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                             total.text = roundTo(screenState.data.totalAmount)
                             price.text = USD_SYMBOL.plus(roundTo(screenState.data.totalPrice))
                             absChange.text = roundTo(screenState.data.absChange)
-                            relativeChange.text = roundTo(screenState.data.relativeChange, PERCENTAGE_PRECISION)
+                            relativeChange.text = roundTo(
+                                screenState.data.relativeChange,
+                                PERCENTAGE_PRECISION
+                            )
                             if (relativeChange.text[0] == MINUS_SYMBOL) {
-                                absChange.setTextColor(ContextCompat.getColor(price.context, R.color.red))
-                                relativeChange.setTextColor(ContextCompat.getColor(relativeChange.context, R.color.red))
+                                absChange.setTextColor(
+                                    ContextCompat.getColor(price.context, R.color.red)
+                                )
+                                relativeChange.setTextColor(
+                                    ContextCompat.getColor(relativeChange.context, R.color.red)
+                                )
                             }
                             currencyNameInfo.text = screenState.data.cryptoCurrency.id
 

@@ -9,10 +9,10 @@ import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
@@ -39,7 +39,7 @@ class ChartViewModel @Inject constructor(
     fun getDatabaseCurrencyChartHistory(id: String?, interval: String?) {
         _screenState.value = Result.Loading
         viewModelScope.launch {
-            chartHistoryRepository.getDatabaseChartHistoryById(id,interval)
+            chartHistoryRepository.getDatabaseChartHistoryById(id, interval)
                 .catch { error ->
                     _screenState.value = Result.Error(error)
                 }
@@ -54,8 +54,8 @@ class ChartViewModel @Inject constructor(
             chartHistoryRepository.deleteAllCharts()
         }
     }
-    fun buyCryptoCurrency(id: String, amount: Double, price: Double){
-        //TODO получать цену из API
+    fun buyCryptoCurrency(id: String, amount: Double, price: Double) {
+        // TODO получать цену из API
 
         viewModelScope.launch {
             transactionRepository.insertTransaction(id, amount, price)

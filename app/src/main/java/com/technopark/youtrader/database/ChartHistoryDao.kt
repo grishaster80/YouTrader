@@ -2,7 +2,6 @@ package com.technopark.youtrader.database
 
 import androidx.room.*
 import com.technopark.youtrader.model.Chart
-import com.technopark.youtrader.model.CryptoCurrency
 
 @Dao
 interface ChartHistoryDao {

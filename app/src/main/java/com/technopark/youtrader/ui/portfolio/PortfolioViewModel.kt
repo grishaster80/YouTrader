@@ -8,9 +8,9 @@ import com.technopark.youtrader.model.PortfolioItem
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
@@ -37,7 +37,6 @@ class PortfolioViewModel @Inject constructor(
                 }
         }
     }
-
 
     fun navigateToInfoHistoryFragment(currencyId: String) {
         navigateTo(

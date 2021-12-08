@@ -119,10 +119,18 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 EventObserver { state ->
                     when (state) {
                         is Result.Success -> {
-                            Toast.makeText(requireContext(), getString(R.string.password_was_successfully_changed), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.password_was_successfully_changed),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         is Result.Error -> {
-                            Toast.makeText(requireContext(), getString(R.string.password_changing_error), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.password_changing_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -136,7 +144,11 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                             activity?.finish()
                         }
                         is Result.Error -> {
-                            Toast.makeText(requireContext(), getString(R.string.sign_out_error), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.sign_out_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

@@ -1,7 +1,5 @@
 package com.technopark.youtrader.repository
 
-import androidx.lifecycle.viewModelScope
-import com.google.android.material.shape.CutCornerTreatment
 import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.model.Chart
 import com.technopark.youtrader.model.CurrencyChartElement
@@ -9,11 +7,9 @@ import com.technopark.youtrader.network.retrofit.ApiErrorException
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkFailureException
 import com.technopark.youtrader.network.retrofit.NetworkResponse
-import com.technopark.youtrader.utils.timestampToFormatDate
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ChartHistoryRepository @Inject constructor(
     private val cryptoApi: CryptoCurrencyApi,
@@ -27,16 +23,16 @@ class ChartHistoryRepository @Inject constructor(
         when (currencyChartListFromNetwork) {
             is NetworkResponse.Success -> {
                 if (id != null && interval != null) {
-                    for(currencyChartElement in currencyChartListFromNetwork.value.data) {
+                    for (currencyChartElement in currencyChartListFromNetwork.value.data) {
                         database.chartHistoryDao().insertChart(
-                                Chart(
-                                    id,
-                                    interval,
-                                    currencyChartListFromNetwork.value.timestamp,
-                                    currencyChartElement.priceUsd,
-                                    currencyChartElement.time,
-                                    currencyChartElement.date
-                                )
+                            Chart(
+                                id,
+                                interval,
+                                currencyChartListFromNetwork.value.timestamp,
+                                currencyChartElement.priceUsd,
+                                currencyChartElement.time,
+                                currencyChartElement.date
+                            )
                         )
                     }
                 }
@@ -44,8 +40,9 @@ class ChartHistoryRepository @Inject constructor(
             }
             is NetworkResponse.ApiError -> {
                 val currencyChartListFromDatabase = database.chartHistoryDao()
-                    .getCurrenciesByIdAndInterval(id, interval).map{
-                        chart -> CurrencyChartElement(
+                    .getCurrenciesByIdAndInterval(id, interval).map {
+                        chart ->
+                        CurrencyChartElement(
                             chart.priceUsd,
                             chart.time,
                             chart.date
@@ -60,12 +57,13 @@ class ChartHistoryRepository @Inject constructor(
             }
             is NetworkResponse.Failure -> {
                 val currencyChartListFromDatabase = database.chartHistoryDao()
-                    .getCurrenciesByIdAndInterval(id, interval).map{
-                            chart -> CurrencyChartElement(
-                        chart.priceUsd,
-                        chart.time,
-                        chart.date
-                    )
+                    .getCurrenciesByIdAndInterval(id, interval).map {
+                        chart ->
+                        CurrencyChartElement(
+                            chart.priceUsd,
+                            chart.time,
+                            chart.date
+                        )
                     }
                 if (currencyChartListFromDatabase.isNotEmpty()) {
                     emit(currencyChartListFromDatabase)
@@ -79,22 +77,22 @@ class ChartHistoryRepository @Inject constructor(
         interval: String?
     ): Flow<List<CurrencyChartElement>> = flow {
         val currencyChartListFromDatabase = database.chartHistoryDao()
-            .getCurrenciesByIdAndInterval(id, interval).map{
-                    chart -> CurrencyChartElement(
-                chart.priceUsd,
-                chart.time,
-                chart.date
-            )
+            .getCurrenciesByIdAndInterval(id, interval).map {
+                chart ->
+                CurrencyChartElement(
+                    chart.priceUsd,
+                    chart.time,
+                    chart.date
+                )
             }
         if (currencyChartListFromDatabase.isNotEmpty()) {
             emit(currencyChartListFromDatabase)
         } else {
             emit(getChartHistoryById(id, interval).first())
         }
-
     }.flowOn(Dispatchers.IO)
 
-    suspend fun deleteAllCharts(){
+    suspend fun deleteAllCharts() {
         database.chartHistoryDao().deleteAllCharts()
     }
 

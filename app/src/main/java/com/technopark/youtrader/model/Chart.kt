@@ -2,8 +2,8 @@ package com.technopark.youtrader.model
 
 import androidx.room.Entity
 
-@Entity(tableName = "Chart",primaryKeys = ["id", "interval","time"])
-data class Chart (
+@Entity(tableName = "Chart", primaryKeys = ["id", "interval", "time"])
+data class Chart(
     val id: String,
     val interval: String,
     val timestamp: Long,
