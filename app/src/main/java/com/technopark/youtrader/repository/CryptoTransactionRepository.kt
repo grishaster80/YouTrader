@@ -40,6 +40,10 @@ class CryptoTransactionRepository @Inject constructor(
         database.cryptoTransactionDao().insertTransaction(transaction)
     }
 
+    suspend fun deleteAllCryptoCurrencyTransaction() {
+        database.cryptoTransactionDao().deleteAllCryptoCurrencyTransaction()
+    }
+
     companion object {
         private const val TAG = "CryptoTransactionRepository"
     }

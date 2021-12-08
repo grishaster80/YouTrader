@@ -81,10 +81,12 @@ class PortfolioViewModel @Inject constructor(
     }
 
     private fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double {
+        if (oldTotalPrice == 0.0) return 0.0
         return calcProfit(amount, price, oldTotalPrice) / oldTotalPrice
     }
 
     private fun calcProfitPercentage(change: Double, oldTotalPrice: Double): Double {
+        if (oldTotalPrice == 0.0) return 0.0
         return change / oldTotalPrice
     }
 
@@ -96,6 +98,12 @@ class PortfolioViewModel @Inject constructor(
         navigateTo(
             PortfolioFragmentDirections.actionPortfolioFragmentToInfoHistoryFragment(currencyId)
         )
+    }
+
+    fun deleteAllCryptoCurrencyTransaction() {
+        viewModelScope.launch {
+            repository.deleteAllCryptoCurrencyTransaction()
+        }
     }
 
     companion object {

@@ -56,4 +56,7 @@ interface CryptoTransactionDao {
     @Query("SELECT id, SUM(amount) AS amount, SUM(price) AS price FROM CryptoCurrencyTransaction GROUP BY id")
     suspend fun getPortfolioCurrencies(): List<PortfolioCurrencyInfo>
 
+    @Query("DELETE FROM CryptoCurrencyTransaction")
+    suspend fun deleteAllCryptoCurrencyTransaction()
+
 }

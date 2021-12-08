@@ -53,6 +53,10 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                 )
             )
             setPortfolioTotalPriceTextColor(totalProfit)
+
+            cleanPortfolio.setOnClickListener {
+                viewModel.deleteAllCryptoCurrencyTransaction()
+            }
         }
 
         adapter.setOnItemClickListener(onItemClickListener)
