@@ -81,6 +81,7 @@ class PortfolioFragment : BaseFragment(R.layout.portfolio_fragment) {
                                         PERCENTAGE_PRECISION
                                     )
                                 )
+                            setPortfolioTotalPriceTextColor(totalProfit)
                             portfolioRecyclerView.visible()
                         }
                         adapter.update(screenState.data.currencies)
