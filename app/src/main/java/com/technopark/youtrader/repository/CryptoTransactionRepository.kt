@@ -4,11 +4,11 @@ import com.technopark.youtrader.database.AppDatabase
 import com.technopark.youtrader.model.CryptoCurrency
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import com.technopark.youtrader.model.PortfolioCurrencyInfo
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 class CryptoTransactionRepository @Inject constructor(
     private val database: AppDatabase

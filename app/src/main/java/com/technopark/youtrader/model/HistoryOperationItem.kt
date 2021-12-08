@@ -31,9 +31,13 @@ class HistoryOperationItem(
             price.text = USD_SYMBOL.plus(roundTo(transactionUnit.price, SIMPLE_PRECISION))
 
             if (amountCurrency.text[0] == MINUS_SYMBOL) {
-                amountCurrency.setTextColor(ContextCompat.getColor(amountCurrency.context, R.color.red))
+                amountCurrency.setTextColor(
+                    ContextCompat.getColor(amountCurrency.context, R.color.red)
+                )
             } else {
-                amountCurrency.setTextColor(ContextCompat.getColor(amountCurrency.context, R.color.green))
+                amountCurrency.setTextColor(
+                    ContextCompat.getColor(amountCurrency.context, R.color.green)
+                )
             }
         }
     }

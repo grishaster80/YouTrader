@@ -10,10 +10,10 @@ import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class InfoCurrencyViewModel @Inject constructor(
@@ -47,7 +47,12 @@ class InfoCurrencyViewModel @Inject constructor(
                 }
                 .collect { currencyTransactions ->
                     infoCurrencyModel.operationItemList =
-                        currencyTransactions.map { transaction -> HistoryOperationItem(transaction, ticker) }
+                        currencyTransactions.map { transaction ->
+                            HistoryOperationItem(
+                                transaction,
+                                ticker
+                            )
+                        }
                     _screenState.value = Result.Success(infoCurrencyModel)
                 }
         }
@@ -57,14 +62,13 @@ class InfoCurrencyViewModel @Inject constructor(
         return amount * price - oldTotalPrice
     }
 
-    private  fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double{
-        return calcProfit(amount,price,oldTotalPrice) / oldTotalPrice
+    private fun calcProfitPercentage(amount: Double, price: Double, oldTotalPrice: Double): Double {
+        return calcProfit(amount, price, oldTotalPrice) / oldTotalPrice
     }
 
     private fun asPercent(number: Double): Double {
         return number * MULTIPLY_NUM
     }
-
 
     fun updateCurrencyInformation(id: String) {
         viewModelScope.launch {
@@ -90,10 +94,18 @@ class InfoCurrencyViewModel @Inject constructor(
                     _screenState.value = Result.Error(error)
                 }.collect {
                     infoCurrencyModel.absChange = calcProfit(
-                        infoCurrencyModel.totalAmount,it.priceUsd,infoCurrencyModel.totalPrice)
+                        infoCurrencyModel.totalAmount,
+                        it.priceUsd,
+                        infoCurrencyModel.totalPrice
+                    )
 
                     infoCurrencyModel.relativeChange = asPercent(
-                        calcProfitPercentage(infoCurrencyModel.totalAmount,it.priceUsd,infoCurrencyModel.totalPrice))
+                        calcProfitPercentage(
+                            infoCurrencyModel.totalAmount,
+                            it.priceUsd,
+                            infoCurrencyModel.totalPrice
+                        )
+                    )
 
                     infoCurrencyModel.totalPrice = infoCurrencyModel.totalAmount * it.priceUsd
                     _screenState.value = Result.Success(infoCurrencyModel)

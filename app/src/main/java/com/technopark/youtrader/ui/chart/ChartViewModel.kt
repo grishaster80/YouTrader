@@ -10,10 +10,10 @@ import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
@@ -24,7 +24,6 @@ class ChartViewModel @Inject constructor(
     private var chartElements: List<CurrencyChartElement> = listOf()
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
-
     private val _currentPrice = MutableLiveData<Double>()
     val currentPrice: LiveData<Double> = _currentPrice
 
@@ -36,7 +35,7 @@ class ChartViewModel @Inject constructor(
         }
     }
 
-    fun updateCurrencyChartHistory(id: String?, interval: String?) {
+    fun getCurrencyChartHistory(id: String?, interval: String?) {
         _screenState.value = Result.Loading
         viewModelScope.launch {
             chartHistoryRepository.getChartHistoryById(id, interval)
@@ -47,6 +46,24 @@ class ChartViewModel @Inject constructor(
                     chartElements = elements
                     _screenState.value = Result.Success(chartElements)
                 }
+        }
+    }
+    fun getDatabaseCurrencyChartHistory(id: String?, interval: String?) {
+        _screenState.value = Result.Loading
+        viewModelScope.launch {
+            chartHistoryRepository.getDatabaseChartHistoryById(id, interval)
+                .catch { error ->
+                    _screenState.value = Result.Error(error)
+                }
+                .collect { elements ->
+                    chartElements = elements
+                    _screenState.value = Result.Success(chartElements)
+                }
+        }
+    }
+    fun deleteAll() {
+        viewModelScope.launch {
+            chartHistoryRepository.deleteAllCharts()
         }
     }
 
