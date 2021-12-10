@@ -24,9 +24,5 @@ class Constants private constructor() {
         const val PERCENTAGE_PRECISION = "#.##"
 
         const val ARG_CURRENCY_ID = "currencyId"
-
-        const val PIN_KEY = "pin"
-        const val PIN_UNDEFINED = "undefined"
-        const val PIN_DEFAULT_VALUE = "0000"
     }
 }

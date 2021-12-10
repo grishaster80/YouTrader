@@ -5,9 +5,13 @@ import com.technopark.youtrader.R
 
 class AppViewModel : ViewModel() {
 
-    fun chooseStartScreen(isPinSet: Boolean): Int {
-        return if (isPinSet) {
-            R.id.pinAuthFragment
+    fun chooseStartScreen(isAuthSet: Boolean, isPinSet: Boolean): Int {
+        return if (isAuthSet) {
+            if (isPinSet) {
+                R.id.pinAuthFragment
+            } else {
+                R.id.currenciesFragment
+            }
         } else {
             R.id.authFragment
         }

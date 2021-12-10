@@ -74,4 +74,13 @@
     <string name="value_with_currency_string_template">Активы: $%s</string>
     <string name="profit_with_percentage">%1$s $ (%2$s %%)</string>
     <string name="profit_title">Прибыль</string>
+    <string name="auth_state_key">authStateKey</string>
+    <string name="pin_code_key">pin</string>
+    <string name="value_is_not_defined">undefined</string>
+    <string name="repeat_pin_code">Повторите PIN</string>
+    <string name="pin_set_successfully">PIN успешно установлен</string>
+    <string name="pin_mismatch">PIN коды не совпадают</string>
+    <string name="pin_is_incorrect">Введен неверный PIN</string>
+    <string name="profile_name_key">full_name</string>
+    <string name="new_user_full_name">Новый пользователь</string>
 </resources>
