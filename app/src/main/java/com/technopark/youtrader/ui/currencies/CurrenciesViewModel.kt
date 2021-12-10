@@ -30,9 +30,11 @@ class CurrenciesViewModel @Inject constructor(
                     _screenState.value = Result.Error(error)
                 }
                 .collect { currencies ->
-                    currencyItems =
-                        currencies.map { cryptoCurrency -> CurrencyItem(cryptoCurrency) }
-                    _screenState.value = Result.Success(currencyItems)
+                    if (currencies.isNotEmpty()) {
+                        currencyItems =
+                            currencies.map { cryptoCurrency -> CurrencyItem(cryptoCurrency) }
+                        _screenState.value = Result.Success(currencyItems)
+                    }
                 }
         }
     }
