@@ -9,6 +9,7 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.base.EventObserver
 import com.technopark.youtrader.databinding.AuthFragmentBinding
+import com.technopark.youtrader.model.AuthState
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.visible
@@ -57,6 +58,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                                 getString(R.string.auth_success),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            setAuthState(AuthState.Authenticated(login.text.toString()))
                             viewModel.navigateToCurrenciesFragment()
                         }
                         is Result.Error -> {

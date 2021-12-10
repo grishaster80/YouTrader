@@ -9,7 +9,6 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PinFragmentBinding
 import com.technopark.youtrader.ui.AppActivity
-import com.technopark.youtrader.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +33,11 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
                     viewModel.navigateToCurrenciesFragment()
                 } else {
                     passcodeView.clearText()
-                    Toast.makeText(activity, "Введен неверный PIN", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.pin_is_incorrect),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -43,11 +46,17 @@ class PinAuthFragment : BaseFragment(R.layout.pin_fragment) {
     }
 
     private fun getFullNameFromPrefs(): String {
-        return getStringFromPrefs("full_name", "undefined")
+        return getStringFromPrefs(
+            getString(R.string.profile_name_key),
+            getString(R.string.value_is_not_defined)
+        )
     }
 
     private fun getPinFromPrefs(): String {
-        return getStringFromPrefs(Constants.PIN_KEY, Constants.PIN_DEFAULT_VALUE)
+        return getStringFromPrefs(
+            getString(R.string.pin_code_key),
+            getString(R.string.value_is_not_defined)
+        )
     }
 
     private fun isPinSet(): Boolean = (activity as AppActivity).isPinSet()

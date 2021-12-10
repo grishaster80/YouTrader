@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.PinFragmentBinding
+import com.technopark.youtrader.model.AuthState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,27 +21,27 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var pin = "undefined"
+        var pin = getString(R.string.value_is_not_defined)
 
         with(binding) {
             label.text = getString(R.string.pin_reg_logo)
 
             passcodeView.setPasscodeEntryListener { passcode ->
                 when (pin) {
-                    "undefined" -> {
+                    getString(R.string.value_is_not_defined) -> {
                         pin = passcode
                         passcodeView.clearText()
-                        label.text = "Повторите PIN"
+                        label.text = getString(R.string.repeat_pin_code)
                     }
                     passcode -> {
-                        setPinToPrefs(pin)
-                        Toast.makeText(activity, "PIN успешно установлен", Toast.LENGTH_SHORT)
+                        setAuthState(AuthState.PinActive(pin))
+                        Toast.makeText(activity, getString(R.string.pin_set_successfully), Toast.LENGTH_SHORT)
                             .show()
                         viewModel.navigateToProfileFragment()
                     }
                     else -> {
                         passcodeView.clearText()
-                        Toast.makeText(activity, "Неправильно введен PIN", Toast.LENGTH_SHORT)
+                        Toast.makeText(activity, getString(R.string.pin_mismatch), Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
@@ -48,10 +49,6 @@ class PinRegFragment : BaseFragment(R.layout.pin_fragment) {
 
             keyboard.setPasscodeView(passcodeView)
         }
-    }
-
-    private fun setPinToPrefs(pin: String) {
-        setStringToPrefs("pin", pin)
     }
 
     companion object {
