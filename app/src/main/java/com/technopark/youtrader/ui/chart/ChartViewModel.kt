@@ -4,11 +4,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
-import com.technopark.youtrader.network.retrofit.NetworkResponse
 import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
