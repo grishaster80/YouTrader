@@ -7,6 +7,8 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.HistoryOperationItem
 import com.technopark.youtrader.model.InfoCurrencyModel
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.network.firebase.FirebaseRepository
+import com.technopark.youtrader.network.firebase.IFirebaseRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +20,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class InfoCurrencyViewModel @Inject constructor(
     private val repository: CryptoTransactionRepository,
-    private val apiRepository: CryptoCurrencyRepository
+    private val apiRepository: CryptoCurrencyRepository,
+    private val firebaseRepository: IFirebaseRepository
 ) : BaseViewModel() {
 
     private val infoCurrencyModel: InfoCurrencyModel = InfoCurrencyModel()
