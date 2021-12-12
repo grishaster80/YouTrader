@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.*
+import com.technopark.youtrader.network.firebase.FirebaseRepository
+import com.technopark.youtrader.network.firebase.IFirebaseRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
     private val repository: CryptoTransactionRepository,
-    private val apiRepository: CryptoCurrencyRepository
+    private val apiRepository: CryptoCurrencyRepository,
+    private val firebaseRepository: IFirebaseRepository
 ) : BaseViewModel() {
 
     private var portfolioInfoModel: PortfolioInfoModel = PortfolioInfoModel()
@@ -32,7 +35,7 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             _screenState.value = Result.Loading
 
-            repository.getPortfolioCurrencies()
+            firebaseRepository.getPortfolioCurrencies()
                 .collect { currencies ->
                     val ids = currencies.map { it.id }
                     apiRepository.getCurrenciesByIds(ids).collect {

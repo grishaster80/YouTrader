@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.network.firebase.IFirebaseRepository
 import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
@@ -19,7 +20,8 @@ import kotlinx.coroutines.launch
 class ChartViewModel @Inject constructor(
     private val chartHistoryRepository: ChartHistoryRepository,
     private val transactionRepository: CryptoTransactionRepository,
-    private val apiRepository: CryptoCurrencyRepository
+    private val apiRepository: CryptoCurrencyRepository,
+    private val firebaseRepository: IFirebaseRepository
 ) : BaseViewModel() {
     private var chartElements: List<CurrencyChartElement> = listOf()
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
@@ -75,6 +77,7 @@ class ChartViewModel @Inject constructor(
             }
             if ( newPrice != null) {
                 transactionRepository.insertTransaction(id, amount, newPrice!! )
+                firebaseRepository.insertTransaction(id,amount,newPrice!!)
             }
         }
     }
