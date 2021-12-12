@@ -11,6 +11,7 @@ import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.roundTo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -35,7 +36,11 @@ class PortfolioViewModel @Inject constructor(
             repository.getPortfolioCurrencies()
                 .collect { currencies ->
                     val ids = currencies.map { it.id }
-                    apiRepository.getCurrenciesByIds(ids).collect {
+                    apiRepository.getCurrenciesByIds(ids)
+                    .catch { error ->
+                        _screenState.value = Result.Error(error)
+                    }
+                    .collect {
                         it.map { currency ->
                             currenciesMap[currency.id] = currency
                         }

@@ -126,5 +126,12 @@
         app:layout_constraintBottom_toBottomOf="@+id/name_cryptocurrency"
         app:layout_constraintStart_toEndOf="@+id/name_cryptocurrency"
         app:layout_constraintTop_toTopOf="@+id/name_cryptocurrency" />
+    <ProgressBar
+        android:id="@+id/progress_bar_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/name_cryptocurrency"
+        app:layout_constraintStart_toEndOf="@+id/name_cryptocurrency"
+        app:layout_constraintTop_toTopOf="@+id/name_cryptocurrency" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

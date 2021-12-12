@@ -1,11 +1,14 @@
 package com.technopark.youtrader.ui.chart
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.model.CurrencyChartElement
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.network.retrofit.NetworkResponse
 import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
@@ -24,13 +27,18 @@ class ChartViewModel @Inject constructor(
     private var chartElements: List<CurrencyChartElement> = listOf()
     private val _screenState = MutableLiveData<Result<List<CurrencyChartElement>>>()
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
-    private val _currentPrice = MutableLiveData<Double>()
-    val currentPrice: LiveData<Double> = _currentPrice
+    private val _currentPrice = MutableLiveData<Result<Double>>()
+    val currentPrice: LiveData<Result<Double>> = _currentPrice
 
     fun updatePrice(currencyId: String) {
+        _currentPrice.value = Result.Loading
         viewModelScope.launch {
-            apiRepository.getCurrencyById(currencyId).collect {
-                _currentPrice.value =  it.priceUsd
+            apiRepository.getCurrencyById(currencyId)
+                .catch { error ->
+                    _currentPrice.value = Result.Error(error)
+                }
+                .collect {
+                _currentPrice.value =  Result.Success(it.priceUsd)
             }
         }
     }
@@ -70,9 +78,13 @@ class ChartViewModel @Inject constructor(
     fun buyCryptoCurrency(id: String, amount: Double){
         viewModelScope.launch {
             var newPrice: Double? = null
-            apiRepository.getCurrencyById(id).collect {
-                newPrice = it.priceUsd*amount
-            }
+            apiRepository.getCurrencyById(id)
+                .catch {
+                    //TODO: handle errors
+                }
+                .collect {
+                    newPrice = it.priceUsd*amount
+                }
             if ( newPrice != null) {
                 transactionRepository.insertTransaction(id, amount, newPrice!! )
             }

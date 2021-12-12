@@ -60,6 +60,7 @@
     <string name="chart_interval_year">Г</string>
     <string name="invalid_input">Введен неверный формат числа</string>
     <string name="buy_successful">"Вы приобрели"</string>
+    <string name="buy_unsuccessful">"Ошибка при покупке"</string>
     <string name="not_registered_title">Еще не зарегистрированы?</string>
     <string name="have_account_already">Уже есть учетная запись?</string>
     <string name="update_password_button">Изменить пароль</string>
