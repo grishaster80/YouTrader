@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.ActivityMainBinding
-import com.technopark.youtrader.utils.Constants
 import com.technopark.youtrader.utils.gone
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,15 +44,24 @@ class AppActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        handleStartScreen(viewModel.chooseStartScreen(isPinSet()))
+        handleStartScreen(viewModel.chooseStartScreen(isAuthSet(), isPinSet()))
         setupBottomNavigationView()
     }
 
-    fun isPinSet(): Boolean {
+    private fun isAuthSet(): Boolean {
+        val valueIsNotDefined = getString(R.string.value_is_not_defined)
         return getSharedPreferences().getString(
-            Constants.PIN_KEY,
-            Constants.PIN_UNDEFINED
-        ) != Constants.PIN_UNDEFINED
+            getString(R.string.auth_state_key),
+            valueIsNotDefined
+        ) != valueIsNotDefined
+    }
+
+    fun isPinSet(): Boolean {
+        val valueIsNotDefined = getString(R.string.value_is_not_defined)
+        return getSharedPreferences().getString(
+            getString(R.string.pin_code_key),
+            valueIsNotDefined
+        ) != valueIsNotDefined
     }
 
     private fun handleStartScreen(startScreenId: Int) {

@@ -17,6 +17,7 @@ class CryptoCurrencyRepository @Inject constructor(
     private val database: AppDatabase
 ) {
     suspend fun getCurrencies(): Flow<List<CryptoCurrency>> = flow {
+        emit(database.cryptoCurrencyDao().getCurrencies())
         when (val currenciesFromNetwork = cryptoApi.getCryptoCurrencies()) {
             is NetworkResponse.Success -> {
                 database.cryptoCurrencyDao().insertCurrencies(currenciesFromNetwork.value.data)

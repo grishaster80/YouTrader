@@ -13,10 +13,10 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.base.EventObserver
 import com.technopark.youtrader.databinding.ProfileFragmentBinding
+import com.technopark.youtrader.model.AuthState
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.ui.AppActivity
 import com.technopark.youtrader.utils.AlertDialogHelper
-import com.technopark.youtrader.utils.Constants
 import com.technopark.youtrader.utils.ImageHandler
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +51,11 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 loadPicture(Uri.parse(photoUri))
             }
 
-            fullName.text = getFullNameFromPrefs()
+            val previousName = getFullNameFromPrefs()
+            fullName.text =
+                if (previousName == getString(R.string.value_is_not_defined))
+                    getString(R.string.new_user_full_name)
+                else previousName
 
             changeNameBtn.setOnClickListener {
                 AlertDialogHelper.showOneEditText(
@@ -87,7 +91,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
             switchPinCode.setOnCheckedChangeListener { _, isChecked ->
                 if (!isChecked) {
-                    unsetPin()
+                    setAuthState(AuthState.PinInactive)
                 }
                 switchPinCode.isChecked = isChecked
             }
@@ -141,7 +145,8 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 EventObserver { state ->
                     when (state) {
                         is Result.Success -> {
-                            activity?.finish()
+                            setAuthState(AuthState.NotAuthenticated)
+                            viewModel.navigateToAuthFragment()
                         }
                         is Result.Error -> {
                             Toast.makeText(
@@ -164,18 +169,17 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     }
 
     private fun getFullNameFromPrefs(): String {
-        return getStringFromPrefs("full_name", "undefined")
+        return getStringFromPrefs(
+            getString(R.string.profile_name_key),
+            getString(R.string.value_is_not_defined)
+        )
     }
 
     private fun setFullNameToPrefs(fullName: String) {
-        setStringToPrefs("full_name", fullName)
+        setStringToPrefs(getString(R.string.profile_name_key), fullName)
     }
 
     private fun isPinSet(): Boolean = (activity as AppActivity).isPinSet()
-
-    private fun unsetPin() {
-        setStringToPrefs(Constants.PIN_KEY, Constants.PIN_UNDEFINED)
-    }
 
     override fun onDestroyView() {
         imageHandler?.cleanUnusedPhotos()

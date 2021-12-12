@@ -7,6 +7,8 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.technopark.youtrader.R
+import com.technopark.youtrader.model.AuthState
 import com.technopark.youtrader.ui.AppActivity
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
@@ -57,6 +59,32 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
             ?.edit()
             ?.apply { putString(key, value) }
             ?.apply()
+    }
+
+    fun setAuthState(authState: AuthState) {
+        when (authState) {
+            is AuthState.Authenticated -> {
+                setStringToPrefs(getString(R.string.auth_state_key), authState.email)
+            }
+            is AuthState.PinActive -> {
+                setStringToPrefs(getString(R.string.pin_code_key), authState.pin)
+            }
+            is AuthState.PinInactive -> deactivatePin()
+            is AuthState.NotAuthenticated -> {
+                setStringToPrefs(
+                    getString(R.string.auth_state_key),
+                    getString(R.string.value_is_not_defined)
+                )
+                deactivatePin()
+            }
+        }
+    }
+
+    private fun deactivatePin() {
+        setStringToPrefs(
+            getString(R.string.pin_code_key),
+            getString(R.string.value_is_not_defined)
+        )
     }
 
     companion object {
