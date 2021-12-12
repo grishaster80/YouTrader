@@ -26,12 +26,14 @@ class FirebaseRepository: IFirebaseRepository {
 
     private fun getUserId() = auth.currentUser?.uid
 
-    private fun updateAllTransactions() {
+    override fun addListener(listener: () -> Unit) {
         getUserId()?.let { it ->
             db.child("transactions").child(it).get().addOnSuccessListener { dataSnapshot ->
+                cryptoCurrencyTransactionList.clear();
                 dataSnapshot.children.mapNotNullTo(cryptoCurrencyTransactionList) {
                     it.getValue(CryptoCurrencyTransaction::class.java)
                 }
+                listener()
             }.addOnFailureListener {
                 // TODO
             }
@@ -39,7 +41,6 @@ class FirebaseRepository: IFirebaseRepository {
     }
 
     override suspend fun getCurrencyTransactionsById(currencyId: String): Flow<List<CryptoCurrencyTransaction>> = flow {
-        updateAllTransactions()
         emit(cryptoCurrencyTransactionList.filter { it.id == currencyId }.toList())
     }.flowOn(Dispatchers.IO)
 
@@ -55,7 +56,6 @@ class FirebaseRepository: IFirebaseRepository {
 
     override suspend fun getPortfolioCurrencies(): Flow<List<PortfolioCurrencyInfo>> = flow {
 
-        updateAllTransactions();
         val list = cryptoCurrencyTransactionList.groupByTo(mutableMapOf()) {
             it.id
         }.mapValues { entry ->

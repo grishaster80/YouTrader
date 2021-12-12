@@ -31,7 +31,7 @@ class PortfolioViewModel @Inject constructor(
     private val _screenState = MutableLiveData<Result<PortfolioInfoModel>>()
     val screenState: LiveData<Result<PortfolioInfoModel>> = _screenState
 
-    init {
+    private fun update() {
         viewModelScope.launch {
             _screenState.value = Result.Loading
 
@@ -45,12 +45,18 @@ class PortfolioViewModel @Inject constructor(
                     }
                     currenciesList = currencies
                     portfolioInfoModel.currencies = currencies.map {
-                        oldCurrency ->
+                            oldCurrency ->
                         createPortfolioItem(oldCurrency)
                     }
                 }
             updatePortfolioInfo()
             _screenState.value = Result.Success(portfolioInfoModel)
+        }
+    }
+
+    init {
+        firebaseRepository.addListener {
+            update()
         }
     }
 

@@ -9,4 +9,5 @@ interface IFirebaseRepository {
     suspend fun getCurrencyTransactionsById(currencyId: String): Flow<List<CryptoCurrencyTransaction>>
     suspend fun insertTransaction(currencyId: String, amount: Double, price: Double)
     suspend fun getPortfolioCurrencies(): Flow<List<PortfolioCurrencyInfo>>
+    fun addListener(listener: () -> Unit)
 }
