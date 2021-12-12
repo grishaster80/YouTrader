@@ -1,7 +1,5 @@
 package com.technopark.youtrader.network.firebase
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -11,7 +9,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import com.technopark.youtrader.model.PortfolioCurrencyInfo
-import com.technopark.youtrader.model.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,16 +24,20 @@ class FirebaseRepository: IFirebaseRepository {
     private fun getUserId() = auth.currentUser?.uid
 
     override fun addListener(listener: () -> Unit) {
-        getUserId()?.let { it ->
-            db.child("transactions").child(it).get().addOnSuccessListener { dataSnapshot ->
+        val localListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 cryptoCurrencyTransactionList.clear();
                 dataSnapshot.children.mapNotNullTo(cryptoCurrencyTransactionList) {
                     it.getValue(CryptoCurrencyTransaction::class.java)
                 }
                 listener()
-            }.addOnFailureListener {
-                // TODO
             }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+               // Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        getUserId()?.let { db.child("transactions").child(it).addValueEventListener(localListener)
         }
     }
 
