@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -26,6 +27,7 @@ import com.technopark.youtrader.utils.invisible
 import com.technopark.youtrader.utils.roundTo
 import com.technopark.youtrader.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.chart_fragment.*
 
 @AndroidEntryPoint
 class ChartFragment : BaseFragment(R.layout.chart_fragment) {
@@ -38,12 +40,18 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private var id: String? = null
     private var title: String? = null
     private var interval: String? = null
+    private var priceUsd: Double? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.deleteAll()
         id = arguments?.getString("id")
 
-        id?.let { viewModel.updatePrice(it) }
+        id?.let {
+            viewModel.updatePrice(it)
+            title = constructionTitle()
+            binding.nameCryptocurrency.text = title
+        }
 
         with(binding) {
             lineChart = chart
@@ -73,8 +81,31 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         updateRadioButton()
         viewModel.currentPrice.observe(
             viewLifecycleOwner,
-            { price ->
-                binding.price.text = "$".plus(roundTo(price, SIMPLE_PRECISION))
+            { currentPrice ->
+                when(currentPrice){
+                    is Result.Success -> {
+                        with(binding){
+                            priceUsd = currentPrice.data
+                            price.text = "$".plus(roundTo(currentPrice.data, SIMPLE_PRECISION))
+                            progressBarPrice.gone()
+                            price.visible()
+                        }
+                    }
+                    is Result.Loading -> {
+                        with(binding) {
+                            price.gone()
+                            progressBarPrice.visible()
+                        }
+                    }
+                    is Result.Error -> {
+                        with(binding){
+                            progressBarPrice.gone()
+                            price.gone()
+                        }
+
+                    }
+                }
+
             }
         )
         viewModel.screenState.observe(
@@ -104,8 +135,11 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                             Toast.LENGTH_SHORT
                         ).show()
                         screenState.exception.message?.let { Log.d(TAG, it) }
-                        binding.buttonBuy.isEnabled = true
-                        binding.progressBar.gone()
+                        with(binding) {
+                            buttonBuy.isEnabled = false
+                            progressBar.gone()
+                        }
+
                     }
                 }
             }
@@ -151,8 +185,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         for (i in chartElements) {
             scoreList.add(currencyChartElementToScore(i))
         }
-        title = constructionTitle()
-        binding.nameCryptocurrency.text = title
 
         for (i in scoreList.indices) {
             val score = scoreList[i]
@@ -205,6 +237,13 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         val radioButtonMonth = binding.radioButtonMonth
         val radioButtonYear = binding.radioButtonYear
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            if (priceUsd == null) {
+                id?.let {
+                    viewModel.updatePrice(it)
+                    title = constructionTitle()
+                    binding.nameCryptocurrency.text = title
+                }
+            }
             if (radioButtonDay.id == checkedId) {
                 interval = intervalDay
                 changeRadioButtonColor(radioButtonDay, R.color.gray)
