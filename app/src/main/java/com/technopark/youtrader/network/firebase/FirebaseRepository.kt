@@ -45,6 +45,14 @@ class FirebaseRepository: IFirebaseRepository {
         emit(cryptoCurrencyTransactionList.filter { it.id == currencyId }.toList())
     }.flowOn(Dispatchers.IO)
 
+    override suspend fun getTotalAmount(currencyId: String): Flow<Double> = flow{
+        emit(cryptoCurrencyTransactionList.filter { it.id == currencyId }.sumOf { it.amount })
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun getTotalPrice(currencyId: String): Flow<Double> = flow{
+        emit(cryptoCurrencyTransactionList.filter { it.id == currencyId }.sumOf { it.price })
+    }.flowOn(Dispatchers.IO)
+
     override suspend fun insertTransaction(currencyId: String, amount: Double, price: Double) {
 
         val timestamp = System.currentTimeMillis()

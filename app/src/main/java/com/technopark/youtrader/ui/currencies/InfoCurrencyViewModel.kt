@@ -44,7 +44,7 @@ class InfoCurrencyViewModel @Inject constructor(
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
 
-            repository.getAllCurrencyTransaction(currencyId)
+            firebaseRepository.getCurrencyTransactionsById(currencyId)
                 .catch { error ->
                     _screenState.value = Result.Error(error)
                 }
@@ -81,12 +81,14 @@ class InfoCurrencyViewModel @Inject constructor(
                 infoCurrencyModel.cryptoCurrency = currency
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
-            repository.getTotalPrice(id).collect {
+
+            firebaseRepository.getTotalPrice(id).collect {
                 price ->
                 infoCurrencyModel.totalPrice = price
                 _screenState.value = Result.Success(infoCurrencyModel)
             }
-            repository.getTotalAmount(id).collect {
+
+            firebaseRepository.getTotalAmount(id).collect {
                 amount ->
                 infoCurrencyModel.totalAmount = amount
                 _screenState.value = Result.Success(infoCurrencyModel)
