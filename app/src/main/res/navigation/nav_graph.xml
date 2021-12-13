@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/pinRegFragment"
         android:name="com.technopark.youtrader.ui.pin.PinRegFragment"
-        android:label="PinRegFragment">
+        android:label="@string/pin_reg_fragment_title">
         <action
             android:id="@+id/action_PinRegFragment_to_ProfileFragment"
             app:destination="@id/profileFragment" />
@@ -103,7 +103,7 @@
     <fragment
         android:id="@+id/pinAuthFragment"
         android:name="com.technopark.youtrader.ui.pin.PinAuthFragment"
-        android:label="PinAuthFragment" >
+        android:label="@string/pin_auth_fragment_title" >
         <action
             android:id="@+id/action_PinAuthFragment_to_CurrenciesFragment"
             app:destination="@id/currenciesFragment"

@@ -35,6 +35,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
             }
 
             buttonToNextFragment.setOnClickListener {
+                hideKeyboard()
                 viewModel.navigateToAuthFragment()
             }
 
@@ -53,6 +54,7 @@ class RegFragment : BaseFragment(R.layout.auth_fragment) {
                                 Toast.LENGTH_SHORT
                             ).show()
                             setAuthState(AuthState.Authenticated(login.text.toString()))
+                            hideKeyboard()
                             viewModel.navigateToCurrenciesFragment()
                         }
                         is Result.Error -> {
