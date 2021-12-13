@@ -38,7 +38,7 @@ class ChartViewModel @Inject constructor(
                     _currentPrice.value = Result.Error(error)
                 }
                 .collect {
-                _currentPrice.value =  Result.Success(it.priceUsd)
+                    _currentPrice.value =  Result.Success(it.priceUsd)
             }
         }
     }
@@ -78,11 +78,13 @@ class ChartViewModel @Inject constructor(
     fun buyCryptoCurrency(id: String, amount: Double){
         viewModelScope.launch {
             var newPrice: Double? = null
+            _currentPrice.value = Result.Loading
             apiRepository.getCurrencyById(id)
-                .catch {
-                    //TODO: handle errors
+                .catch { error ->
+                    _currentPrice.value = Result.Error(error)
                 }
                 .collect {
+                    _currentPrice.value = Result.Success(it.priceUsd)
                     newPrice = it.priceUsd*amount
                 }
             if ( newPrice != null) {
