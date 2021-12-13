@@ -1,7 +1,9 @@
 package com.technopark.youtrader.ui.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -41,6 +43,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
             }
 
             buttonToNextFragment.setOnClickListener {
+                hideKeyboard()
                 viewModel.navigateToRegFragment()
             }
 
@@ -59,6 +62,7 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
                                 Toast.LENGTH_SHORT
                             ).show()
                             setAuthState(AuthState.Authenticated(login.text.toString()))
+                            hideKeyboard()
                             viewModel.navigateToCurrenciesFragment()
                         }
                         is Result.Error -> {

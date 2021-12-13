@@ -1,9 +1,11 @@
 package com.technopark.youtrader.base
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -77,6 +79,17 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
                 )
                 deactivatePin()
             }
+        }
+    }
+
+    fun hideKeyboard(){
+        val inputManager: InputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        requireActivity().currentFocus.let {
+            inputManager.hideSoftInputFromWindow(
+                it?.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 
