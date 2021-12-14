@@ -1,6 +1,5 @@
 package com.technopark.youtrader.ui.chart
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,10 +11,10 @@ import com.technopark.youtrader.repository.ChartHistoryRepository
 import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ChartViewModel @Inject constructor(
@@ -29,6 +28,8 @@ class ChartViewModel @Inject constructor(
     val screenState: LiveData<Result<List<CurrencyChartElement>>> = _screenState
     private val _currentPrice = MutableLiveData<Result<Double>>()
     val currentPrice: LiveData<Result<Double>> = _currentPrice
+    private val _successfulBuy: MutableLiveData<Result<Double>> = MutableLiveData()
+    val successfulBuy: LiveData<Result<Double>> = _successfulBuy
 
     fun updatePrice(currencyId: String) {
         _currentPrice.value = Result.Loading
@@ -38,8 +39,8 @@ class ChartViewModel @Inject constructor(
                     _currentPrice.value = Result.Error(error)
                 }
                 .collect {
-                    _currentPrice.value =  Result.Success(it.priceUsd)
-            }
+                    _currentPrice.value = Result.Success(it.priceUsd)
+                }
         }
     }
 
@@ -56,6 +57,7 @@ class ChartViewModel @Inject constructor(
                 }
         }
     }
+
     fun getDatabaseCurrencyChartHistory(id: String?, interval: String?) {
         _screenState.value = Result.Loading
         viewModelScope.launch {
@@ -69,27 +71,31 @@ class ChartViewModel @Inject constructor(
                 }
         }
     }
+
     fun deleteAll() {
         viewModelScope.launch {
             chartHistoryRepository.deleteAllCharts()
         }
     }
 
-    fun buyCryptoCurrency(id: String, amount: Double){
+    fun buyCryptoCurrency(id: String, amount: Double) {
         viewModelScope.launch {
+            _successfulBuy.value = Result.Loading
             var newPrice: Double? = null
             _currentPrice.value = Result.Loading
             apiRepository.getCurrencyById(id)
                 .catch { error ->
                     _currentPrice.value = Result.Error(error)
+                    _successfulBuy.value = Result.Error(error)
                 }
                 .collect {
                     _currentPrice.value = Result.Success(it.priceUsd)
-                    newPrice = it.priceUsd*amount
+                    newPrice = it.priceUsd * amount
                 }
-            if ( newPrice != null) {
-                transactionRepository.insertTransaction(id, amount, newPrice!! )
-                firebaseRepository.insertTransaction(id,amount,newPrice!!)
+            if (newPrice != null) {
+                transactionRepository.insertTransaction(id, amount, newPrice!!)
+                firebaseRepository.insertTransaction(id, amount, newPrice!!)
+                _successfulBuy.value = Result.Success(amount)
             }
         }
     }
