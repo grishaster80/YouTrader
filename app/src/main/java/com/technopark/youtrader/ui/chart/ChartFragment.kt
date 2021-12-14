@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.core.content.ContextCompat
-import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.mikephil.charting.charts.LineChart
@@ -57,22 +56,19 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
             lineChart = chart
             nameCryptocurrency.text = title
 
-            buttonBuy.setOnClickListener{
+            buttonBuy.setOnClickListener {
                 var amount: Double
                 try {
                     amount = editCountCurrencies.text.toString().toDouble()
-                }
-                catch (e: Exception){
+                } catch (e: Exception) {
                     Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                if (amount <= 0.0){
+                if (amount <= 0.0) {
                     Toast.makeText(activity, R.string.invalid_input, Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-
-                id?.let{ viewModel.buyCryptoCurrency(it, amount) }
-                Toast.makeText(activity, getString(R.string.buy_successful) + " $amount" , Toast.LENGTH_LONG).show()
+                id?.let { viewModel.buyCryptoCurrency(it, amount) }
             }
         }
         interval = intervalYear
@@ -82,9 +78,9 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
         viewModel.currentPrice.observe(
             viewLifecycleOwner,
             { currentPrice ->
-                when(currentPrice){
+                when (currentPrice) {
                     is Result.Success -> {
-                        with(binding){
+                        with(binding) {
                             priceUsd = currentPrice.data
                             price.text = "$".plus(roundTo(currentPrice.data, SIMPLE_PRECISION))
                             progressBarPrice.gone()
@@ -98,16 +94,38 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                         }
                     }
                     is Result.Error -> {
-                        with(binding){
+                        with(binding) {
                             progressBarPrice.gone()
                             price.gone()
                         }
-
                     }
                 }
-
             }
         )
+        viewModel.successfulBuy.observe(
+            viewLifecycleOwner,
+            { buyAmount ->
+                when (buyAmount) {
+                    is Result.Success -> {
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.buy_successful) + " ${buyAmount.data}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    is Result.Loading -> {
+                    }
+                    is Result.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            buyAmount.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        )
+
         viewModel.screenState.observe(
             viewLifecycleOwner,
             { screenState ->
@@ -139,7 +157,6 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
                             buttonBuy.isEnabled = false
                             progressBar.gone()
                         }
-
                     }
                 }
             }
@@ -230,6 +247,7 @@ class ChartFragment : BaseFragment(R.layout.chart_fragment) {
     private fun constructionTitle(): String {
         return "1 $id  = "
     }
+
     private fun updateRadioButton() {
         val radioGroup = binding.radioGroupInterval
         val radioButtonDay = binding.radioButtonDay
