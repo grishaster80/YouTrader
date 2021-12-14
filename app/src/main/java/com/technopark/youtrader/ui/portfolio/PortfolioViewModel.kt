@@ -11,6 +11,7 @@ import com.technopark.youtrader.repository.CryptoCurrencyRepository
 import com.technopark.youtrader.repository.CryptoTransactionRepository
 import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
+import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
 import com.technopark.youtrader.utils.roundTo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -82,7 +83,8 @@ class PortfolioViewModel @Inject constructor(
         val priceUsd = (currenciesMap[oldCurrency.id]?.priceUsd ?: 0.0)
         val newPrice = priceUsd * oldCurrency.amount
         val item = PortfolioCurrencyInfo(oldCurrency.id, oldCurrency.amount, newPrice)
-        val change = roundTo(calcProfit(item.amount, priceUsd, oldCurrency.price), SIMPLE_PRECISION) + " (" +
+        val change = roundTo(calcProfit(item.amount, priceUsd, oldCurrency.price), SIMPLE_PRECISION).plus(
+            USD_SYMBOL) + " (" +
             roundTo(
                 asPercent(calcProfitPercentage(item.amount, priceUsd, oldCurrency.price)),
                 PERCENTAGE_PRECISION
