@@ -108,7 +108,11 @@ dependencies {
     // Declare the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database-ktx'
-    
+    // Declare the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    // FirebaseUI Storage only
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 
     // GroupieAdapter
     def groupie_version = '2.9.0'
