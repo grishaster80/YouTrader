@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.technopark.youtrader.model.CryptoCurrencyTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,13 +22,13 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
 
     private fun getUserId() = auth.currentUser?.uid
 
-    override suspend fun setFullNameFromFirebase(username: String) {
+    override suspend fun setFullNameToFirebase(username: String) {
         getUserId()?.let {
             db.child("ProfileData").child(it).child("fullName").setValue(username)
         }
     }
 
-    override suspend fun setPasscodeFromFirebase(passcode: String) {
+    override suspend fun setPasscodeToFirebase(passcode: String) {
         getUserId()?.let {
             db.child("ProfileData").child(it).child("passcode").setValue(passcode)
         }
@@ -39,20 +38,21 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
         emit(fullName)
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getPasscodeFromFirebase(passcode: String): Flow<String>  = flow{
+    override suspend fun getPasscodeFromFirebase(): Flow<String>  = flow{
         emit(passcode)
     }.flowOn(Dispatchers.IO)
 
     override fun addListener(listener: () -> Unit) {
         val localListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                fullName = dataSnapshot.child("fullName").value.toString()
-                passcode = dataSnapshot.child("passcode").value.toString()
+                fullName = "undefined"
+                fullName = (dataSnapshot.child("fullName").value?:"undefined").toString()
+                passcode = (dataSnapshot.child("passcode").value?:"undefined").toString()
                 listener()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+//                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
         }
         getUserId()?.let {
