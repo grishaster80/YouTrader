@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.technopark.youtrader.R
 import com.technopark.youtrader.databinding.PortfolioItemBinding
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
+import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
 import com.technopark.youtrader.utils.roundTo
 import com.xwray.groupie.viewbinding.BindableItem
 
@@ -18,7 +19,7 @@ class PortfolioItem(
         with(viewBinding) {
             currencyName.text = portfolioCurrencyInfo.id
             currencyCount.text = portfolioCurrencyInfo.amount.toString()
-            price.text = roundTo( portfolioCurrencyInfo.price,SIMPLE_PRECISION)
+            price.text = roundTo( portfolioCurrencyInfo.price,SIMPLE_PRECISION).plus(USD_SYMBOL)
             changePrice.text = change
             setPortfolioPriceTextColor(changePrice)
         }
