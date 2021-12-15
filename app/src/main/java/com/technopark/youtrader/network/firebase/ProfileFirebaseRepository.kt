@@ -1,7 +1,9 @@
 package com.technopark.youtrader.network.firebase
 
 import android.net.Uri
+import androidx.core.net.toFile
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -11,10 +13,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.technopark.youtrader.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.io.File
 
 class ProfileFirebaseRepository: IProfileFirebaseRepository {
 
@@ -24,11 +28,11 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
     private val storage = Firebase.storage
     private var storageRef = storage.reference
 
-    val imageRef: StorageReference? = storageRef.child("portraits")
+    private val imageRef: StorageReference = storageRef.child("portraits")
 
     private var fullName: String = "undefined"
     private var passcode: String = "undefined"
-    private var portrait: Uri? = null
+    private var portraitUri: Uri? = null
     private fun getUserId() = auth.currentUser?.uid
 
     override suspend fun setFullNameToFirebase(username: String) {
@@ -42,6 +46,20 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
             db.child("ProfileData").child(it).child("passcode").setValue(passcode)
         }
     }
+    override suspend fun setPortraitUriToFirebase(uri: Uri) {
+        getUserId()?.let {
+            val uploadTask = imageRef.child(it).child("portrait").putFile(uri)
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+            }.addOnSuccessListener { taskSnapshot ->
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
+                portraitUri = taskSnapshot.uploadSessionUri
+            }
+        }
+    }
+
+
 
     override suspend fun getFullNameFromFirebase(): Flow<String> = flow{
         emit(fullName)
@@ -51,9 +69,17 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
         emit(passcode)
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getAvatarFromFirebase(): Flow<Uri?> = flow{
-        emit(portrait)
+    override suspend fun getPortraitUriFromFirebase(): Flow<Uri?> = flow{
+        emit(portraitUri)
     }.flowOn(Dispatchers.IO)
+
+    override suspend fun getPortraitStorageReferenceFromFirebase(): Flow<StorageReference> = flow{
+        getUserId()?.let{
+            emit(imageRef.child(it))
+        }
+
+    }.flowOn(Dispatchers.IO)
+
 
     override fun addListener(listener: () -> Unit) {
         val localListener = object : ValueEventListener {
@@ -71,6 +97,13 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
         getUserId()?.let {
             db.child("ProfileData").child(it).addValueEventListener(localListener)
         }
+        getUserId()?.let{
+            imageRef.child(it).child("portrait").downloadUrl.addOnSuccessListener  { uri ->
+                portraitUri = uri
+            }
+
+        }
+
     }
 
 }
