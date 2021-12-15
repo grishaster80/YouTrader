@@ -28,11 +28,6 @@ class InfoCurrencyViewModel @Inject constructor(
     private val _screenState = MutableLiveData<Result<InfoCurrencyModel>>()
     val screenState: LiveData<Result<InfoCurrencyModel>> = _screenState
 
-    init {
-        viewModelScope.launch {
-            _screenState.value = Result.Loading
-        }
-    }
 
     fun updateCurrencyTransactions(currencyId: String) {
         viewModelScope.launch {
@@ -41,7 +36,6 @@ class InfoCurrencyViewModel @Inject constructor(
             repository.getCurrency(currencyId).collect {
                 currency ->
                 ticker = currency.symbol
-                _screenState.value = Result.Success(infoCurrencyModel)
             }
 
             firebaseRepository.getCurrencyTransactionsById(currencyId)
@@ -56,7 +50,6 @@ class InfoCurrencyViewModel @Inject constructor(
                                 ticker
                             )
                         }
-                    _screenState.value = Result.Success(infoCurrencyModel)
                 }
         }
     }
@@ -79,19 +72,16 @@ class InfoCurrencyViewModel @Inject constructor(
             repository.getCurrency(id).collect {
                 currency ->
                 infoCurrencyModel.cryptoCurrency = currency
-                _screenState.value = Result.Success(infoCurrencyModel)
             }
 
             firebaseRepository.getTotalPrice(id).collect {
                 price ->
                 infoCurrencyModel.totalPrice = price
-                _screenState.value = Result.Success(infoCurrencyModel)
             }
 
             firebaseRepository.getTotalAmount(id).collect {
                 amount ->
                 infoCurrencyModel.totalAmount = amount
-                _screenState.value = Result.Success(infoCurrencyModel)
             }
 
             apiRepository.getCurrencyById(id)

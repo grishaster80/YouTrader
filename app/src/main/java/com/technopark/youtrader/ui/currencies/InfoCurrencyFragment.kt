@@ -11,15 +11,12 @@ import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.databinding.InfoCurrencyFragmentBinding
 import com.technopark.youtrader.model.Result
+import com.technopark.youtrader.utils.*
 import com.technopark.youtrader.utils.Constants.Companion.ARG_CURRENCY_ID
 import com.technopark.youtrader.utils.Constants.Companion.MINUS_SYMBOL
 import com.technopark.youtrader.utils.Constants.Companion.PERCENTAGE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.SIMPLE_PRECISION
 import com.technopark.youtrader.utils.Constants.Companion.USD_SYMBOL
-import com.technopark.youtrader.utils.VerticalItemDecoration
-import com.technopark.youtrader.utils.gone
-import com.technopark.youtrader.utils.roundTo
-import com.technopark.youtrader.utils.visible
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,7 +54,6 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                 when (screenState) {
                     is Result.Success -> {
                         with(binding) {
-                            progressBar.gone()
 
                             ticker.text = screenState.data.cryptoCurrency.symbol
                             total.text = roundTo(screenState.data.totalAmount)
@@ -71,10 +67,32 @@ class InfoCurrencyFragment : BaseFragment(R.layout.info_currency_fragment) {
                             currencyNameInfo.text = screenState.data.cryptoCurrency.name
 
                             adapter.update(screenState.data.operationItemList)
+                            progressBar.gone()
+                            price.visible()
+                            total.visible()
+                            relativeChange.visible()
+                            absChange.visible()
+                            currencyNameInfo.visible()
+                            ticker.visible()
+                            totalLabel.visible()
+                            sumTitle.visible()
+                            profitTitle.visible()
                         }
                     }
                     is Result.Loading -> {
-                        binding.progressBar.visible()
+                        with(binding) {
+                            progressBar.visible()
+                            price.invisible()
+                            total.invisible()
+                            relativeChange.invisible()
+                            absChange.invisible()
+                            currencyNameInfo.invisible()
+                            ticker.invisible()
+                            totalLabel.invisible()
+                            sumTitle.invisible()
+                            profitTitle.invisible()
+                        }
+
                     }
                     is Result.Error -> {
                         Toast.makeText(
