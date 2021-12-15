@@ -7,6 +7,7 @@ import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.base.Event
 import com.technopark.youtrader.model.Result
 import com.technopark.youtrader.network.auth.IAuthService
+import com.technopark.youtrader.network.firebase.IProfileFirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val authService: IAuthService
+    private val authService: IAuthService,
+    private val profileFirebaseRepository: IProfileFirebaseRepository
 ) : BaseViewModel() {
 
     private val _updatePasswordState = MutableLiveData<Event<Result<Boolean>>>()
@@ -23,6 +25,12 @@ class ProfileViewModel @Inject constructor(
 
     private val _signOutState = MutableLiveData<Event<Result<Boolean>>>()
     val signOutState: LiveData<Event<Result<Boolean>>> = _signOutState
+
+    private val _fullNameState = MutableLiveData<Event<Result<String>>>()
+    val fullNameState: LiveData<Event<Result<String>>> = _fullNameState
+
+    private val _passcodeState = MutableLiveData<Event<Result<String>>>()
+    val passcodeState: LiveData<Event<Result<String>>> = _passcodeState
 
     fun navigateToPinRegFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToPinRegFragment())
@@ -56,6 +64,41 @@ class ProfileViewModel @Inject constructor(
                 }
         }
     }
+
+    fun updateFullNameFromFirebase(){
+        viewModelScope.launch {
+            profileFirebaseRepository.getFullNameFromFirebase().collect {
+                _fullNameState.value = Event(Result.Success(it))
+            }
+        }
+    }
+    fun setFullNameToFirebase(fullName: String) {
+        viewModelScope.launch {
+            profileFirebaseRepository.setFullNameToFirebase(fullName)
+        }
+    }
+
+    fun updatePasscodeFromFirebase() {
+        viewModelScope.launch {
+            profileFirebaseRepository.getPasscodeFromFirebase().collect{
+                _passcodeState.value = Event(Result.Success(it))
+            }
+        }
+    }
+    fun setPasscodeToFirebase(passcode: String) {
+        viewModelScope.launch {
+            profileFirebaseRepository.setPasscodeToFirebase(passcode)
+        }
+    }
+
+    init {
+        profileFirebaseRepository.addListener {
+            updateFullNameFromFirebase()
+            updatePasscodeFromFirebase()
+        }
+    }
+
+
 
     companion object {
         private const val TAG = "ProfileViewModelTag"
