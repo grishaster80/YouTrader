@@ -83,7 +83,8 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     layoutInflater,
                     requireContext(),
                     getString(R.string.change_fio),
-                    fullName.text.toString()
+                    fullName.text.toString(),
+                    getString(R.string.new_user_full_name)
                 ) { newName: String ->
                     fullName.text = newName
                     viewModel.setFullNameToFirebase(newName)
@@ -211,7 +212,8 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             val previousName = getFullNameFromPrefs()
             fullName.text =
                 if (previousName == getString(R.string.value_is_not_defined))
-                    getString(R.string.new_user_full_name)
+                    // getString(R.string.new_user_full_name)
+                    ""
                 else previousName
         }
     }

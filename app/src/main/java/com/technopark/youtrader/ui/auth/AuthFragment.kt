@@ -35,8 +35,8 @@ class AuthFragment : BaseFragment(R.layout.auth_fragment) {
             buttonToNextFragment.text = getString(R.string.to_sign_up)
             anotherAuthFragment.setText(R.string.not_registered_title)
 
-            login.setText(emailValue)
-            password.setText(passwordValue)
+            //login.setText(emailValue)
+            //password.setText(passwordValue)
 
             buttonSign.setOnClickListener {
                 viewModel.signIn(login.text.toString(), password.text.toString())
