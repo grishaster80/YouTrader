@@ -104,13 +104,6 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
-    fun updatePortraitStorageReferenceFromFirebase() {
-        viewModelScope.launch {
-            profileFirebaseRepository.getPortraitStorageReferenceFromFirebase().collect{
-                _portraitStorageReferenceState.value = Event(Result.Success(it))
-            }
-        }
-    }
 
     fun setPortraitToFirebase(uri: Uri) {
         viewModelScope.launch {
@@ -129,8 +122,6 @@ class ProfileViewModel @Inject constructor(
             updateFullNameFromFirebase()
             updatePasscodeFromFirebase()
             updatePortraitUriFromFirebase()
-//            updatePortraitStorageReferenceFromFirebase()
-
         }
     }
 

@@ -12,7 +12,6 @@ interface IProfileFirebaseRepository {
     suspend fun getFullNameFromFirebase(): Flow<String>
     suspend fun getPasscodeFromFirebase(): Flow<String>
     suspend fun getPortraitUriFromFirebase(): Flow<Uri?>
-    suspend fun getPortraitStorageReferenceFromFirebase(): Flow<StorageReference>
 
     fun addListener(listener: () -> Unit)
 }

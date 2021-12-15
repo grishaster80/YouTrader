@@ -73,13 +73,6 @@ class ProfileFirebaseRepository: IProfileFirebaseRepository {
         emit(portraitUri)
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getPortraitStorageReferenceFromFirebase(): Flow<StorageReference> = flow{
-        getUserId()?.let{
-            emit(imageRef.child(it))
-        }
-
-    }.flowOn(Dispatchers.IO)
-
 
     override fun addListener(listener: () -> Unit) {
         val localListener = object : ValueEventListener {
