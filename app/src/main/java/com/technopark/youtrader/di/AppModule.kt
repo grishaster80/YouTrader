@@ -10,6 +10,8 @@ import com.technopark.youtrader.network.auth.FirebaseService
 import com.technopark.youtrader.network.auth.IAuthService
 import com.technopark.youtrader.network.firebase.FirebaseRepository
 import com.technopark.youtrader.network.firebase.IFirebaseRepository
+import com.technopark.youtrader.network.firebase.IProfileFirebaseRepository
+import com.technopark.youtrader.network.firebase.ProfileFirebaseRepository
 import com.technopark.youtrader.network.retrofit.CryptoCurrencyApi
 import com.technopark.youtrader.network.retrofit.NetworkResponseAdapterFactory
 import com.technopark.youtrader.network.retrofit.RetryInterceptor
@@ -70,6 +72,12 @@ abstract class AppModule {
         @Provides
         fun provideFirebaseRepository() : IFirebaseRepository {
             return FirebaseRepository()
+        }
+
+        @Singleton
+        @Provides
+        fun provideProfileFirebaseRepository() : IProfileFirebaseRepository {
+            return ProfileFirebaseRepository()
         }
     }
 }

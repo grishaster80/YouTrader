@@ -45,17 +45,38 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.updateFullNameFromFirebase()
+        viewModel.updatePasscodeFromFirebase()
+
         with(binding) {
             val photoUri = getStringFromPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY)
             if (photoUri.isNotEmpty()) {
                 loadPicture(Uri.parse(photoUri))
             }
 
-            val previousName = getFullNameFromPrefs()
-            fullName.text =
-                if (previousName == getString(R.string.value_is_not_defined))
-                    getString(R.string.new_user_full_name)
-                else previousName
+            updateFullName()
+
+            viewModel.fullNameState.observe(
+                viewLifecycleOwner,
+                EventObserver { fullName ->
+                    when (fullName) {
+                        is Result.Success -> {
+                            setFullNameToPrefs(fullName.data)
+                            updateFullName()
+                        }
+                    }
+                }
+            )
+            viewModel.passcodeState.observe(
+                viewLifecycleOwner,
+                EventObserver {passcode ->
+                    when(passcode) {
+                        is Result.Success -> {
+                            //TODO: add processing
+                        }
+                    }
+                }
+            )
 
             changeNameBtn.setOnClickListener {
                 AlertDialogHelper.showOneEditText(
@@ -65,7 +86,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     fullName.text.toString()
                 ) { newName: String ->
                     fullName.text = newName
-                    setFullNameToPrefs(newName)
+                    viewModel.setFullNameToFirebase(newName)
                 }
             }
 
@@ -177,6 +198,22 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
     private fun setFullNameToPrefs(fullName: String) {
         setStringToPrefs(getString(R.string.profile_name_key), fullName)
+    }
+    private fun getPinFromPrefs(): String {
+        return getStringFromPrefs(
+            getString(R.string.pin_code_key),
+            getString(R.string.value_is_not_defined)
+        )
+    }
+
+    private fun updateFullName(){
+        with(binding){
+            val previousName = getFullNameFromPrefs()
+            fullName.text =
+                if (previousName == getString(R.string.value_is_not_defined))
+                    getString(R.string.new_user_full_name)
+                else previousName
+        }
     }
 
     private fun isPinSet(): Boolean = (activity as AppActivity).isPinSet()
