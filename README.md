@@ -1,7 +1,7 @@
 # YouTrader
 
 An Android simulator of cryptocurrency trading.
-Developed using Kotlin, MVVM, Firebase Auth, Hilt, Coroutines, Dagger2
+Developed using Kotlin, MVVM, Firebase Auth, Hilt, Coroutines, Retrofit
 
 ![image](https://user-images.githubusercontent.com/18727272/192311827-63e7be61-f049-4961-9e6d-30267d18363e.png)
 
