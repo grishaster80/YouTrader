@@ -1,8 +1,10 @@
 package com.technopark.youtrader.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.storage.StorageReference
 import com.technopark.youtrader.base.BaseViewModel
 import com.technopark.youtrader.base.Event
 import com.technopark.youtrader.model.Result
@@ -31,6 +33,13 @@ class ProfileViewModel @Inject constructor(
 
     private val _passcodeState = MutableLiveData<Event<Result<String>>>()
     val passcodeState: LiveData<Event<Result<String>>> = _passcodeState
+
+    private val _portraitUriState = MutableLiveData<Event<Result<Uri>>>()
+    val portraitUriState: LiveData<Event<Result<Uri>>> = _portraitUriState
+
+    private val _portraitStorageReferenceState = MutableLiveData<Event<Result<StorageReference>>>()
+    val portraitStorageReferenceState: LiveData<Event<Result<StorageReference>>> = _portraitStorageReferenceState
+
 
     fun navigateToPinRegFragment() {
         navigateTo(ProfileFragmentDirections.actionProfileFragmentToPinRegFragment())
@@ -85,6 +94,23 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    fun updatePortraitUriFromFirebase() {
+        viewModelScope.launch {
+            profileFirebaseRepository.getPortraitUriFromFirebase().collect{
+                if (it != null) {
+                    _portraitUriState.value = Event(Result.Success(it))
+                }
+            }
+        }
+    }
+
+    fun setPortraitToFirebase(uri: Uri) {
+        viewModelScope.launch {
+            profileFirebaseRepository.setPortraitUriToFirebase(uri)
+        }
+    }
+
     fun setPasscodeToFirebase(passcode: String) {
         viewModelScope.launch {
             profileFirebaseRepository.setPasscodeToFirebase(passcode)
@@ -95,6 +121,7 @@ class ProfileViewModel @Inject constructor(
         profileFirebaseRepository.addListener {
             updateFullNameFromFirebase()
             updatePasscodeFromFirebase()
+            updatePortraitUriFromFirebase()
         }
     }
 

@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.StorageReference
 import com.technopark.youtrader.R
 import com.technopark.youtrader.base.BaseFragment
 import com.technopark.youtrader.base.EventObserver
@@ -47,14 +49,12 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
 
         viewModel.updateFullNameFromFirebase()
         viewModel.updatePasscodeFromFirebase()
+        viewModel.updatePortraitUriFromFirebase()
+//        viewModel.updatePortraitStorageReferenceFromFirebase()
 
         with(binding) {
-            val photoUri = getStringFromPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY)
-            if (photoUri.isNotEmpty()) {
-                loadPicture(Uri.parse(photoUri))
-            }
-
             updateFullName()
+            updatePortraitUri()
 
             viewModel.fullNameState.observe(
                 viewLifecycleOwner,
@@ -63,6 +63,29 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                         is Result.Success -> {
                             setFullNameToPrefs(fullName.data)
                             updateFullName()
+                        }
+                    }
+                }
+            )
+            viewModel.portraitUriState.observe(
+                viewLifecycleOwner,
+                EventObserver { portraitUri->
+                    when (portraitUri) {
+                        is Result.Success -> {
+                            setStringToPrefs(
+                                ImageHandler.PROFIlE_PHOTO_PREFS_KEY,
+                                portraitUri.toString()
+                            )
+                        }
+                    }
+                }
+            )
+            viewModel.portraitStorageReferenceState.observe(
+                viewLifecycleOwner,
+                EventObserver { portraitStorageReference->
+                    when (portraitStorageReference) {
+                        is Result.Success -> {
+                            loadPicture(portraitStorageReference.data)
                         }
                     }
                 }
@@ -95,7 +118,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 imageHandler?.getImage { uri ->
                     if (uri != null) {
                         loadPicture(uri)
-                        setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
+                        viewModel.setPortraitToFirebase(uri)
                     }
                 }
             }
@@ -104,7 +127,7 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                 imageHandler?.takePicture { uri ->
                     if (uri != null) {
                         loadPicture(uri)
-                        setStringToPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY, uri.toString())
+                        viewModel.setPortraitToFirebase(uri)
                     }
                 }
             }
@@ -189,6 +212,13 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
             .placeholder(R.drawable.avatar)
             .into(binding.portrait)
     }
+    private fun loadPicture(storageReference: StorageReference) {
+        Glide.with(this)
+            .load(storageReference)
+            .placeholder(R.drawable.avatar)
+            .into(binding.portrait)
+    }
+
 
     private fun getFullNameFromPrefs(): String {
         return getStringFromPrefs(
@@ -215,6 +245,13 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
                     // getString(R.string.new_user_full_name)
                     ""
                 else previousName
+        }
+    }
+    private fun updatePortraitUri() {
+        val photoUri = getStringFromPrefs(ImageHandler.PROFIlE_PHOTO_PREFS_KEY)
+
+        if (photoUri.isNotEmpty()) {
+            loadPicture(photoUri.toUri())
         }
     }
 
